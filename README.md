@@ -1,6 +1,6 @@
 # Design Patterns Katas
 
-[![Build Status Badge](https://github.com/wonderbird/kata-rabbitmq/workflows/.NET%20Core/badge.svg)](https://github.com/wonderbird/gof-patterns/actions?query=workflow%3A%22.NET)
+[![Build Status Badge](https://github.com/wonderbird/gof-patterns/workflows/.NET/badge.svg)](https://github.com/wonderbird/gof-patterns/actions)
 
 Some of the "Gang of Four" (GoF) design patterns written as kata instructions and associated with a sample implementation for each.
 
