@@ -8,6 +8,11 @@ Some of the "Gang of Four" (GoF) design patterns written as kata instructions an
 
 The project has just been started. The first pattern will be the [Composite](Composite). While implementing that I want to move patterns I have already implemented into this repository.
 
+## Thanks
+
+Many thanks to [JetBrains](https://www.jetbrains.com/?from=gof-patterns) who provide
+an [Open Source License](https://www.jetbrains.com/community/opensource/) for this project ❤️.
+
 ## List of GoF Patterns (incomplete)
 
 - [Composite](Composite)
