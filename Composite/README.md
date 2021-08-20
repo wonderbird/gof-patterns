@@ -4,7 +4,13 @@ In this kata you implement the Gang Of Four Composite Pattern [[1](#ref-1), [2](
 
 ## Kata Instructions
 
-Your task is to create a library to be used by a web shop application. The purpose of the library is to provide the shop with a shopping cart overview for the current customer. The library code will be called when the customer wants to check out the ordered goods. 
+Your task is to create a method `PrintShoppingCart` to be used by a web shop application. The purpose of the library is to provide the shop with a shopping cart overview for the current customer. The library code will be called when the customer wants to check out the ordered goods.
+
+Hint: In your implementation of the method, no markup is required. Just return plain text.
+
+- `PrintShoppingCart` receives a list of products as argument. This list represents the shopping cart.
+- Each product in the cart is characterised by quantity, name and price of the individual item.
+- The method shall return a list of strings, one string per product in the shopping cart.
 
 ## References
 
