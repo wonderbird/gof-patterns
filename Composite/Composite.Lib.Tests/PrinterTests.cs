@@ -46,18 +46,40 @@ namespace Composite.Lib.Tests
             assertLineContainsProductProperties(shoppingCart[0], output[0]);
         }
 
+        [Fact]
+        public void PrintShoppingCart_CartContainsProduct_ReturnedLineContainsTotalPrice()
+        {
+            var quantity = 3;
+            var singleItemPrice = 300.0M;
+            var expectedTotalPrice = quantity * singleItemPrice;
+
+            var shoppingCart = new List<Product>()
+            {
+                new()
+                {
+                    Quantity = quantity,
+                    Name = "Parrot",
+                    SingleItemPrice = singleItemPrice
+                }
+            };
+
+            var output = Printer.PrintShoppingCart(shoppingCart);
+
+            AssertValueAtIndexEquals(3, expectedTotalPrice, output[0]);
+        }
+
         private void assertLineContainsProductProperties(Product product, string printedLine)
+        {
+            AssertValueAtIndexEquals(0, product.Quantity, printedLine);
+            AssertValueAtIndexEquals(1, product.Name, printedLine);
+            AssertValueAtIndexEquals(2, product.SingleItemPrice, printedLine);
+        }
+
+        private static void AssertValueAtIndexEquals<T>(int index, T expected, string printedLine)
+            where T : IConvertible
         {
             var propertyValueStrings = printedLine.Split('\t');
 
-            AssertValueAtIndexEquals(0, product.Quantity, propertyValueStrings);
-            AssertValueAtIndexEquals(1, product.Name, propertyValueStrings);
-            AssertValueAtIndexEquals(2, product.SingleItemPrice, propertyValueStrings);
-        }
-
-        private static void AssertValueAtIndexEquals<T>(int index, T expected, string[] propertyValueStrings)
-            where T : IConvertible
-        {
             var valueString = propertyValueStrings[index];
             var actual = Convert.ChangeType(valueString, typeof(T));
             Assert.Equal(expected, actual);
