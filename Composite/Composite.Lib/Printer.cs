@@ -7,7 +7,8 @@ namespace Composite.Lib
     {
         public static List<string> PrintShoppingCart(List<Product> shoppingCart)
         {
-            var printedProducts = shoppingCart.Select(product => "").ToList();
+            var printedProducts = shoppingCart.Select(
+                product => $"{product.Quantity}\t{product.Name}\t{product.SingleItemPrice}").ToList();
             return printedProducts;
         }
     }

@@ -11,6 +11,7 @@ Hint: In your implementation of the method, no markup is required. Just return p
 - `PrintShoppingCart` receives a list of products as argument. This list represents the shopping cart.
 - Each product in the cart is characterised by quantity, name and price of the individual item.
 - The method shall return a list of strings, one string per product in the shopping cart.
+- Each string in the list shall contain the product properties separated by tabulator: quantity, name, single item price.
 
 ## References
 
