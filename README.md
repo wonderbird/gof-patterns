@@ -3,6 +3,9 @@
 [![Build Status Badge](https://github.com/wonderbird/gof-patterns/workflows/.NET/badge.svg)](https://github.com/wonderbird/gof-patterns/actions)
 [![Test Coverage](https://img.shields.io/codeclimate/coverage-letter/wonderbird/gof-patterns)](https://codeclimate.com/github/wonderbird/gof-patterns/trends/test_coverage_total)
 [![Code Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/wonderbird/gof-patterns)](https://codeclimate.com/github/wonderbird/gof-patterns)
+[![Issues in Code](https://img.shields.io/codeclimate/issues/wonderbird/gof-patterns)](https://codeclimate.com/github/wonderbird/gof-patterns/issues)
+[![Technical Debt](https://img.shields.io/codeclimate/tech-debt/wonderbird/gof-patterns)](https://codeclimate.com/github/wonderbird/gof-patterns)
+[![CodeQL](https://github.com/wonderbird/gof-patterns/workflows/CodeQL/badge.svg)](https://github.com/wonderbird/gof-patterns/actions)
 
 Some of the "Gang of Four" (GoF) design patterns written as kata instructions and associated with a sample implementation for each.
 
