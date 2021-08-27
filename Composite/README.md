@@ -14,6 +14,30 @@ Hint: In your implementation of the method, no markup is required. Just return p
 - Each string in the list shall contain the product properties separated by tabulator in the following order: quantity, name, single item price.
 - Each string in the list shall end with the total price = quantity * single item price.
 
+Example:
+
+```text
+3   Parrot  300.00  900.0
+```
+
+After operating the shop for a while, marketing decides to do a campaign. They want to define a set of products for which the custoemr will get a 30 % discount. So the following new requirements are presented to you:
+
+- The shopping cart (list of products) shall allow grouping an arbitrary list of products.
+- For each group, `PrintShoppingCart`
+  - prints a "group header" starting with an empty quantity field, followed by the group name and the discount in parentheses, an empty individual item price and an empty total price.
+  - prints each product as described above whith the 30 % discount applied before printing the price fields
+
+Example:
+
+```text
+3   Parrot  300.0   900.0
+    Pet Food (Discount: 30 %)
+2   Cat Food (12 kg)    40.00   80.00
+3   Bird Grass          4.00    12.00
+```
+
+In the above case, the customer buys parrots as non-discounted products for 300.00 each and pet food with a discount of 30 % applied. The normal item price of cat food is 60.00 and the normal price of bird grass is 6.00.
+
 ## References
 
 <a name="ref-1">[1]</a> John Somnez and others: "Composite" in "Pluralsight: Design Patterns Library", https://www.pluralsight.com/courses/patterns-library, last visited on Aug. 18, 2021.

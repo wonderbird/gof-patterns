@@ -29,9 +29,9 @@ namespace Composite.Lib.Tests
         }
 
         [Fact]
-        public void PrintShoppingCart_CartContainsProduct_ReturnedLineContainsProductProperties()
+        public void PrintShoppingCart_CartContainsProduct_ReturnedLineContainsProductPropertiesAndTotalPrice()
         {
-            var shoppingCart = new List<Product>()
+            var shoppingCart = new List<Product>
             {
                 new()
                 {
@@ -40,49 +40,29 @@ namespace Composite.Lib.Tests
                     SingleItemPrice = 300.0M
                 }
             };
-            
+
             var output = Printer.PrintShoppingCart(shoppingCart);
 
-            assertLineContainsProductProperties(shoppingCart[0], output[0]);
+            const string expectedOutput = "3\tParrot\t300.00\t900.00";
+            Assert.Equal(expectedOutput, output[0]);
         }
 
         [Fact]
-        public void PrintShoppingCart_CartContainsProduct_ReturnedLineContainsTotalPrice()
+        public void PrintShoppingCart_CartContainsProductGroup_ReturnedLineContainsGroupHeader()
         {
-            var quantity = 3;
-            var singleItemPrice = 300.0M;
-            var expectedTotalPrice = quantity * singleItemPrice;
-
             var shoppingCart = new List<Product>()
             {
-                new()
+                new DiscountedProducts()
                 {
-                    Quantity = quantity,
-                    Name = "Parrot",
-                    SingleItemPrice = singleItemPrice
+                    Name = "Pet Food",
+                    DiscountRate = 0.3
                 }
             };
 
             var output = Printer.PrintShoppingCart(shoppingCart);
 
-            AssertValueAtIndexEquals(3, expectedTotalPrice, output[0]);
-        }
-
-        private void assertLineContainsProductProperties(Product product, string printedLine)
-        {
-            AssertValueAtIndexEquals(0, product.Quantity, printedLine);
-            AssertValueAtIndexEquals(1, product.Name, printedLine);
-            AssertValueAtIndexEquals(2, product.SingleItemPrice, printedLine);
-        }
-
-        private static void AssertValueAtIndexEquals<T>(int index, T expected, string printedLine)
-            where T : IConvertible
-        {
-            var propertyValueStrings = printedLine.Split('\t');
-
-            var valueString = propertyValueStrings[index];
-            var actual = Convert.ChangeType(valueString, typeof(T));
-            Assert.Equal(expected, actual);
+            const string expectedOutput = "\tPet Food (Discount: 30 %)\t";
+            Assert.Equal(expectedOutput, output[0]);
         }
     }
 }
