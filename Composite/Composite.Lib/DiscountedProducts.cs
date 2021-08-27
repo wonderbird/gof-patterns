@@ -10,10 +10,10 @@ namespace Composite.Lib
 
         public List<string> PrintShoppingCartEntries()
         {
-            var productLine = $"\t" +
+            var productLine = "\t" +
                               $"{Name} (Discount: {DiscountRate:0 %})" +
-                              $"\t" +
-                              $"";
+                              "\t" +
+                              "";
 
             return new List<string> { productLine };
         }

@@ -4,22 +4,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Composite", "Composite", "{847B0817-E4F5-4D7C-BF3B-D218491047CC}"
-ProjectSection(SolutionItems) = preProject
-	Composite\README.md = Composite\README.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Composite\README.md = Composite\README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Composite.Lib", "Composite\Composite.Lib\Composite.Lib.csproj", "{452E6F88-1974-40DA-8734-9DF1381CCD54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Composite.Lib.Tests", "Composite\Composite.Lib.Tests\Composite.Lib.Tests.csproj", "{130F0622-9F02-4ACB-8D11-CEEDA9031B29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{F1E960CE-60B0-45BC-83EB-70E5FAA175B8}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.gitignore = .gitignore
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bridge", "Bridge", "{11E81B1E-5B8F-42A3-8D71-13C6CDBD60D4}"
 ProjectSection(SolutionItems) = preProject
-	README.md = README.md
-	.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
-	.gitignore = .gitignore
-	.github\dependabot.yml = .github\dependabot.yml
-	.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
+	Bridge\README.md = Bridge\README.md
 EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge", "Bridge\Bridge\Bridge.csproj", "{88E2893C-488B-4099-A8EC-89A2CAACC34E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Tests", "Bridge\Bridge.Tests\Bridge.Tests.csproj", "{E9D965C9-90BA-4D26-93E9-675A595BB9D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,9 +67,35 @@ Global
 		{130F0622-9F02-4ACB-8D11-CEEDA9031B29}.Release|x64.Build.0 = Release|Any CPU
 		{130F0622-9F02-4ACB-8D11-CEEDA9031B29}.Release|x86.ActiveCfg = Release|Any CPU
 		{130F0622-9F02-4ACB-8D11-CEEDA9031B29}.Release|x86.Build.0 = Release|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Debug|x64.Build.0 = Debug|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Debug|x86.Build.0 = Debug|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Release|x64.ActiveCfg = Release|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Release|x64.Build.0 = Release|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Release|x86.ActiveCfg = Release|Any CPU
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E}.Release|x86.Build.0 = Release|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Debug|x64.Build.0 = Debug|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Debug|x86.Build.0 = Debug|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Release|x64.ActiveCfg = Release|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Release|x64.Build.0 = Release|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Release|x86.ActiveCfg = Release|Any CPU
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{452E6F88-1974-40DA-8734-9DF1381CCD54} = {847B0817-E4F5-4D7C-BF3B-D218491047CC}
 		{130F0622-9F02-4ACB-8D11-CEEDA9031B29} = {847B0817-E4F5-4D7C-BF3B-D218491047CC}
+		{88E2893C-488B-4099-A8EC-89A2CAACC34E} = {11E81B1E-5B8F-42A3-8D71-13C6CDBD60D4}
+		{E9D965C9-90BA-4D26-93E9-675A595BB9D1} = {11E81B1E-5B8F-42A3-8D71-13C6CDBD60D4}
 	EndGlobalSection
 EndGlobal
