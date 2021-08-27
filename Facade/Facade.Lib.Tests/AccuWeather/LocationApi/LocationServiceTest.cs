@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-using kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi;
+using Facade.Lib.AccuWeather.LocationApi;
 using Xunit;
 
 namespace Facade.Lib.Tests.AccuWeather.LocationApi

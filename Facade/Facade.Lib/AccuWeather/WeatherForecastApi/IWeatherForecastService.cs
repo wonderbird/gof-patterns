@@ -1,7 +1,7 @@
 using System.Net;
-using kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi;
+using Facade.Lib.AccuWeather.LocationApi;
 
-namespace kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi
+namespace Facade.Lib.AccuWeather.WeatherForecastApi
 {
     public interface IWeatherForecastService
     {

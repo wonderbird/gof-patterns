@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi;
-using kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi;
-using kata_gof_pattern_facade_windforecast.WindSpeedConverterApi;
+using Facade.Lib.AccuWeather.LocationApi;
+using Facade.Lib.AccuWeather.WeatherForecastApi;
+using Facade.Lib.WindSpeedConverterApi;
 
-namespace kata_gof_pattern_facade_windforecast.AccuWeather
+namespace Facade.Lib.AccuWeather
 {
     public class WindForecastService : IWindForecastService
     {

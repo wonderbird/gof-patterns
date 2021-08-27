@@ -1,4 +1,4 @@
-﻿using kata_gof_pattern_facade_windforecast.WindSpeedConverterApi;
+﻿using Facade.Lib.WindSpeedConverterApi;
 using Xunit;
 
 namespace Facade.Lib.Tests.WindSpeedConverterApi

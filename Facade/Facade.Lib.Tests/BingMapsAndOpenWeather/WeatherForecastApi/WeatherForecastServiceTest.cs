@@ -1,6 +1,6 @@
 using System;
 using System.Net;
-using kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.WeatherForecastApi;
+using Facade.Lib.BingMapsAndOpenWeather.WeatherForecastApi;
 using Xunit;
 
 namespace Facade.Lib.Tests.BingMapsAndOpenWeather.WeatherForecastApi

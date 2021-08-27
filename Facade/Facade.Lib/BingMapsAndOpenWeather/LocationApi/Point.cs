@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.LocationApi
+namespace Facade.Lib.BingMapsAndOpenWeather.LocationApi
 {
     public class Point
     {

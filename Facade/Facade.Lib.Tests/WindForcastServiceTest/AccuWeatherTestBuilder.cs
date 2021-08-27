@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using kata_gof_pattern_facade_windforecast;
-using kata_gof_pattern_facade_windforecast.AccuWeather;
-using kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi;
-using kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi;
-using kata_gof_pattern_facade_windforecast.WindSpeedConverterApi;
+using Facade.Lib.AccuWeather;
+using Facade.Lib.AccuWeather.LocationApi;
+using Facade.Lib.AccuWeather.WeatherForecastApi;
+using Facade.Lib.WindSpeedConverterApi;
 using Moq;
 
 namespace Facade.Lib.Tests.WindForcastServiceTest

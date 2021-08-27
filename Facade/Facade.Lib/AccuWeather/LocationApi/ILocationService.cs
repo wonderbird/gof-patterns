@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi
+namespace Facade.Lib.AccuWeather.LocationApi
 {
     public interface ILocationService
     {

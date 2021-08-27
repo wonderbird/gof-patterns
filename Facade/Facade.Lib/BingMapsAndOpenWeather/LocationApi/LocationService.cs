@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 
-namespace kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.LocationApi
+namespace Facade.Lib.BingMapsAndOpenWeather.LocationApi
 {
     public class LocationService : ILocationService
     {
