@@ -9,7 +9,7 @@ namespace Composite.Lib.Tests
         [Fact]
         public void PrintShoppingCart_CartIsEmpty_ReturnsEmptyStringList()
         {
-            var shoppingCart = new List<Product>();
+            var shoppingCart = new List<IPrintableProduct>();
             var output = Printer.PrintShoppingCart(shoppingCart);
 
             Assert.Empty(output);
@@ -18,10 +18,10 @@ namespace Composite.Lib.Tests
         [Fact]
         public void PrintShoppingCart_CartContains2Products_Returns2Strings()
         {
-            var shoppingCart = new List<Product>
+            var shoppingCart = new List<IPrintableProduct>
             {
-                new(),
-                new()
+                new Product(),
+                new Product()
             };
             var output = Printer.PrintShoppingCart(shoppingCart);
 
@@ -31,9 +31,9 @@ namespace Composite.Lib.Tests
         [Fact]
         public void PrintShoppingCart_CartContainsProduct_ReturnedLineContainsProductPropertiesAndTotalPrice()
         {
-            var shoppingCart = new List<Product>
+            var shoppingCart = new List<IPrintableProduct>
             {
-                new()
+                new Product()
                 {
                     Quantity = 3,
                     Name = "Parrot",
@@ -50,7 +50,7 @@ namespace Composite.Lib.Tests
         [Fact]
         public void PrintShoppingCart_CartContainsProductGroup_ReturnedLineContainsGroupHeader()
         {
-            var shoppingCart = new List<Product>()
+            var shoppingCart = new List<IPrintableProduct>()
             {
                 new DiscountedProducts()
                 {
