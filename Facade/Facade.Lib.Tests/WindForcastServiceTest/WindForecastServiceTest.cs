@@ -1,5 +1,4 @@
 ﻿using System;
-using kata_gof_pattern_facade_windforecast;
 using Xunit;
 
 namespace Facade.Lib.Tests.WindForcastServiceTest

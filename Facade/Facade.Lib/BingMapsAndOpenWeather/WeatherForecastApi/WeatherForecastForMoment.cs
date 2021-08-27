@@ -1,4 +1,4 @@
-﻿namespace kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.WeatherForecastApi
+﻿namespace Facade.Lib.BingMapsAndOpenWeather.WeatherForecastApi
 {
     public class WeatherForecastForMoment
     {

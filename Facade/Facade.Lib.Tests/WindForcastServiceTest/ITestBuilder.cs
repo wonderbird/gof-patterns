@@ -1,6 +1,4 @@
-﻿using kata_gof_pattern_facade_windforecast;
-
-namespace Facade.Lib.Tests.WindForcastServiceTest
+﻿namespace Facade.Lib.Tests.WindForcastServiceTest
 {
     public interface ITestBuilder
     {

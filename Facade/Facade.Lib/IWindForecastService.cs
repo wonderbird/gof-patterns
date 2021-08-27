@@ -1,4 +1,4 @@
-﻿namespace kata_gof_pattern_facade_windforecast
+﻿namespace Facade.Lib
 {
     public interface IWindForecastService
     {

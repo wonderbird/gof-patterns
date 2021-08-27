@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.LocationApi;
-using kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.WeatherForecastApi;
-using kata_gof_pattern_facade_windforecast.WindSpeedConverterApi;
+using Facade.Lib.BingMapsAndOpenWeather.LocationApi;
+using Facade.Lib.BingMapsAndOpenWeather.WeatherForecastApi;
+using Facade.Lib.WindSpeedConverterApi;
 
-namespace kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather
+namespace Facade.Lib.BingMapsAndOpenWeather
 {
     public class WindForecastService : IWindForecastService
     {

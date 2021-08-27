@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi
+namespace Facade.Lib.AccuWeather.WeatherForecastApi
 {
     public class WeatherForecast
     {

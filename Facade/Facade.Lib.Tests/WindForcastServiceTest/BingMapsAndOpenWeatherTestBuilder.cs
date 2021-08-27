@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using kata_gof_pattern_facade_windforecast;
-using kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather;
-using kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.LocationApi;
-using kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.WeatherForecastApi;
-using kata_gof_pattern_facade_windforecast.WindSpeedConverterApi;
+using Facade.Lib.BingMapsAndOpenWeather;
+using Facade.Lib.BingMapsAndOpenWeather.LocationApi;
+using Facade.Lib.BingMapsAndOpenWeather.WeatherForecastApi;
+using Facade.Lib.WindSpeedConverterApi;
 using Moq;
 
 namespace Facade.Lib.Tests.WindForcastServiceTest

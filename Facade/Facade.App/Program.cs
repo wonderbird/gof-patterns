@@ -1,4 +1,5 @@
 ﻿using System;
+using Facade.Lib.BingMapsAndOpenWeather;
 
 namespace Facade.App
 {
@@ -12,7 +13,7 @@ namespace Facade.App
             Console.Write("How many days ahead (0-5)? ");
             var daysFromNow = int.Parse(Console.ReadLine());
 
-            var windForecastService = new kata_gof_pattern_facade_windforecast.BingMapsAndOpenWeather.WindForecastService();
+            var windForecastService = new WindForecastService();
             //var windForecastService = new kata_gof_pattern_facade_windforecast.AccuWeather.WindForecastService();
             var beaufort = windForecastService.GetWindForecastBeaufort(location, daysFromNow);
 
