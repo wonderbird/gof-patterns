@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -33,7 +32,7 @@ namespace Composite.Lib.Tests
         {
             var shoppingCart = new List<IPrintableProduct>
             {
-                new Product()
+                new Product
                 {
                     Quantity = 3,
                     Name = "Parrot",
@@ -50,9 +49,9 @@ namespace Composite.Lib.Tests
         [Fact]
         public void PrintShoppingCart_CartContainsProductGroup_ReturnedLineContainsGroupHeader()
         {
-            var shoppingCart = new List<IPrintableProduct>()
+            var shoppingCart = new List<IPrintableProduct>
             {
-                new DiscountedProducts()
+                new DiscountedProducts
                 {
                     Name = "Pet Food",
                     DiscountRate = 0.3

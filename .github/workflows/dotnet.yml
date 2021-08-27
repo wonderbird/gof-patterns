@@ -14,38 +14,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
 
-    - name: Install dotnet tools
-      run: |
-        dotnet tool install --global coverlet.console
-        dotnet tool install --global dotnet-reportgenerator-globaltool
+      - name: Install dotnet tools
+        run: |
+          dotnet tool install --global coverlet.console
+          dotnet tool install --global dotnet-reportgenerator-globaltool
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build
-      run: dotnet build --no-restore
+      - name: Build
+        run: dotnet build --no-restore
 
-    - name: Test
-      run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./TestResults/coverage.cobertura.xml'
+      - name: Test
+        run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./TestResults/coverage.cobertura.xml'
 
-    - name: Generate coverage reports
-      run: reportgenerator "-reports:./**/TestResults/*.xml" \
-        "-targetdir:report" \
-        "-reporttypes:Html;lcov" \
-        "-title:GoF Patterns"
+      - name: Generate coverage reports
+        run: reportgenerator "-reports:./**/TestResults/*.xml" \
+          "-targetdir:report" \
+          "-reporttypes:Html;lcov" \
+          "-title:GoF Patterns"
 
-    - name: Attach coverage reports to build artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage-reports
-        path: report
+      - name: Attach coverage reports to build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-reports
+          path: report
 
   publish-reports:
     runs-on: ubuntu-latest
@@ -53,18 +53,18 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-    # the repository is required by codeclimate-action
-    - uses: actions/checkout@v2
+      # the repository is required by codeclimate-action
+      - uses: actions/checkout@v2
 
-    - name: Download coverage reports
-      uses: actions/download-artifact@v2
-      with:
-        name: coverage-reports
-        path: coverage-reports
+      - name: Download coverage reports
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-reports
+          path: coverage-reports
 
-    - name: Publish coverage report to CodeClimate
-      uses: paambaati/codeclimate-action@v2.7.5
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageLocations: coverage-reports/lcov.info:lcov
+      - name: Publish coverage report to CodeClimate
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: coverage-reports/lcov.info:lcov
