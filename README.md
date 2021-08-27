@@ -24,6 +24,7 @@ an [Open Source License](https://www.jetbrains.com/community/opensource/) for th
 
 - [Bridge](Bridge)
 - [Composite](Composite)
+- [Facade](Facade)
 
 ## Development
 

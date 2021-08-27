@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.WindForecastService" Collapsed="true">
+    <Position X="5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAoBAA=</HashCode>
+      <FileName>AccuWeather\WindForecastService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="locationService" />
+      <Field Name="weatherForecastService" />
+      <Field Name="windSpeedConverterService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi.LocationService" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\LocationApi\LocationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi.Location" Collapsed="true">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\LocationApi\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi.WeatherForecast" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\WeatherForecastApi\WeatherForecast.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi.WeatherForecastService" Collapsed="true">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\WeatherForecastApi\WeatherForecastService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi.DailyForecast" Collapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\WeatherForecastApi\DailyForecast.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi.Day" Collapsed="true">
+    <Position X="6.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>AccuWeather\WeatherForecastApi\Day.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi.Wind" Collapsed="true">
+    <Position X="6.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\WeatherForecastApi\Wind.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi.WindSpeed" Collapsed="true">
+    <Position X="6.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>AccuWeather\WeatherForecastApi\WindSpeed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kata_gof_pattern_facade_windforecast.WindSpeedConverterApi.WindSpeedConverterService" Collapsed="true">
+    <Position X="8.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WindSpeedConverterApi\WindSpeedConverterService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="kata_gof_pattern_facade_windforecast.IWindForecastService">
+    <Position X="5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>IWindForecastService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="kata_gof_pattern_facade_windforecast.AccuWeather.LocationApi.ILocationService">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\LocationApi\ILocationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="kata_gof_pattern_facade_windforecast.AccuWeather.WeatherForecastApi.IWeatherForecastService">
+    <Position X="4.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>AccuWeather\WeatherForecastApi\IWeatherForecastService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="kata_gof_pattern_facade_windforecast.WindSpeedConverterApi.IWindSpeedConverterService">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WindSpeedConverterApi\IWindSpeedConverterService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
