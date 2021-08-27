@@ -22,6 +22,7 @@ an [Open Source License](https://www.jetbrains.com/community/opensource/) for th
 
 ## List of GoF Patterns (incomplete)
 
+- [Bridge](Bridge)
 - [Composite](Composite)
 
 ## Development
