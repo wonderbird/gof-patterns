@@ -14,7 +14,7 @@ namespace Facade.App
             var daysFromNow = int.Parse(Console.ReadLine());
 
             var windForecastService = new WindForecastService();
-            //var windForecastService = new kata_gof_pattern_facade_windforecast.AccuWeather.WindForecastService();
+            //var windForecastService = new Facade.Lib.AccuWeather.WindForecastService();
             var beaufort = windForecastService.GetWindForecastBeaufort(location, daysFromNow);
 
             Console.WriteLine($"Wind of {beaufort} Beaufort is expected.");

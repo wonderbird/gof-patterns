@@ -49,6 +49,18 @@ This solution expects that you have API keys for all APIs mentioned above. Pleas
 | `BINGMAPS_APIKEY` | [Bing Maps API](https://docs.microsoft.com/en-us/bingmaps/rest-services/) [[6](#ref-6)] 
 | `OPENWEATHER_APIKEY` | [OpenWeather API](https://openweathermap.org/api) [[7](#ref-7)]
 
+You can do so by creating a file named `env.local` with the following contents:
+
+```shell
+ACCUWEATHER_APIKEY=copy your api key
+BINGMAPS_APIKEY=copy your api key
+OPENWEATHER_APIKEY=copy your api key
+```
+
+`source env.local` into your terminal and then launch the IDE from that context.
+
+`env.local` is excluded from version control by `.gitignore`
+
 ## Hints
 
 - Keep the implementation as minimal as possible in order to keep the kata small. Just fulfill the requirements
