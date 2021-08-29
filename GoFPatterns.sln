@@ -33,6 +33,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Facade", "Facade", "{3C897AF7-830A-469B-811F-6764550EBF46}"
 ProjectSection(SolutionItems) = preProject
 	Facade\README.md = Facade\README.md
+	Facade\env.local = Facade\env.local
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facade.App", "Facade\Facade.App\Facade.App.csproj", "{4097D75C-EBCF-4A04-8377-8887E7FD296B}"
