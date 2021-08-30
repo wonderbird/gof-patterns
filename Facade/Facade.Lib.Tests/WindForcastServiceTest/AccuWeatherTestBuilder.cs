@@ -8,18 +8,17 @@ using Moq;
 
 namespace Facade.Lib.Tests.WindForcastServiceTest
 {
-    public class AccuWeatherTestBuilder : ITestBuilder
+    public class AccuWeatherTestBuilder : WeatherTestBuilderBase<Mock<IWeatherForecastService>>
     {
         private List<DailyForecast> dailyForecasts;
 
-        private Mock<IWeatherForecastService> weatherForecastServiceMock;
         private Mock<ILocationService> locationServiceMock;
         private Mock<IWindSpeedConverterService> windSpeedConverterServiceMock;
 
         private string location;
         private const string LocationKey = "SAMPLE_KEY";
 
-        public void SetupWindspeedForNextDays(params int[] windSpeedForNextDays)
+        public override void SetupWindspeedForNextDays(params int[] windSpeedForNextDays)
         {
             var epochDatesForForecast = EpochDateListGenerator.EpochDatesForNextDays(windSpeedForNextDays.Length);
 
@@ -41,7 +40,7 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
                 }).ToList();
         }
 
-        public void SetupMocks(string location)
+        public override void SetupMocks(string location)
         {
             this.location = location;
 
@@ -88,16 +87,16 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
             }
         }
 
-        public IWindForecastService CreateWindForecastService()
+        public override IWindForecastService CreateWindForecastService()
         {
             return new WindForecastService(weatherForecastServiceMock.Object, locationServiceMock.Object, windSpeedConverterServiceMock.Object);
         }
 
-        public void VerifyMocks()
+        public override void VerifyMocks()
         {
             weatherForecastServiceMock.Verify(x => x.GetWeatherForecast(LocationKey, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()));
-            windSpeedConverterServiceMock.Verify(x => x.KilometersPerHourToBeaufort(It.IsAny<double>()));
             locationServiceMock.Verify(x => x.GetLocations(It.IsAny<string>(), location, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>()));
+            windSpeedConverterServiceMock.Verify(x => x.KilometersPerHourToBeaufort(It.IsAny<double>()));
         }
     }
 }
