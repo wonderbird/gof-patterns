@@ -55,7 +55,7 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
 
             director.SetupWindspeedForNextDays(7, 8, 9, 10, 11);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => director.GetWindForecastBeaufort(location, daysFromToday));
+            Assert.Throws<ForecastNotAvailableException>(() => director.GetWindForecastBeaufort(location, daysFromToday));
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Facade.Lib.BingMapsAndOpenWeather
         {
             if (daysFromToday < 0)
             {
-                throw new ArgumentOutOfRangeException($"daysFromToday", daysFromToday, "daysFromToday must be greater or equal 0");
+                throw new ForecastNotAvailableException($"daysFromToday", daysFromToday, "daysFromToday must be greater or equal 0");
             }
 
             var locations = locationService.GetLocations(location, "0", "", 1, LocationServiceApiKey);
@@ -48,9 +48,7 @@ namespace Facade.Lib.BingMapsAndOpenWeather
 
             if (desiredForecast == null)
             {
-                var lastForecastDate = DateTimeOffset.FromUnixTimeSeconds(weatherForecast.daily.Last().dt).Date;
-                var numberOfDays = (lastForecastDate - DateTime.Now.ToUniversalTime().Date).Days;
-                throw new ArgumentOutOfRangeException($"daysFromToday", daysFromToday, $"Forecast only available for {numberOfDays} days");
+                throw new ForecastNotAvailableException("daysFromToday", daysFromToday, weatherForecast.daily.Last().dt);
             }
 
             var windSpeedMetersPerSecond = desiredForecast.wind_speed;

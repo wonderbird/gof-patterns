@@ -31,7 +31,7 @@ namespace Facade.Lib.AccuWeather
         {
             if (daysFromToday < 0)
             {
-                throw new ArgumentOutOfRangeException($"daysFromToday", daysFromToday, "daysFromToday must be greater or equal 0");
+                throw new ForecastNotAvailableException($"daysFromToday", daysFromToday, "daysFromToday must be greater or equal 0");
             }
 
             var locations = locationService.GetLocations(AccuWeatherServiceApiKey, location, "de-de", false, 0, "NoOfficialMatchFound");
@@ -44,9 +44,7 @@ namespace Facade.Lib.AccuWeather
 
             if (desiredForecast == null)
             {
-                var lastForecastDate = DateTimeOffset.FromUnixTimeSeconds(weatherForecast.DailyForecasts.Last().EpochDate).Date;
-                var numberOfDays = (lastForecastDate - DateTime.Now.ToUniversalTime().Date).Days;
-                throw new ArgumentOutOfRangeException($"daysFromToday", daysFromToday, $"Forecast only available for {numberOfDays} days");
+                throw new ForecastNotAvailableException("daysFromToday", daysFromToday, weatherForecast.DailyForecasts.Last().EpochDate);
             }
 
             var windSpeedKmh = desiredForecast.Day.Wind.Speed.Value;
