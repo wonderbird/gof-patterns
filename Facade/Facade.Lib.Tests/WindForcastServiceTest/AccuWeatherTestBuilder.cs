@@ -8,17 +8,18 @@ using Moq;
 
 namespace Facade.Lib.Tests.WindForcastServiceTest
 {
-    public class AccuWeatherTestBuilder : WeatherTestBuilderBase<Mock<IWeatherForecastService>>
+    public class AccuWeatherTestBuilder : ITestBuilder
     {
         private List<DailyForecast> dailyForecasts;
 
+        private Mock<IWeatherForecastService> weatherForecastServiceMock;
         private Mock<ILocationService> locationServiceMock;
         private Mock<IWindSpeedConverterService> windSpeedConverterServiceMock;
 
         private string location;
         private const string LocationKey = "SAMPLE_KEY";
 
-        public override void SetupWindspeedForNextDays(params int[] windSpeedForNextDays)
+        public void SetupWindspeedForNextDays(params int[] windSpeedForNextDays)
         {
             var epochDatesForForecast = EpochDateListGenerator.EpochDatesForNextDays(windSpeedForNextDays.Length);
 
@@ -40,7 +41,7 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
                 }).ToList();
         }
 
-        public override void SetupMocks(string location)
+        public void SetupMocks(string location)
         {
             this.location = location;
 
@@ -87,16 +88,16 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
             }
         }
 
-        public override IWindForecastService CreateWindForecastService()
+        public IWindForecastService CreateWindForecastService()
         {
             return new WindForecastService(weatherForecastServiceMock.Object, locationServiceMock.Object, windSpeedConverterServiceMock.Object);
         }
 
-        public override void VerifyMocks()
+        public void VerifyMocks()
         {
             weatherForecastServiceMock.Verify(x => x.GetWeatherForecast(LocationKey, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()));
-            locationServiceMock.Verify(x => x.GetLocations(It.IsAny<string>(), location, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>()));
             windSpeedConverterServiceMock.Verify(x => x.KilometersPerHourToBeaufort(It.IsAny<double>()));
+            locationServiceMock.Verify(x => x.GetLocations(It.IsAny<string>(), location, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>()));
         }
     }
 }
