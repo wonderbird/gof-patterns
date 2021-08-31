@@ -6,12 +6,14 @@ namespace Facade.Lib
     public class ForecastNotAvailableException : ArgumentOutOfRangeException
     {
         public ForecastNotAvailableException(string? paramName, object? actualValue, string? message)
-        : base(paramName, actualValue, message)
+            : base(paramName, actualValue, message)
         {
         }
 
-        public ForecastNotAvailableException(string? paramName, object? actualValue, long lastAvailableForecastDateInUnixTimeSeconds)
-        : base(paramName, actualValue, CreateMaximumNumberOfDaysSupportedMessage(lastAvailableForecastDateInUnixTimeSeconds))
+        public ForecastNotAvailableException(string? paramName, object? actualValue,
+            long lastAvailableForecastDateInUnixTimeSeconds)
+            : base(paramName, actualValue,
+                CreateMaximumNumberOfDaysSupportedMessage(lastAvailableForecastDateInUnixTimeSeconds))
         {
         }
 

@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Facade.Lib</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageId>boos-windforecast</PackageId>
-    <Version>0.0.0</Version>
-    <Authors>Stefan Boos</Authors>
-    <Product>boos-windforecast</Product>
-    <Description>Get the wind forecast for one of the next five days.
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Facade.Lib</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageId>boos-windforecast</PackageId>
+        <Version>0.0.0</Version>
+        <Authors>Stefan Boos</Authors>
+        <Product>boos-windforecast</Product>
+        <Description>Get the wind forecast for one of the next five days.
 
-The API allows to specify a location name and the number of days in the future. It returns the wind forecast for that day in Beaufort.</Description>
-    <Copyright>(c) Stefan Boos 2020.</Copyright>
-    <PackageReleaseNotes>This is a pre-release for testing purpose.</PackageReleaseNotes>
-  </PropertyGroup>
+            The API allows to specify a location name and the number of days in the future. It returns the wind forecast for that day in Beaufort.
+        </Description>
+        <Copyright>(c) Stefan Boos 2020.</Copyright>
+        <PackageReleaseNotes>This is a pre-release for testing purpose.</PackageReleaseNotes>
+    </PropertyGroup>
 
 </Project>

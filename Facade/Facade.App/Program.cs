@@ -3,9 +3,9 @@ using Facade.Lib.BingMapsAndOpenWeather;
 
 namespace Facade.App
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.Write("For which location would you like to know the wind forecast? ");
             var location = Console.ReadLine();

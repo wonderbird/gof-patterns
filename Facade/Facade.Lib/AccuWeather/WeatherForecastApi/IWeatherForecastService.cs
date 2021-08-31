@@ -6,15 +6,15 @@ namespace Facade.Lib.AccuWeather.WeatherForecastApi
     public interface IWeatherForecastService
     {
         /// <summary>
-        /// Returns a list of daily forecasts for the next 5 days for a specific location.
+        ///     Returns a list of daily forecasts for the next 5 days for a specific location.
         /// </summary>
         /// <remarks>
-        /// Forecast searches require a location key. Please use the <see cref="ILocationService.GetLocations"/>
-        /// API to obtain the location key for your desired location. By default, a truncated version of
-        /// the hourly forecast data is returned. The full object can be obtained by passing
-        /// details=true.
-        /// 
-        /// See also: https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D
+        ///     Forecast searches require a location key. Please use the <see cref="ILocationService.GetLocations" />
+        ///     API to obtain the location key for your desired location. By default, a truncated version of
+        ///     the hourly forecast data is returned. The full object can be obtained by passing
+        ///     details=true.
+        ///     See also:
+        ///     https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D
         /// </remarks>
         /// <param name="locationKey">String indicating the language in which to return the resource</param>
         /// <param name="apikey">Provided API Key</param>

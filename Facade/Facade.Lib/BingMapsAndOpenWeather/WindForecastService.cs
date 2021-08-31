@@ -8,11 +8,11 @@ namespace Facade.Lib.BingMapsAndOpenWeather
 {
     public class WindForecastService : IWindForecastService
     {
+        private readonly ILocationService locationService;
         private readonly string LocationServiceApiKey;
-        private readonly string WeatherForecastServiceApiKey;
 
         private readonly IWeatherForecastService weatherForecastService;
-        private readonly ILocationService locationService;
+        private readonly string WeatherForecastServiceApiKey;
         private readonly IWindSpeedConverterService windSpeedConverterService;
 
         public WindForecastService()
@@ -20,7 +20,8 @@ namespace Facade.Lib.BingMapsAndOpenWeather
         {
         }
 
-        public WindForecastService(IWeatherForecastService weatherForecastService, ILocationService locationService, IWindSpeedConverterService windSpeedConverterService)
+        public WindForecastService(IWeatherForecastService weatherForecastService, ILocationService locationService,
+            IWindSpeedConverterService windSpeedConverterService)
         {
             this.weatherForecastService = weatherForecastService;
             this.locationService = locationService;
@@ -33,23 +34,23 @@ namespace Facade.Lib.BingMapsAndOpenWeather
         public int GetWindForecastBeaufort(string location, int daysFromToday)
         {
             if (daysFromToday < 0)
-            {
-                throw new ForecastNotAvailableException($"daysFromToday", daysFromToday, "daysFromToday must be greater or equal 0");
-            }
+                throw new ForecastNotAvailableException("daysFromToday", daysFromToday,
+                    "daysFromToday must be greater or equal 0");
 
             var locations = locationService.GetLocations(location, "0", "", 1, LocationServiceApiKey);
             var lat = locations[0].point.coordinates[0];
             var lon = locations[0].point.coordinates[1];
 
-            var weatherForecast = weatherForecastService.GetWeatherForecast(lat, lon, WeatherForecastServiceApiKey, "metric", "de");
+            var weatherForecast =
+                weatherForecastService.GetWeatherForecast(lat, lon, WeatherForecastServiceApiKey, "metric", "de");
 
             var desiredDate = DateTime.Now.ToUniversalTime().Date.AddDays(daysFromToday);
-            var desiredForecast = weatherForecast.daily.FirstOrDefault(x => desiredDate == DateTimeOffset.FromUnixTimeSeconds(x.dt).Date);
+            var desiredForecast =
+                weatherForecast.daily.FirstOrDefault(x => desiredDate == DateTimeOffset.FromUnixTimeSeconds(x.dt).Date);
 
             if (desiredForecast == null)
-            {
-                throw new ForecastNotAvailableException("daysFromToday", daysFromToday, weatherForecast.daily.Last().dt);
-            }
+                throw new ForecastNotAvailableException("daysFromToday", daysFromToday,
+                    weatherForecast.daily.Last().dt);
 
             var windSpeedMetersPerSecond = desiredForecast.wind_speed;
             var windSpeedBeaufort = windSpeedConverterService.MetersPerSecondToBeaufort(windSpeedMetersPerSecond);

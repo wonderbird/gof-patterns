@@ -3,13 +3,12 @@
     public interface IWeatherForecastService
     {
         /// <summary>
-        /// One Call API provides the weather data in different granularity for any geographical coordinate.
+        ///     One Call API provides the weather data in different granularity for any geographical coordinate.
         /// </summary>
         /// <remarks>
-        /// Forecast searches require the GPS latitude and longitude of the location. Please use the
-        /// <see cref="ILocationService.GetLocations"/> API to obtain the coordinates for your desired location.
-        /// 
-        /// See also: https://openweathermap.org/api/one-call-api
+        ///     Forecast searches require the GPS latitude and longitude of the location. Please use the
+        ///     <see cref="ILocationService.GetLocations" /> API to obtain the coordinates for your desired location.
+        ///     See also: https://openweathermap.org/api/one-call-api
         /// </remarks>
         /// <param name="lat">Geographical coordinates of the location (latitude)</param>
         /// <param name="lat">Geographical coordinates of the location (longitude)</param>

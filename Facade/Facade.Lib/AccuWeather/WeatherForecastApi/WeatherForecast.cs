@@ -4,6 +4,6 @@ namespace Facade.Lib.AccuWeather.WeatherForecastApi
 {
     public class WeatherForecast
     {
-        public List<DailyForecast> DailyForecasts { get; set; } = new List<DailyForecast>();
+        public List<DailyForecast> DailyForecasts { get; set; } = new();
     }
 }

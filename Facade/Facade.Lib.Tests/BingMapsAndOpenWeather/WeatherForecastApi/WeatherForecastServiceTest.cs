@@ -30,8 +30,8 @@ namespace Facade.Lib.Tests.BingMapsAndOpenWeather.WeatherForecastApi
         public void GetWeatherForecast_InvalidApiKey_ThrowsWebException()
         {
             var weatherForecastService = new WeatherForecastService();
-            Assert.Throws<WebException>(() => weatherForecastService.GetWeatherForecast(0.0, 0.0, "INVALID API KEY", "", ""));
+            Assert.Throws<WebException>(() =>
+                weatherForecastService.GetWeatherForecast(0.0, 0.0, "INVALID API KEY", "", ""));
         }
-
     }
 }

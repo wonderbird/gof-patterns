@@ -23,7 +23,7 @@ namespace Facade.Lib.Tests.BingMapsAndOpenWeather.LocationApi
         public void GetLocation_InvalidApiKey_ThrowsWebException()
         {
             var locationService = new LocationService();
-            Assert.Throws<WebException>(() => locationService.GetLocations("","", "", 0, "INVALID API KEY"));
+            Assert.Throws<WebException>(() => locationService.GetLocations("", "", "", 0, "INVALID API KEY"));
         }
     }
 }

@@ -10,20 +10,20 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
 {
     public class AccuWeatherTestBuilder : ITestBuilder
     {
-        private List<DailyForecast> dailyForecasts;
-
-        private Mock<IWeatherForecastService> weatherForecastServiceMock;
-        private Mock<ILocationService> locationServiceMock;
-        private Mock<IWindSpeedConverterService> windSpeedConverterServiceMock;
-
-        private string location;
         private const string LocationKey = "SAMPLE_KEY";
+        private List<DailyForecast> _dailyForecasts;
+
+        private string _location;
+        private Mock<ILocationService> _locationServiceMock;
+
+        private Mock<IWeatherForecastService> _weatherForecastServiceMock;
+        private Mock<IWindSpeedConverterService> _windSpeedConverterServiceMock;
 
         public void SetupWindspeedForNextDays(params int[] windSpeedForNextDays)
         {
             var epochDatesForForecast = EpochDateListGenerator.EpochDatesForNextDays(windSpeedForNextDays.Length);
 
-            dailyForecasts = epochDatesForForecast
+            _dailyForecasts = epochDatesForForecast
                 .Zip(windSpeedForNextDays)
                 .Select(epochDateAndWindSpeed => new DailyForecast
                 {
@@ -43,21 +43,36 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
 
         public void SetupMocks(string location)
         {
-            this.location = location;
+            _location = location;
 
             SetupWeatherForecastMock();
             SetupLocationServiceMock();
             SetupWindSpeedConverterServiceMock();
         }
 
+        public IWindForecastService CreateWindForecastService()
+        {
+            return new WindForecastService(_weatherForecastServiceMock.Object, _locationServiceMock.Object,
+                _windSpeedConverterServiceMock.Object);
+        }
+
+        public void VerifyMocks()
+        {
+            _weatherForecastServiceMock.Verify(x => x.GetWeatherForecast(LocationKey, It.IsAny<string>(),
+                It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()));
+            _windSpeedConverterServiceMock.Verify(x => x.KilometersPerHourToBeaufort(It.IsAny<double>()));
+            _locationServiceMock.Verify(x => x.GetLocations(It.IsAny<string>(), _location, It.IsAny<string>(),
+                It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>()));
+        }
+
         private void SetupWeatherForecastMock()
         {
             var weatherForecast = new WeatherForecast
             {
-                DailyForecasts = dailyForecasts
+                DailyForecasts = _dailyForecasts
             };
-            weatherForecastServiceMock = new Mock<IWeatherForecastService>();
-            weatherForecastServiceMock.Setup(x =>
+            _weatherForecastServiceMock = new Mock<IWeatherForecastService>();
+            _weatherForecastServiceMock.Setup(x =>
                     x.GetWeatherForecast(LocationKey, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
                         It.IsAny<bool>()))
                 .Returns(weatherForecast);
@@ -67,37 +82,23 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
         {
             var locations = new List<Location>
             {
-                new Location
+                new()
                 {
                     Key = LocationKey
                 }
             };
-            locationServiceMock = new Mock<ILocationService>();
-            locationServiceMock.Setup(x => x.GetLocations(It.IsAny<string>(), this.location, It.IsAny<string>(),
+            _locationServiceMock = new Mock<ILocationService>();
+            _locationServiceMock.Setup(x => x.GetLocations(It.IsAny<string>(), _location, It.IsAny<string>(),
                     It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(locations);
         }
 
         private void SetupWindSpeedConverterServiceMock()
         {
-            windSpeedConverterServiceMock = new Mock<IWindSpeedConverterService>();
-            foreach (var forecast in dailyForecasts)
-            {
-                windSpeedConverterServiceMock.Setup(x => x.KilometersPerHourToBeaufort(forecast.Day.Wind.Speed.Value))
-                    .Returns((int) forecast.Day.Wind.Speed.Value);
-            }
-        }
-
-        public IWindForecastService CreateWindForecastService()
-        {
-            return new WindForecastService(weatherForecastServiceMock.Object, locationServiceMock.Object, windSpeedConverterServiceMock.Object);
-        }
-
-        public void VerifyMocks()
-        {
-            weatherForecastServiceMock.Verify(x => x.GetWeatherForecast(LocationKey, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()));
-            windSpeedConverterServiceMock.Verify(x => x.KilometersPerHourToBeaufort(It.IsAny<double>()));
-            locationServiceMock.Verify(x => x.GetLocations(It.IsAny<string>(), location, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>()));
+            _windSpeedConverterServiceMock = new Mock<IWindSpeedConverterService>();
+            foreach (var forecast in _dailyForecasts)
+                _windSpeedConverterServiceMock.Setup(x => x.KilometersPerHourToBeaufort(forecast.Day.Wind.Speed.Value))
+                    .Returns((int)forecast.Day.Wind.Speed.Value);
         }
     }
 }

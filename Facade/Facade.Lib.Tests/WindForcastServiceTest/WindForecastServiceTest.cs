@@ -4,21 +4,19 @@ using Xunit;
 namespace Facade.Lib.Tests.WindForcastServiceTest
 {
     /// <summary>
-    /// Standardized test for all IWindForecastService facade implementations
+    ///     Standardized test for all IWindForecastService facade implementations
     /// </summary>
     /// <remarks>
-    /// The following test ensures that <seealso cref="IWindForecastService.GetWindForecastBeaufort" />
-    /// returns the correct wind speed for a given day in the future. It is rather independent from
-    /// the way the facade is actually implemented.
-    ///
-    /// The test uses a builder for each facade implementation. The task of the builder is to
-    /// - set up the required mocks and associated data they should return
-    /// - create an instance of the IWindForecastService facade under test including the wired mocks
-    /// - assert that the mocked methods have been called as expected by
-    ///   <seealso cref="IWindForecastService.GetWindForecastBeaufort" />
-    ///
-    /// The builder is controlled by the <seealso cref="TestDirector"/>, which offers
-    /// high level methods for the test.
+    ///     The following test ensures that <seealso cref="IWindForecastService.GetWindForecastBeaufort" />
+    ///     returns the correct wind speed for a given day in the future. It is rather independent from
+    ///     the way the facade is actually implemented.
+    ///     The test uses a builder for each facade implementation. The task of the builder is to
+    ///     - set up the required mocks and associated data they should return
+    ///     - create an instance of the IWindForecastService facade under test including the wired mocks
+    ///     - assert that the mocked methods have been called as expected by
+    ///     <seealso cref="IWindForecastService.GetWindForecastBeaufort" />
+    ///     The builder is controlled by the <seealso cref="TestDirector" />, which offers
+    ///     high level methods for the test.
     /// </remarks>
     public class WindForecastServiceTest
     {
@@ -27,7 +25,8 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
         [InlineData(typeof(BingMapsAndOpenWeatherTestBuilder), 4, 11)]
         [InlineData(typeof(AccuWeatherTestBuilder), 0, 7)]
         [InlineData(typeof(AccuWeatherTestBuilder), 4, 11)]
-        public void GetWindForecast_GivenDayInTheFuture_ReturnsWindSpeed(Type testBuilderType, int daysFromToday, int expectedWindSpeedBeaufort)
+        public void GetWindForecast_GivenDayInTheFuture_ReturnsWindSpeed(Type testBuilderType, int daysFromToday,
+            int expectedWindSpeedBeaufort)
         {
             const string location = "Sample Location";
 
@@ -46,7 +45,8 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
         [InlineData(typeof(BingMapsAndOpenWeatherTestBuilder), 5)]
         [InlineData(typeof(AccuWeatherTestBuilder), -1)]
         [InlineData(typeof(AccuWeatherTestBuilder), 5)]
-        public void GetWindForecast_InvalidDayInTheFuture_ThrowsOutOfRangeException(Type testBuilderType, int daysFromToday)
+        public void GetWindForecast_InvalidDayInTheFuture_ThrowsOutOfRangeException(Type testBuilderType,
+            int daysFromToday)
         {
             const string location = "Sample Location";
 
@@ -55,7 +55,8 @@ namespace Facade.Lib.Tests.WindForcastServiceTest
 
             director.SetupWindspeedForNextDays(7, 8, 9, 10, 11);
 
-            Assert.Throws<ForecastNotAvailableException>(() => director.GetWindForecastBeaufort(location, daysFromToday));
+            Assert.Throws<ForecastNotAvailableException>(
+                () => director.GetWindForecastBeaufort(location, daysFromToday));
         }
     }
 }

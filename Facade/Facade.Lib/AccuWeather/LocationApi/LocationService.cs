@@ -8,7 +8,8 @@ namespace Facade.Lib.AccuWeather.LocationApi
 {
     public class LocationService : ILocationService
     {
-        public IList<Location> GetLocations(string apikey, string q, string language, bool details, int offset, string alias)
+        public IList<Location> GetLocations(string apikey, string q, string language, bool details, int offset,
+            string alias)
         {
             var httpClient = new HttpClient();
             var uri = new UriBuilder
