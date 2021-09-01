@@ -54,37 +54,49 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
 
         public void VerifyMocks()
         {
-            _weatherForecastServiceMock.Verify(x => x.GetWeatherForecast(LocationKey, It.IsAny<string>(),
-                It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()));
-            _windSpeedConverterServiceMock.Verify(x => x.KilometersPerHourToBeaufort(It.IsAny<double>()));
-            _locationServiceMock.Verify(x => x.GetLocations(It.IsAny<string>(), _location, It.IsAny<string>(),
-                It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>()));
+            _weatherForecastServiceMock.Verify(InvokeGetWeatherForecast());
+            _windSpeedConverterServiceMock.Verify(InvokeKilometersPerHourToBeaufort());
+            _locationServiceMock.Verify(InvokeGetLocations());
         }
 
         private void SetupWeatherForecastMock()
         {
             var weatherForecast = new WeatherForecast { DailyForecasts = _dailyForecasts };
             _weatherForecastServiceMock = new Mock<IWeatherForecastService>();
-            _weatherForecastServiceMock.Setup(x =>
-                    x.GetWeatherForecast(LocationKey, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
-                        It.IsAny<bool>()))
-                .Returns(weatherForecast);
+            _weatherForecastServiceMock.Setup(InvokeGetWeatherForecast()).Returns(weatherForecast);
         }
 
         private void SetupLocationServiceMock()
         {
             var locations = new List<Location> { new() { Key = LocationKey } };
             _locationServiceMock = new Mock<ILocationService>();
-            _locationServiceMock.Setup(x => x.GetLocations(It.IsAny<string>(), _location, It.IsAny<string>(),
-                It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>())).Returns(locations);
+            _locationServiceMock.Setup(InvokeGetLocations()).Returns(locations);
         }
 
         private void SetupWindSpeedConverterServiceMock()
         {
             _windSpeedConverterServiceMock = new Mock<IWindSpeedConverterService>();
             foreach (var forecast in _dailyForecasts)
-                _windSpeedConverterServiceMock.Setup(x => x.KilometersPerHourToBeaufort(forecast.Day.Wind.Speed.Value))
-                    .Returns((int)forecast.Day.Wind.Speed.Value);
+            {
+                _windSpeedConverterServiceMock.Setup(InvokeKilometersPerHourToBeaufort()).Returns((int)forecast.Day.Wind.Speed.Value);
+            }
+        }
+
+        private static Expression<Func<IWeatherForecastService, WeatherForecast>> InvokeGetWeatherForecast()
+        {
+            return x => x.GetWeatherForecast(LocationKey, It.IsAny<string>(),
+                It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>());
+        }
+
+        private Expression<Func<ILocationService, IList<Location>>> InvokeGetLocations()
+        {
+            return x => x.GetLocations(It.IsAny<string>(), _location, It.IsAny<string>(),
+                It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<string>());
+        }
+
+        private static Expression<Func<IWindSpeedConverterService, int>> InvokeKilometersPerHourToBeaufort()
+        {
+            return x => x.KilometersPerHourToBeaufort(It.IsAny<double>());
         }
     }
 }
