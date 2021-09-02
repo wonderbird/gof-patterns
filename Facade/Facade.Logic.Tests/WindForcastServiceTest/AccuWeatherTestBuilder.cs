@@ -78,7 +78,7 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
             _windSpeedConverterServiceMock = new Mock<IWindSpeedConverterService>();
             foreach (var forecast in _dailyForecasts)
             {
-                _windSpeedConverterServiceMock.Setup(InvokeKilometersPerHourToBeaufort()).Returns((int)forecast.Day.Wind.Speed.Value);
+                _windSpeedConverterServiceMock.Setup(InvokeKilometersPerHourToBeaufort(forecast.Day.Wind.Speed.Value)).Returns((int)forecast.Day.Wind.Speed.Value);
             }
         }
 
@@ -97,6 +97,11 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
         private static Expression<Func<IWindSpeedConverterService, int>> InvokeKilometersPerHourToBeaufort()
         {
             return x => x.KilometersPerHourToBeaufort(It.IsAny<double>());
+        }
+
+        private static Expression<Func<IWindSpeedConverterService, int>> InvokeKilometersPerHourToBeaufort(double windSpeed)
+        {
+            return x => x.KilometersPerHourToBeaufort(windSpeed);
         }
     }
 }

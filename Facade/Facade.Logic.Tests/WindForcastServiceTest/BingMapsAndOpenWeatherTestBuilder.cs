@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Facade.Logic.BingMapsAndOpenWeather;
 using Facade.Logic.BingMapsAndOpenWeather.LocationApi;
 using Facade.Logic.BingMapsAndOpenWeather.WeatherForecastApi;
@@ -28,8 +30,7 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
                 .Zip(windSpeedForNextDays)
                 .Select(epochDateAndWindSpeed => new WeatherForecastForMoment
                 {
-                    dt = epochDateAndWindSpeed.First,
-                    wind_speed = epochDateAndWindSpeed.Second
+                    dt = epochDateAndWindSpeed.First, wind_speed = epochDateAndWindSpeed.Second
                 })
                 .ToList();
         }
@@ -51,21 +52,16 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
 
         public void VerifyMocks()
         {
-            _weatherForecastServiceMock.Verify(x =>
-                x.GetWeatherForecast(Latitude, Longitude, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
-            _locationServiceMock.Verify(x => x.GetLocations(_location, It.IsAny<string>(), It.IsAny<string>(),
-                It.IsAny<int>(), It.IsAny<string>()));
-            _windSpeedConverterServiceMock.Verify(x => x.MetersPerSecondToBeaufort(It.IsAny<double>()));
+            _weatherForecastServiceMock.Verify(InvokeGetWeatherForecast());
+            _locationServiceMock.Verify(InvokeGetLocations());
+            _windSpeedConverterServiceMock.Verify(InvokeMetersPerSecondToBeaufort());
         }
 
         private void SetupWeatherForecastMock()
         {
             var weatherForecast = new WeatherForecast { daily = _dailyForecasts };
             _weatherForecastServiceMock = new Mock<IWeatherForecastService>();
-            _weatherForecastServiceMock.Setup(x =>
-                    x.GetWeatherForecast(Latitude, Longitude, It.IsAny<string>(), It.IsAny<string>(),
-                        It.IsAny<string>()))
-                .Returns(weatherForecast);
+            _weatherForecastServiceMock.Setup(InvokeGetWeatherForecast()).Returns(weatherForecast);
         }
 
         private void SetupLocationServiceMock()
@@ -75,18 +71,39 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
                 new() { point = new Point { coordinates = new List<double> { Latitude, Longitude } } }
             };
             _locationServiceMock = new Mock<ILocationService>();
-            _locationServiceMock.Setup(x =>
-                    x.GetLocations(_location, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(),
-                        It.IsAny<string>()))
-                .Returns(locations);
+            _locationServiceMock.Setup(InvokeGetLocations()).Returns(locations);
         }
 
         private void SetupWindSpeedConverterServiceMock()
         {
             _windSpeedConverterServiceMock = new Mock<IWindSpeedConverterService>();
             foreach (var forecast in _dailyForecasts)
-                _windSpeedConverterServiceMock.Setup(x => x.MetersPerSecondToBeaufort(forecast.wind_speed))
-                    .Returns((int)forecast.wind_speed);
+            {
+                _windSpeedConverterServiceMock.Setup(InvokeMetersPerSecondToBeaufort(forecast.wind_speed)).Returns((int)forecast.wind_speed);
+            }
+        }
+
+        private static Expression<Func<IWeatherForecastService, WeatherForecast>> InvokeGetWeatherForecast()
+        {
+            return x =>
+                x.GetWeatherForecast(Latitude, Longitude, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>());
+        }
+
+        private static Expression<Func<IWindSpeedConverterService, int>> InvokeMetersPerSecondToBeaufort()
+        {
+            return x => x.MetersPerSecondToBeaufort(It.IsAny<double>());
+        }
+
+        private Expression<Func<ILocationService, List<Resource>>> InvokeGetLocations()
+        {
+            return x => x.GetLocations(_location, It.IsAny<string>(), It.IsAny<string>(),
+                It.IsAny<int>(), It.IsAny<string>());
+        }
+
+        private static Expression<Func<IWindSpeedConverterService, int>> InvokeMetersPerSecondToBeaufort(
+            double windSpeed)
+        {
+            return x => x.MetersPerSecondToBeaufort(windSpeed);
         }
     }
 }
