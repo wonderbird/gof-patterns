@@ -20,6 +20,9 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
     /// </remarks>
     public class WindForecastServiceTest
     {
+        private const string Location = "Sample Location";
+        private static readonly int[] WindSpeedForFiveDays = { 7, 8, 9, 10, 11 };
+
         [Theory]
         [InlineData(typeof(BingMapsAndOpenWeatherTestBuilder), 0, 7)]
         [InlineData(typeof(BingMapsAndOpenWeatherTestBuilder), 4, 11)]
@@ -28,16 +31,21 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
         public void GetWindForecast_GivenDayInTheFuture_ReturnsWindSpeed(Type testBuilderType, int daysFromToday,
             int expectedWindSpeedBeaufort)
         {
-            const string location = "Sample Location";
-
-            var builder = (ITestBuilder)Activator.CreateInstance(testBuilderType);
-            var director = new TestDirector(builder);
-
-            director.SetupWindspeedForNextDays(7, 8, 9, 10, 11);
-            var actualWindSpeedBeaufort = director.GetWindForecastBeaufort(location, daysFromToday);
+            var director = GivenWindSpeedForecastForFiveDays(testBuilderType);
+            var actualWindSpeedBeaufort = director.GetWindForecastBeaufort(Location, daysFromToday);
 
             director.VerifyMocks();
             Assert.Equal(expectedWindSpeedBeaufort, actualWindSpeedBeaufort);
+        }
+
+        private static TestDirector GivenWindSpeedForecastForFiveDays(Type testBuilderType)
+        {
+            var builder = (ITestBuilder)Activator.CreateInstance(testBuilderType);
+            var director = new TestDirector(builder);
+
+            director.SetupWindspeedForNextDays(WindSpeedForFiveDays);
+
+            return director;
         }
 
         [Theory]
@@ -48,15 +56,10 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
         public void GetWindForecast_InvalidDayInTheFuture_ThrowsOutOfRangeException(Type testBuilderType,
             int daysFromToday)
         {
-            const string location = "Sample Location";
-
-            var builder = (ITestBuilder)Activator.CreateInstance(testBuilderType);
-            var director = new TestDirector(builder);
-
-            director.SetupWindspeedForNextDays(7, 8, 9, 10, 11);
+            var director = GivenWindSpeedForecastForFiveDays(testBuilderType);
 
             Assert.Throws<ForecastNotAvailableException>(
-                () => director.GetWindForecastBeaufort(location, daysFromToday));
+                () => director.GetWindForecastBeaufort(Location, daysFromToday));
         }
     }
 }
