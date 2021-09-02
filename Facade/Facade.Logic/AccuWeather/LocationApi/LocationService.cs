@@ -36,9 +36,7 @@ namespace Facade.Logic.AccuWeather.LocationApi
             }
             catch (JsonException)
             {
-                var message = string.Format(CultureInfo.InvariantCulture, StringResources.UnexpectedApiResponse,
-                    payload);
-                throw new WebException(message);
+                throw new UnexpectedApiResponseException(payload);
             }
         }
     }

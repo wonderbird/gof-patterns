@@ -22,10 +22,10 @@ namespace Facade.Logic.Tests.AccuWeather.LocationApi
         }
 
         [Fact]
-        public void GetLocation_InvalidApiKey_ThrowsWebException()
+        public void GetLocation_InvalidApiKey_ThrowsUnexpectedApiResponseException()
         {
             var locationService = new LocationService();
-            Assert.Throws<WebException>(() => locationService.GetLocations("INVALID API KEY", "", "", false, 0, ""));
+            Assert.Throws<UnexpectedApiResponseException>(() => locationService.GetLocations("INVALID API KEY", "", "", false, 0, ""));
         }
     }
 }

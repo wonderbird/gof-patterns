@@ -29,9 +29,7 @@ namespace Facade.Logic.BingMapsAndOpenWeather.WeatherForecastApi
 
             if (forecast.daily.Count == 0)
             {
-                var message = string.Format(CultureInfo.InvariantCulture, StringResources.UnexpectedApiResponse,
-                    payload);
-                throw new WebException(message);
+                throw new UnexpectedApiResponseException(payload);
             }
 
             return forecast;

@@ -32,9 +32,7 @@ namespace Facade.Logic.BingMapsAndOpenWeather.LocationApi
 
             if (responseObj.resourceSets.Count == 0)
             {
-                var message = string.Format(CultureInfo.InvariantCulture, StringResources.UnexpectedApiResponse,
-                    payload);
-                throw new WebException(message);
+                throw new UnexpectedApiResponseException(payload);
             }
 
             return responseObj.resourceSets[0].resources;

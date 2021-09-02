@@ -23,10 +23,10 @@ namespace Facade.Logic.Tests.AccuWeather.WeatherForecastApi
         }
 
         [Fact]
-        public void GetWeatherForecast_InvalidApiKey_ThrowsWebException()
+        public void GetWeatherForecast_InvalidApiKey_ThrowsUnexpectedApiResponseException()
         {
             var weatherForecastService = new WeatherForecastService();
-            Assert.Throws<WebException>(() =>
+            Assert.Throws<UnexpectedApiResponseException>(() =>
                 weatherForecastService.GetWeatherForecast("", "INVALID API KEY", "", false, false));
         }
     }

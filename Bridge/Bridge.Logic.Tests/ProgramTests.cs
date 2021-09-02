@@ -10,8 +10,7 @@ namespace Bridge.Logic.Tests
             Program.Logger = new SyncLogger();
             Program.Main(null);
 
-            var allMessagesCount = Program.Logger.GetAllMessages().Count;
-            Assert.Equal(2, allMessagesCount);
+            AssertTwoMessagesAreLogged();
         }
 
         [Fact]
@@ -20,8 +19,8 @@ namespace Bridge.Logic.Tests
             Program.Logger = new AsyncLogger();
 
             Program.Main(null);
-            var allMessagesCount = Program.Logger.GetAllMessages().Count;
-            Assert.Equal(2, allMessagesCount);
+
+            AssertTwoMessagesAreLogged();
         }
 
         [Fact]
@@ -29,9 +28,15 @@ namespace Bridge.Logic.Tests
         {
             var fileStore = new FileStore("c:\\temp\\temp.txt");
             Program.Logger = new SyncLogger(fileStore);
+
             Program.Main(null);
 
-            var allMessagesCount = fileStore.GetAllMessages().Count;
+            AssertTwoMessagesAreLogged();
+        }
+
+        private static void AssertTwoMessagesAreLogged()
+        {
+            var allMessagesCount = Program.Logger.GetAllMessages().Count;
             Assert.Equal(2, allMessagesCount);
         }
     }

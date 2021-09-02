@@ -20,10 +20,10 @@ namespace Facade.Logic.Tests.BingMapsAndOpenWeather.LocationApi
         }
 
         [Fact]
-        public void GetLocation_InvalidApiKey_ThrowsWebException()
+        public void GetLocation_InvalidApiKey_ThrowsUnexpectedApiResponseException()
         {
             var locationService = new LocationService();
-            Assert.Throws<WebException>(() => locationService.GetLocations("", "", "", 0, "INVALID API KEY"));
+            Assert.Throws<UnexpectedApiResponseException>(() => locationService.GetLocations("", "", "", 0, "INVALID API KEY"));
         }
     }
 }
