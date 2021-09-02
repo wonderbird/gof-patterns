@@ -26,6 +26,6 @@
 # https://www.jetbrains.com/help/resharper/dupFinder.html
 #
 
-PROJECT_NAME=Composite
-jb dupfinder --exclude="**\obj\**" --discard-cost=50 --discard-literals=true --show-text --o=dupfinder-report.xml "$PROJECT_NAME/$PROJECT_NAME.sln"
+PROJECT_NAME=GoFPatterns
+jb dupfinder --exclude="**\obj\**" --discard-cost=50 --discard-literals=true --show-text --o=dupfinder-report.xml "$PROJECT_NAME.sln"
 xsltproc "tools/dupfinder.xslt" "dupfinder-report.xml" > "dupfinder-report.html" 

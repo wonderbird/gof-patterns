@@ -35,19 +35,75 @@ machine.
 
 ### Build, Test, Run
 
-On any computer with the [.NET Core SDK](https://dotnet.microsoft.com/download) run the following commands from the
-folder containing the `Composite.sln` file in order to build, test and run the application:
+On any computer with the [.NET SDK](https://dotnet.microsoft.com/download) run the following commands from the folder
+containing the `GoFPatterns.sln` file in order to build and test:
 
-```sh
+```shell
 dotnet build
 dotnet test
-dotnet run --project "Composite.App"
 ```
 
-### Finishing Touches
+To run one of the contained applications, e.g. the wind forecast app, enter:
 
-- Avoid duplicated code (use `tools\dupfinder.bat`).
-- Fix all static code analysis warnings.
-- Check the Cyclomatic Complexity of your source code files. For me, the most complex class has a value of (7 -
-  AccuWeather.WindForecastService) and the most complex methods have a value of (3 - GetWindForecastBeaufort in both
-  WindForecastService classes). See Visual Studio -> Analyze -> Calculate Code Metrics.
+```shell
+dotnet run --project "Facade/Facade.App"
+```
+
+### Before Creating a Pull Request ...
+
+#### ... apply code formatting rules
+
+```shell
+dotnet format
+```
+
+#### ... check code metrics
+
+Use [metrix++](https://github.com/metrixplusplus/metrixplusplus) to apply thresholds:
+
+```shell
+# Collect metrics
+metrix++ collect --std.code.complexity.cyclomatic --std.code.lines.code --std.code.todo.comments --std.code.maintindex.simple -- .
+
+# Get an overview
+metrix++ view --db-file=./metrixpp.db
+
+# Apply thresholds
+metrix++ limit --db-file=./metrixpp.db --max-limit=std.code.complexity:cyclomatic:5 --max-limit=std.code.lines:code:25:function --max-limit=std.code.todo:comments:0 --max-limit=std.code.mi:simple:1
+```
+
+At the time of writing, I want to stay below the following thresholds:
+
+```shell
+--max-limit=std.code.complexity:cyclomatic:5
+--max-limit=std.code.lines:code:25:function
+--max-limit=std.code.todo:comments:0
+--max-limit=std.code.mi:simple:1
+```
+
+### ... fix code duplication
+
+The `tools\dupfinder.bat` or `tools/dupfinder.sh` file calls
+the [JetBrains dupfinder](https://www.jetbrains.com/help/resharper/dupFinder.html) tool and creates an HTML report of
+duplicated code blocks in the solution directory.
+
+In order to use the `dupfinder` you need to globally install
+the [JetBrains ReSharper Command Line Tools](https://www.jetbrains.com/help/resharper/ReSharper_Command_Line_Tools.html)
+On Unix like operating systems you also need [xsltproc](http://xmlsoft.org/XSLT/xsltproc2.html), which is pre-installed
+on macOS.
+
+From the folder containing the `.sln` file run
+
+```sh
+tools\dupfinder.bat
+```
+
+or
+
+```sh
+tools/dupfinder.sh
+```
+
+respectively.
+
+The report will be created as `dupfinder-report.html` in the current directory.
