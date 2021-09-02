@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using Facade.Logic.AccuWeather.LocationApi;
 using Xunit;
 
@@ -25,7 +24,8 @@ namespace Facade.Logic.Tests.AccuWeather.LocationApi
         public void GetLocation_InvalidApiKey_ThrowsUnexpectedApiResponseException()
         {
             var locationService = new LocationService();
-            Assert.Throws<UnexpectedApiResponseException>(() => locationService.GetLocations("INVALID API KEY", "", "", false, 0, ""));
+            Assert.Throws<UnexpectedApiResponseException>(() =>
+                locationService.GetLocations("INVALID API KEY", "", "", false, 0, ""));
         }
     }
 }

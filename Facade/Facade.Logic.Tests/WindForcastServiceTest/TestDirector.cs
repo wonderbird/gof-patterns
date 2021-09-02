@@ -4,10 +4,7 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
     {
         private readonly ITestBuilder builder;
 
-        public TestDirector(ITestBuilder builder)
-        {
-            this.builder = builder;
-        }
+        public TestDirector(ITestBuilder builder) => this.builder = builder;
 
         public void SetupWindspeedForNextDays(params int[] windSpeedForNextDays)
         {

@@ -4,17 +4,14 @@ namespace Bridge
 {
     public abstract class Logger
     {
-        protected IMessageStore MessageStore { get; set; }
-
         protected Logger()
             : this(new MemoryStore())
         {
         }
 
-        protected Logger(IMessageStore messageStore)
-        {
-            MessageStore = messageStore;
-        }
+        protected Logger(IMessageStore messageStore) => MessageStore = messageStore;
+
+        protected IMessageStore MessageStore { get; set; }
 
         public abstract void Log(string message);
 

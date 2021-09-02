@@ -9,10 +9,7 @@ namespace Bridge.Logic.Tests
         private readonly TimeSpan _delay;
         private readonly List<string> _messages = new();
 
-        public SleepingMessageStore(TimeSpan delay)
-        {
-            _delay = delay;
-        }
+        public SleepingMessageStore(TimeSpan delay) => _delay = delay;
 
         public void Add(string message)
         {
@@ -20,9 +17,6 @@ namespace Bridge.Logic.Tests
             _messages.Add(message);
         }
 
-        public IList<string> GetAllMessages()
-        {
-            return _messages;
-        }
+        public IList<string> GetAllMessages() => _messages;
     }
 }

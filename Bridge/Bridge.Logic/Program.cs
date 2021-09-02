@@ -14,7 +14,9 @@ namespace Bridge
             Logger.Flush();
             var messages = Logger.GetAllMessages();
             foreach (var message in messages)
+            {
                 Console.WriteLine(message);
+            }
         }
     }
 }

@@ -19,10 +19,7 @@ namespace Bridge
             MessageStore.Add(message);
         }
 
-        public override IList<string> GetAllMessages()
-        {
-            return MessageStore.GetAllMessages();
-        }
+        public override IList<string> GetAllMessages() => MessageStore.GetAllMessages();
 
         public override void Flush()
         {

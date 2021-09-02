@@ -28,9 +28,6 @@ namespace Bridge
             Task.WaitAll(_tasks.ToArray());
         }
 
-        public override IList<string> GetAllMessages()
-        {
-            return MessageStore.GetAllMessages();
-        }
+        public override IList<string> GetAllMessages() => MessageStore.GetAllMessages();
     }
 }

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Facade.Logic\Facade.Logic.csproj" />
+        <ProjectReference Include="..\Facade.Logic\Facade.Logic.csproj"/>
     </ItemGroup>
 
 </Project>

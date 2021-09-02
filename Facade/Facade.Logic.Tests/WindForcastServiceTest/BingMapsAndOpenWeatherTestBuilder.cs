@@ -30,7 +30,8 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
                 .Zip(windSpeedForNextDays)
                 .Select(epochDateAndWindSpeed => new WeatherForecastForMoment
                 {
-                    dt = epochDateAndWindSpeed.First, wind_speed = epochDateAndWindSpeed.Second
+                    dt = epochDateAndWindSpeed.First,
+                    wind_speed = epochDateAndWindSpeed.Second
                 })
                 .ToList();
         }
@@ -44,11 +45,9 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
             SetupWindSpeedConverterServiceMock();
         }
 
-        public IWindForecastService CreateWindForecastService()
-        {
-            return new WindForecastService(_weatherForecastServiceMock.Object, _locationServiceMock.Object,
+        public IWindForecastService CreateWindForecastService() =>
+            new WindForecastService(_weatherForecastServiceMock.Object, _locationServiceMock.Object,
                 _windSpeedConverterServiceMock.Object);
-        }
 
         public void VerifyMocks()
         {
@@ -79,7 +78,8 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
             _windSpeedConverterServiceMock = new Mock<IWindSpeedConverterService>();
             foreach (var forecast in _dailyForecasts)
             {
-                _windSpeedConverterServiceMock.Setup(InvokeMetersPerSecondToBeaufort(forecast.wind_speed)).Returns((int)forecast.wind_speed);
+                _windSpeedConverterServiceMock.Setup(InvokeMetersPerSecondToBeaufort(forecast.wind_speed))
+                    .Returns((int)forecast.wind_speed);
             }
         }
 

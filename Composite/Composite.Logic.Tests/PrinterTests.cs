@@ -17,11 +17,7 @@ namespace Composite.Logic.Tests
         [Fact]
         public void PrintShoppingCart_CartContains2Products_Returns2Strings()
         {
-            var shoppingCart = new List<IPrintableProduct>
-            {
-                new Product(),
-                new Product()
-            };
+            var shoppingCart = new List<IPrintableProduct> { new Product(), new Product() };
             var output = Printer.PrintShoppingCart(shoppingCart);
 
             Assert.Equal(2, output.Count);
@@ -32,12 +28,7 @@ namespace Composite.Logic.Tests
         {
             var shoppingCart = new List<IPrintableProduct>
             {
-                new Product
-                {
-                    Quantity = 3,
-                    Name = "Parrot",
-                    SingleItemPrice = 300.0M
-                }
+                new Product { Quantity = 3, Name = "Parrot", SingleItemPrice = 300.0M }
             };
 
             var output = Printer.PrintShoppingCart(shoppingCart);
@@ -51,11 +42,7 @@ namespace Composite.Logic.Tests
         {
             var shoppingCart = new List<IPrintableProduct>
             {
-                new DiscountedProducts
-                {
-                    Name = "Pet Food",
-                    DiscountRate = 0.3
-                }
+                new DiscountedProducts { Name = "Pet Food", DiscountRate = 0.3 }
             };
 
             var output = Printer.PrintShoppingCart(shoppingCart);

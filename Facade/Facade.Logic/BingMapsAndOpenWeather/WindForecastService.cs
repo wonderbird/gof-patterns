@@ -34,8 +34,10 @@ namespace Facade.Logic.BingMapsAndOpenWeather
         public int GetWindForecastBeaufort(string location, int daysFromToday)
         {
             if (daysFromToday < 0)
+            {
                 throw new ForecastNotAvailableException(nameof(daysFromToday), daysFromToday,
                     "daysFromToday must be greater or equal 0");
+            }
 
             var locations = locationService.GetLocations(location, "0", "", 1, LocationServiceApiKey);
             var lat = locations[0].point.coordinates[0];
@@ -49,8 +51,10 @@ namespace Facade.Logic.BingMapsAndOpenWeather
                 weatherForecast.daily.FirstOrDefault(x => desiredDate == DateTimeOffset.FromUnixTimeSeconds(x.dt).Date);
 
             if (desiredForecast == null)
+            {
                 throw new ForecastNotAvailableException(nameof(daysFromToday), daysFromToday,
                     weatherForecast.daily.Last().dt);
+            }
 
             var windSpeedMetersPerSecond = desiredForecast.wind_speed;
             var windSpeedBeaufort = windSpeedConverterService.MetersPerSecondToBeaufort(windSpeedMetersPerSecond);

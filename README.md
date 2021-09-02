@@ -35,8 +35,8 @@ machine.
 
 ### Build, Test, Run
 
-On any computer with the [.NET SDK](https://dotnet.microsoft.com/download) run the following commands from the
-folder containing the `GoFPatterns.sln` file in order to build and test:
+On any computer with the [.NET SDK](https://dotnet.microsoft.com/download) run the following commands from the folder
+containing the `GoFPatterns.sln` file in order to build and test:
 
 ```shell
 dotnet build

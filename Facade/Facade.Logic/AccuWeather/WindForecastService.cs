@@ -32,8 +32,10 @@ namespace Facade.Logic.AccuWeather
         public int GetWindForecastBeaufort(string location, int daysFromToday)
         {
             if (daysFromToday < 0)
+            {
                 throw new ForecastNotAvailableException(nameof(daysFromToday), daysFromToday,
                     "daysFromToday must be greater or equal 0");
+            }
 
             var locations = locationService.GetLocations(AccuWeatherServiceApiKey, location, "de-de", false, 0,
                 "NoOfficialMatchFound");
@@ -47,8 +49,10 @@ namespace Facade.Logic.AccuWeather
                 desiredDate == DateTimeOffset.FromUnixTimeSeconds(x.EpochDate).Date);
 
             if (desiredForecast == null)
+            {
                 throw new ForecastNotAvailableException(nameof(daysFromToday), daysFromToday,
                     weatherForecast.DailyForecasts.Last().EpochDate);
+            }
 
             var windSpeedKmh = desiredForecast.Day.Wind.Speed.Value;
             var windSpeedBeaufort = windSpeedConverterService.KilometersPerHourToBeaufort(windSpeedKmh);

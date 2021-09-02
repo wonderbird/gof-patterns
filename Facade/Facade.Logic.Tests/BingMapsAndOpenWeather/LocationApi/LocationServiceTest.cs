@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using Facade.Logic.BingMapsAndOpenWeather.LocationApi;
 using Xunit;
 
@@ -23,7 +22,8 @@ namespace Facade.Logic.Tests.BingMapsAndOpenWeather.LocationApi
         public void GetLocation_InvalidApiKey_ThrowsUnexpectedApiResponseException()
         {
             var locationService = new LocationService();
-            Assert.Throws<UnexpectedApiResponseException>(() => locationService.GetLocations("", "", "", 0, "INVALID API KEY"));
+            Assert.Throws<UnexpectedApiResponseException>(() =>
+                locationService.GetLocations("", "", "", 0, "INVALID API KEY"));
         }
     }
 }

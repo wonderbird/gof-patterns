@@ -46,11 +46,9 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
             SetupWindSpeedConverterServiceMock();
         }
 
-        public IWindForecastService CreateWindForecastService()
-        {
-            return new WindForecastService(_weatherForecastServiceMock.Object, _locationServiceMock.Object,
+        public IWindForecastService CreateWindForecastService() =>
+            new WindForecastService(_weatherForecastServiceMock.Object, _locationServiceMock.Object,
                 _windSpeedConverterServiceMock.Object);
-        }
 
         public void VerifyMocks()
         {
@@ -78,7 +76,8 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
             _windSpeedConverterServiceMock = new Mock<IWindSpeedConverterService>();
             foreach (var forecast in _dailyForecasts)
             {
-                _windSpeedConverterServiceMock.Setup(InvokeKilometersPerHourToBeaufort(forecast.Day.Wind.Speed.Value)).Returns((int)forecast.Day.Wind.Speed.Value);
+                _windSpeedConverterServiceMock.Setup(InvokeKilometersPerHourToBeaufort(forecast.Day.Wind.Speed.Value))
+                    .Returns((int)forecast.Day.Wind.Speed.Value);
             }
         }
 
@@ -99,7 +98,8 @@ namespace Facade.Logic.Tests.WindForcastServiceTest
             return x => x.KilometersPerHourToBeaufort(It.IsAny<double>());
         }
 
-        private static Expression<Func<IWindSpeedConverterService, int>> InvokeKilometersPerHourToBeaufort(double windSpeed)
+        private static Expression<Func<IWindSpeedConverterService, int>> InvokeKilometersPerHourToBeaufort(
+            double windSpeed)
         {
             return x => x.KilometersPerHourToBeaufort(windSpeed);
         }

@@ -11,9 +11,6 @@ namespace Bridge
             _messages.Add(message);
         }
 
-        public IList<string> GetAllMessages()
-        {
-            return _messages;
-        }
+        public IList<string> GetAllMessages() => _messages;
     }
 }
