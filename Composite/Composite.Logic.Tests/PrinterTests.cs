@@ -33,8 +33,7 @@ namespace Composite.Logic.Tests
 
             var output = Printer.PrintShoppingCart(shoppingCart);
 
-            const string expectedOutput = "3\tParrot\t300.00\t900.00";
-            Assert.Equal(expectedOutput, output[0]);
+            Assert.Equal("3\tParrot\t300.00\t900.00", output[0]);
         }
 
         [Fact]
@@ -47,8 +46,7 @@ namespace Composite.Logic.Tests
 
             var output = Printer.PrintShoppingCart(shoppingCart);
 
-            const string expectedOutput = "\tPet Food (Discount: 30 %)\t";
-            Assert.Equal(expectedOutput, output[0]);
+            Assert.Equal("\tPet Food (Discount: 30 %)\t", output[0]);
         }
     }
 }
