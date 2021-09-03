@@ -25,7 +25,7 @@ namespace Facade.Logic.BingMapsAndOpenWeather.WeatherForecastApi
             var payload = response.Content.ReadAsStringAsync().Result;
             var forecast = JsonSerializer.Deserialize<WeatherForecast>(payload);
 
-            if (forecast.daily.Count == 0)
+            if (forecast == null || forecast.daily.Count == 0)
             {
                 throw new UnexpectedApiResponseException(payload);
             }

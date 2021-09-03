@@ -25,7 +25,7 @@ namespace Facade.Logic.AccuWeather.WeatherForecastApi
             var payload = response.Content.ReadAsStringAsync().Result;
             var forecast = JsonSerializer.Deserialize<WeatherForecast>(payload);
 
-            if (forecast.DailyForecasts.Count == 0)
+            if (forecast == null || forecast.DailyForecasts.Count == 0)
             {
                 throw new UnexpectedApiResponseException(payload);
             }
