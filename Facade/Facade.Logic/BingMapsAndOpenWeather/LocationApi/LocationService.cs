@@ -12,6 +12,23 @@ namespace Facade.Logic.BingMapsAndOpenWeather.LocationApi
             string key)
         {
             var httpClient = new HttpClient();
+            var uri = BuildGetLocationsUri(query, includeNeighbourhood, include, maxResults, key);
+
+            var response = httpClient.GetAsync(uri).Result;
+            var payload = response.Content.ReadAsStringAsync().Result;
+            var responseObj = JsonSerializer.Deserialize<LocationApiResponse>(payload);
+
+            if (responseObj == null || responseObj.resourceSets.Count == 0)
+            {
+                throw new UnexpectedApiResponseException(payload);
+            }
+
+            return responseObj.resourceSets[0].resources;
+        }
+
+        private static Uri BuildGetLocationsUri(string query, string includeNeighbourhood, string include, int maxResults,
+            string key)
+        {
             var uri = new UriBuilder
             {
                 Scheme = "http",
@@ -23,17 +40,7 @@ namespace Facade.Logic.BingMapsAndOpenWeather.LocationApi
                         + $"maxResults={maxResults}&"
                         + $"key={key}"
             }.Uri;
-
-            var response = httpClient.GetAsync(uri).Result;
-            var payload = response.Content.ReadAsStringAsync().Result;
-            var responseObj = JsonSerializer.Deserialize<LocationApiResponse>(payload);
-
-            if (responseObj.resourceSets.Count == 0)
-            {
-                throw new UnexpectedApiResponseException(payload);
-            }
-
-            return responseObj.resourceSets[0].resources;
+            return uri;
         }
     }
 }
