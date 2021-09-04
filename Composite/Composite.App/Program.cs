@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Composite.Logic.Tests;
 
@@ -10,16 +11,17 @@ namespace Composite.App
         {
             Output.Write("Available shapes:");
             Output.Write("Rectangle: rect x y width height (example: rect 1 2 10 20)");
-            Output.Write("Enter shape:");
+            Output.Write("Enter shape (enter a blank line to finish):");
 
-            var input = Input.Read();
-            var fields = input.Split(" ");
-            var left = Convert.ToInt32(fields[1], CultureInfo.CurrentCulture);
-            var top = Convert.ToInt32(fields[2], CultureInfo.CurrentCulture);
-            var width = Convert.ToInt32(fields[3], CultureInfo.CurrentCulture);
-            var height = Convert.ToInt32(fields[4], CultureInfo.CurrentCulture);
+            var rectangles = new List<Rectangle>();
 
-            Output.Write($"({left}, {top}) ({left + width}, {top + height})");
+            string input;
+            while (!string.IsNullOrEmpty(input = Input.Read()))
+            {
+                rectangles.Add(new Rectangle(input));
+            }
+
+            Output.Write(rectangles[0].GetBoundingBox().ToString());
         }
 
         public static IWriter Output { get; set; } = new ConsoleWriter();

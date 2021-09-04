@@ -16,7 +16,7 @@ The requirements listed in the following will guide the application development 
 
 - Extend the program such that one can enter several shapes line by line. Entering an empty line shall end shape entering.
 
-- After an empty line has been entered, the program shall print out the top left and bottom right coordinates of the smallest rectangle into which the entered shapes fit.
+- After an empty line has been entered, the program shall print out the top left and bottom right coordinates of the smallest rectangle into which all entered shapes fit.
 
 Example:
 
