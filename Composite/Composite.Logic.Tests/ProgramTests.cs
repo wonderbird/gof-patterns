@@ -33,7 +33,8 @@ namespace Composite.Logic.Tests
 
             Program.Main(null);
 
-            _inputMock.Verify(x => x.Read());
+            var expectedReadCalls = 2;
+            _inputMock.Verify(x => x.Read(), Times.Exactly(expectedReadCalls));
             _outputMock.Verify(x => x.Write(expected));
             _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
         }
@@ -48,7 +49,8 @@ namespace Composite.Logic.Tests
 
             Program.Main(null);
 
-            _inputMock.Verify(x => x.Read());
+            var expectedReadCalls = 2;
+            _inputMock.Verify(x => x.Read(), Times.Exactly(expectedReadCalls));
             _outputMock.Verify(x => x.Write(expected));
             _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
         }
@@ -68,15 +70,13 @@ namespace Composite.Logic.Tests
 
             Program.Main(null);
 
-            _inputMock.Verify(x => x.Read(), Times.Exactly(3));
+            var expectedReadCalls = input.Length + 1;
+            _inputMock.Verify(x => x.Read(), Times.Exactly(expectedReadCalls));
             _outputMock.Verify(x => x.Write(expected));
             _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
         }
 
-        // TODO: implement scale group
-#pragma warning disable xUnit1004
-        [Theory(Skip = "Not implemented yet")]
-#pragma warning restore xUnit1004
+        [Theory]
         [InlineData(new[] { "scale group 1.0", "circle 170 170 50", "end group" }, "(120, 120) (220, 220)")]
         public void Main_ScaleGroup_PrintsScaledBoundingBox(string[] input, string expected)
         {
@@ -90,7 +90,8 @@ namespace Composite.Logic.Tests
 
             Program.Main(null);
 
-            _inputMock.Verify(x => x.Read(), Times.Exactly(3));
+            var expectedReadCalls = input.Length + 1;
+            _inputMock.Verify(x => x.Read(), Times.Exactly(expectedReadCalls));
             _outputMock.Verify(x => x.Write(expected));
             _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
         }
