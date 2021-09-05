@@ -11,23 +11,35 @@ namespace Composite.App
 
         public static void Main(string[] args)
         {
-            Output.Write("Available shapes:");
-            Output.Write("Rectangle:   rect x y width height  (example: rect 1 2 10 20)");
-            Output.Write("   Circle: circle x y r             (example: rect 1 2 5)");
-            Output.Write("Enter shape (enter a blank line to finish):");
+            PrintUsageInstructions();
 
-            var shapes = new List<IShape>();
+            var inputLines = ReadUserInput();
 
-            string input;
-            while (!string.IsNullOrEmpty(input = Input.Read()))
-            {
-                var shape = ShapeFactory.Create(input);
-                shapes.Add(shape);
-            }
+            var shapes = ShapeFactory.FromUserInput(inputLines);
 
             var boundingBox = BoundingBoxMerger.Merge(shapes);
 
             Output.Write(boundingBox.ToString());
+        }
+
+        private static void PrintUsageInstructions()
+        {
+            Output.Write("Available shapes:");
+            Output.Write("Rectangle:   rect x y width height  (example: rect 1 2 10 20)");
+            Output.Write("   Circle: circle x y r             (example: rect 1 2 5)");
+            Output.Write("Enter shape (enter a blank line to finish):");
+        }
+
+        private static List<string> ReadUserInput()
+        {
+            var inputLines = new List<string>();
+            string input;
+            while (!string.IsNullOrEmpty(input = Input.Read()))
+            {
+                inputLines.Add(input);
+            }
+
+            return inputLines;
         }
     }
 }
