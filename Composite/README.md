@@ -4,26 +4,32 @@ In this kata you implement the Gang Of Four Composite Pattern [[1](#ref-1), [2](
 
 ## Kata Instructions
 
-Idea of this kata: We create a program to handle geometric shapes. The program shall calculate a rectangle into which a set of geometric shapes fit. This is the so called bounding box.
+Idea of this kata: We create a program to handle geometric shapes. The program shall calculate a rectangle into which a
+set of geometric shapes fit. This is the so called bounding box.
 
-Simplification: When developing the program, assume that the user will always enter correct data - skip input validation.
+Simplification: When developing the program, assume that the user will always enter correct data - skip input
+validation.
 
 The requirements listed in the following will guide the application development step by step.
 
-- Create a console program which allows to enter a rectangular shape. This means, the program allows to input "rect 1, 2, 10, 20", which represents a rectangle with the top left coordinate (1, 2), width 10 and height 20.
+- Create a console program which allows to enter a rectangular shape. This means, the program allows to input "rect 1,
+  2, 10, 20", which represents a rectangle with the top left coordinate (1, 2), width 10 and height 20.
 
-- The program shall print the top left and bottom right coordinate for the entered rectangle. In the above case, the program shall print "(1, 2) (11, 22)".
+- The program shall print the top left and bottom right coordinate for the entered rectangle. In the above case, the
+  program shall print "(1, 2) (11, 22)".
 
-- Extend the program such that one can enter several shapes line by line. Entering an empty line shall end shape entering.
+- Extend the program such that one can enter several shapes line by line. Entering an empty line shall end shape
+  entering.
 
-- After an empty line has been entered, the program shall print out the top left and bottom right coordinates of the smallest rectangle into which all entered shapes fit.
+- After an empty line has been entered, the program shall print out the top left and bottom right coordinates of the
+  smallest rectangle into which all entered shapes fit.
 
 Example:
 
 User input:
 
 ```text
-rect 5 5 10 10
+rect 5 5 5 10
 rect 8 8 1 10
 
 ```
@@ -33,16 +39,18 @@ The last line is a blank line, i.e. the user just hits enter.
 Program output:
 
 ```text
-(5, 5) (10, 18)
+(5, 5) (15, 18)
 ```
 
 - Extend the program such that the user can also add circles. The associated input is `circ 1 2 5` where the
-  - `1` represents the center x coordinate
-  - `2` represents the center y coordinate
-  - `5` represents the radius of the circle
-  - For circles the program considers a bounding box which fits exactly around the circle. In this case, the bounding box would be `(-4, -3) (6, 7)`.
+    - `1` represents the center x coordinate
+    - `2` represents the center y coordinate
+    - `5` represents the radius of the circle
+    - For circles the program considers a bounding box which fits exactly around the circle. In this case, the bounding
+      box would be `(-4, -3) (6, 7)`.
 
-- Extend the program such that the user can group shapes together and scale them. Associated input shall look as follows:
+- Extend the program such that the user can group shapes together and scale them. Associated input shall look as
+  follows:
 
 User input
 
@@ -53,7 +61,9 @@ rect 120 120 100 100
 end group
 ```
 
-This shall group two rectangle shapes and then shrink the width and height of the entire group by a factor of 0.1 each. The top left of the bounding box of the group shall stay the same, only the bottom right is adjusted. In this particular example, the program shall print
+This shall group two rectangle shapes and then shrink the width and height of the entire group by a factor of 0.1 each.
+The top left of the bounding box of the group shall stay the same, only the bottom right is adjusted. In this particular
+example, the program shall print
 
 ```text
 (20, 20) (40, 40)
@@ -77,7 +87,8 @@ Program output
 
 User input
 
-(The text after and including the '#' is not entered. It is a comment explaining the bounding rect at that stage. Start with the innermost scale group.)
+(The text after and including the '#' is not entered. It is a comment explaining the bounding rect at that stage. Start
+with the innermost scale group.)
 
 ```text
 rect 0 0 5 5         # (0, 0) (5, 5)

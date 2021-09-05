@@ -26,7 +26,8 @@ namespace Facade.Logic.BingMapsAndOpenWeather.LocationApi
             return responseObj.resourceSets[0].resources;
         }
 
-        private static Uri BuildGetLocationsUri(string query, string includeNeighbourhood, string include, int maxResults,
+        private static Uri BuildGetLocationsUri(string query, string includeNeighbourhood, string include,
+            int maxResults,
             string key)
         {
             var uri = new UriBuilder

@@ -1,4 +1,4 @@
-namespace Composite.Logic.Tests
+namespace Composite.App.IO
 {
     public interface IWriter
     {

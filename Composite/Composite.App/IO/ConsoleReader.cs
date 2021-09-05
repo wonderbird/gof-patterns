@@ -1,7 +1,6 @@
 using System;
-using Composite.Logic.Tests;
 
-namespace Composite.App
+namespace Composite.App.IO
 {
     public class ConsoleReader : IReader
     {

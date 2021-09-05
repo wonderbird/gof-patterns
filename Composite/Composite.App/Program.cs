@@ -1,12 +1,14 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using Composite.Logic.Tests;
+using Composite.App.IO;
+using Composite.Logic;
 
 namespace Composite.App
 {
     public static class Program
     {
+        public static IWriter Output { get; set; } = new ConsoleWriter();
+        public static IReader Input { get; set; } = new ConsoleReader();
+
         public static void Main(string[] args)
         {
             Output.Write("Available shapes:");
@@ -21,10 +23,9 @@ namespace Composite.App
                 rectangles.Add(new Rectangle(input));
             }
 
-            Output.Write(rectangles[0].GetBoundingBox().ToString());
-        }
+            var boundingBox = BoundingBoxMerger.Merge(rectangles);
 
-        public static IWriter Output { get; set; } = new ConsoleWriter();
-        public static IReader Input { get; set; } = new ConsoleReader();
+            Output.Write(boundingBox.ToString());
+        }
     }
 }

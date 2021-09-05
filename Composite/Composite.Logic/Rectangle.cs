@@ -1,14 +1,14 @@
 using System;
 using System.Globalization;
 
-namespace Composite.App
+namespace Composite.Logic
 {
     public class Rectangle
     {
+        private readonly int _height;
         private readonly int _left;
         private readonly int _top;
         private readonly int _width;
-        private readonly int _height;
 
         public Rectangle(string input)
         {
