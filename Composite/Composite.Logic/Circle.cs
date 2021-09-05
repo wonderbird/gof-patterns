@@ -9,16 +9,23 @@ namespace Composite.Logic
         private readonly int _centerY;
         private readonly int _radius;
 
-        public Circle(string input)
+        public Circle(int centerX, int centerY, int radius)
         {
-            var fields = input.Split(" ");
-
-            _centerX = Convert.ToInt32(fields[1], CultureInfo.CurrentCulture);
-            _centerY = Convert.ToInt32(fields[2], CultureInfo.CurrentCulture);
-            _radius = Convert.ToInt32(fields[3], CultureInfo.CurrentCulture);
+            _centerX = centerX;
+            _centerY = centerY;
+            _radius = radius;
         }
 
         public BoundingBox GetBoundingBox() =>
             new(_centerX - _radius, _centerY - _radius, _centerX + _radius, _centerY + _radius);
+
+        public static Circle FromUserInput(string input)
+        {
+            var fields = input.Split(" ");
+
+            return new Circle(Convert.ToInt32(fields[1], CultureInfo.CurrentCulture),
+                Convert.ToInt32(fields[2], CultureInfo.CurrentCulture),
+                Convert.ToInt32(fields[3], CultureInfo.CurrentCulture));
+        }
     }
 }

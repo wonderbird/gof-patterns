@@ -9,11 +9,7 @@ namespace Composite.Logic
         private readonly double _scaleFactor;
         private readonly List<IShape> _shapes = new();
 
-        public ScaleGroup(string inputLine)
-        {
-            var fields = inputLine.Split(" ");
-            _scaleFactor = Convert.ToDouble(fields[2], CultureInfo.CurrentCulture);
-        }
+        public ScaleGroup(double scaleFactor) => _scaleFactor = scaleFactor;
 
         public BoundingBox GetBoundingBox()
         {
@@ -21,6 +17,12 @@ namespace Composite.Logic
             var scaledBoundingBox = ScaleBoundingBox(unscaledBoundingBox, _scaleFactor);
 
             return scaledBoundingBox;
+        }
+
+        public static ScaleGroup FromUserInput(string inputLine)
+        {
+            var fields = inputLine.Split(" ");
+            return new ScaleGroup(Convert.ToDouble(fields[2], CultureInfo.CurrentCulture));
         }
 
 

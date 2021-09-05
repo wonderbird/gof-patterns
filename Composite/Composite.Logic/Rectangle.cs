@@ -10,16 +10,24 @@ namespace Composite.Logic
         private readonly int _top;
         private readonly int _width;
 
-        public Rectangle(string input)
+        public Rectangle(int left, int top, int width, int height)
         {
-            var fields = input.Split(" ");
-
-            _left = Convert.ToInt32(fields[1], CultureInfo.CurrentCulture);
-            _top = Convert.ToInt32(fields[2], CultureInfo.CurrentCulture);
-            _width = Convert.ToInt32(fields[3], CultureInfo.CurrentCulture);
-            _height = Convert.ToInt32(fields[4], CultureInfo.CurrentCulture);
+            _left = left;
+            _top = top;
+            _width = width;
+            _height = height;
         }
 
         public BoundingBox GetBoundingBox() => new(_left, _top, _left + _width, _top + _height);
+
+        public static Rectangle FromUserInput(string input)
+        {
+            var fields = input.Split(" ");
+
+            return new Rectangle(Convert.ToInt32(fields[1], CultureInfo.CurrentCulture),
+                Convert.ToInt32(fields[2], CultureInfo.CurrentCulture),
+                Convert.ToInt32(fields[3], CultureInfo.CurrentCulture),
+                Convert.ToInt32(fields[4], CultureInfo.CurrentCulture));
+        }
     }
 }

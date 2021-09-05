@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Composite.Logic;
 
-namespace Composite.Logic
+namespace Composite.App
 {
     public static class ShapeFactory
     {
-        private static IShape TakeSingleShapeFromUserInput(string input) =>
-            (ShapeIdentifier)input[0] switch
-            {
-                ShapeIdentifier.Rectangle => new Rectangle(input),
-                ShapeIdentifier.Circle => new Circle(input),
-                _ => throw new ArgumentException($"\"{input}\" does not start with shape name", nameof(input))
-            };
+        public static IShape FromUserInput(IEnumerable<string> inputLines)
+        {
+            var inputLinesStack = new Stack<string>(inputLines.Reverse());
+            var scaleGroup = new ScaleGroup(1.0);
+            return ConsumeInputAndAddShapesToScaleGroup(inputLinesStack, scaleGroup);
+        }
 
         private static IShape ConsumeInputAndAddShapesToScaleGroup(Stack<string> inputLines, ScaleGroup scaleGroup)
         {
@@ -22,7 +22,7 @@ namespace Composite.Logic
                 switch (scaleGroupIdentifier)
                 {
                     case ScaleGroupIdentifier.ScaleGroupStart:
-                        var subGroup = new ScaleGroup(inputLine);
+                        var subGroup = ScaleGroup.FromUserInput(inputLine);
                         ConsumeInputAndAddShapesToScaleGroup(inputLines, subGroup);
                         scaleGroup.Add(subGroup);
                         break;
@@ -39,12 +39,13 @@ namespace Composite.Logic
             return scaleGroup;
         }
 
-        public static IShape FromUserInput(IEnumerable<string> inputLines)
-        {
-            var inputLinesStack = new Stack<string>(inputLines.Reverse());
-            var scaleGroup = new ScaleGroup("scale group 1.0");
-            return ConsumeInputAndAddShapesToScaleGroup(inputLinesStack, scaleGroup);
-        }
+        private static IShape TakeSingleShapeFromUserInput(string input) =>
+            (ShapeIdentifier)input[0] switch
+            {
+                ShapeIdentifier.Rectangle => Rectangle.FromUserInput(input),
+                ShapeIdentifier.Circle => Circle.FromUserInput(input),
+                _ => throw new ArgumentException($"\"{input}\" does not start with shape name", nameof(input))
+            };
 
         private enum ShapeIdentifier
         {
