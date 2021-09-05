@@ -6,19 +6,13 @@ namespace Composite.Logic
 {
     public class ScaleGroup : IShape
     {
-        private readonly List<IShape> _shapes = new();
         private readonly double _scaleFactor;
+        private readonly List<IShape> _shapes = new();
 
         public ScaleGroup(string inputLine)
         {
             var fields = inputLine.Split(" ");
             _scaleFactor = Convert.ToDouble(fields[2], CultureInfo.CurrentCulture);
-        }
-
-
-        public void Add(IShape shape)
-        {
-            _shapes.Add(shape);
         }
 
         public BoundingBox GetBoundingBox()
@@ -27,6 +21,12 @@ namespace Composite.Logic
             var scaledBoundingBox = ScaleBoundingBox(unscaledBoundingBox, _scaleFactor);
 
             return scaledBoundingBox;
+        }
+
+
+        public void Add(IShape shape)
+        {
+            _shapes.Add(shape);
         }
 
         private BoundingBox GetUnscaledBoundingBox()

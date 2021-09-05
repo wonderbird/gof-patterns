@@ -6,18 +6,6 @@ namespace Composite.Logic
 {
     public static class ShapeFactory
     {
-        private enum ShapeIdentifier
-        {
-            Rectangle = 'r',
-            Circle = 'c'
-        }
-
-        private enum ScaleGroupIdentifier
-        {
-            ScaleGroupStart = 's',
-            ScaleGroupEnd = 'e'
-        }
-
         private static IShape TakeSingleShapeFromUserInput(string input) =>
             (ShapeIdentifier)input[0] switch
             {
@@ -56,6 +44,18 @@ namespace Composite.Logic
             var inputLinesStack = new Stack<string>(inputLines.Reverse());
             var scaleGroup = new ScaleGroup("scale group 1.0");
             return ConsumeInputAndAddShapesToScaleGroup(inputLinesStack, scaleGroup);
+        }
+
+        private enum ShapeIdentifier
+        {
+            Rectangle = 'r',
+            Circle = 'c'
+        }
+
+        private enum ScaleGroupIdentifier
+        {
+            ScaleGroupStart = 's',
+            ScaleGroupEnd = 'e'
         }
     }
 }

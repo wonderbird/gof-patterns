@@ -52,24 +52,7 @@ Program output:
 - Extend the program such that the user can group shapes together and scale them. Associated input shall look as
   follows:
 
-User input
-
-```text
-scale group 0.1
-rect 20 20 100 100
-circle 170 170 50
-end group
-```
-
-This shall group two rectangle shapes and then shrink the width and height of the entire group by a factor of 0.1 each.
-The top left of the bounding box of the group shall stay the same, only the bottom right is adjusted. In this particular
-example, the program shall print
-
-```text
-(20, 20) (40, 40)
-```
-
-User input
+User input for a single shape
 
 ```text
 scale group 0.1
@@ -83,7 +66,28 @@ Program output
 (10, 20) (11, 21)
 ```
 
-- Finally, the program shall allow nesting scale groups.
+The top left coordinate of the bounding box is kept. The width and height of the bounding box are scaled by the same
+factor.
+
+User input for scaling a group of shapes:
+
+```text
+scale group 0.1
+rect 20 20 100 100
+circle 170 170 50
+end group
+```
+
+This shall group two shapes and then shrink the width and height of the entire group by a factor of 0.1 each. The top
+left of the bounding box of the group shall stay the same, only the bottom right is adjusted. In this particular
+example, the program shall print
+
+```text
+(20, 20) (40, 40)
+```
+
+- Finally, the program shall allow nesting scale groups (note that this requirement might be fulfilled automatically by
+  the previous programming steps).
 
 User input
 
@@ -92,11 +96,11 @@ with the innermost scale group.)
 
 ```text
 rect 0 0 5 5         # (0, 0) (5, 5)
-scale group 0.5      # (10, 0) (30, 30) -> (10, 0) (20, 15)
+scale group 0.5      # (10, 0) (40, 30) -> (10, 0) (25, 15)
 rect 10 10 20 20     # (10, 10) (30, 30)
 circle 20 20 10      # (10, 10) (30, 30)
-scale group 0.1      # (20, 0) (120, 200) -> (20, 0) (30, 20)
-circle 120 100 100   # (20, 0) (120, 200)
+scale group 0.1      # (20, 0) (220, 200) -> (20, 0) (40, 20)
+circle 120 100 100   # (20, 0) (220, 200)
 end group
 end group 
 ```
@@ -104,7 +108,7 @@ end group
 Program output
 
 ```text
-(0, 0) (20, 15)
+(0, 0) (25, 15)
 ```
 
 ## References
