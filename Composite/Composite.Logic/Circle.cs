@@ -1,8 +1,7 @@
 using System;
 using System.Globalization;
-using Composite.Logic;
 
-namespace Composite.App
+namespace Composite.Logic
 {
     public class Circle : IShape
     {
@@ -19,6 +18,7 @@ namespace Composite.App
             _radius = Convert.ToInt32(fields[3], CultureInfo.CurrentCulture);
         }
 
-        public BoundingBox GetBoundingBox() => new BoundingBox(_centerX - _radius, _centerY - _radius, _centerX + _radius, _centerY + _radius);
+        public BoundingBox GetBoundingBox() =>
+            new(_centerX - _radius, _centerY - _radius, _centerX + _radius, _centerY + _radius);
     }
 }

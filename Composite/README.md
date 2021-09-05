@@ -57,7 +57,7 @@ User input
 ```text
 scale group 0.1
 rect 20 20 100 100
-rect 120 120 100 100
+circle 170 170 50
 end group
 ```
 

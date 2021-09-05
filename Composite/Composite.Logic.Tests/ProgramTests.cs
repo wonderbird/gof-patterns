@@ -55,7 +55,27 @@ namespace Composite.Logic.Tests
 
         [Theory]
         [InlineData(new[] { "rect 5 5 5 10", "rect 8 8 1 10" }, "(5, 5) (10, 18)")]
-        public void Main_MultipleRectangles_PrintsCombinedBoundingBox(string[] input, string expected)
+        [InlineData(new[] { "rect 20 20 100 100", "circle 170 170 50" }, "(20, 20) (220, 220)")]
+        public void Main_MultipleShapes_PrintsCombinedBoundingBox(string[] input, string expected)
+        {
+            var readInvocation = _inputMock.SetupSequence(x => x.Read());
+            foreach (var current in input)
+            {
+                readInvocation.Returns(current);
+            }
+
+            readInvocation.Returns("");
+
+            Program.Main(null);
+
+            _inputMock.Verify(x => x.Read(), Times.Exactly(3));
+            _outputMock.Verify(x => x.Write(expected));
+            _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
+        }
+
+        [Theory]
+        [InlineData(new[] { "scale group 1.0", "circle 170 170 50", "end group" }, "(120, 120) (220, 220)")]
+        public void Main_ScaleGroup_PrintsScaledBoundingBox(string[] input, string expected)
         {
             var readInvocation = _inputMock.SetupSequence(x => x.Read());
             foreach (var current in input)
