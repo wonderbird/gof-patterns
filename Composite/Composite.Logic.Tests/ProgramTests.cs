@@ -7,6 +7,8 @@ namespace Composite.Logic.Tests
 {
     public class ProgramTests
     {
+        private const int NumberOfDocumentationMessages = 4;
+
         private readonly Mock<IReader> _inputMock;
         private readonly Mock<IWriter> _outputMock;
 
@@ -33,7 +35,22 @@ namespace Composite.Logic.Tests
 
             _inputMock.Verify(x => x.Read());
             _outputMock.Verify(x => x.Write(expected));
-            _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(4));
+            _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
+        }
+
+        [Theory]
+        [InlineData("circle 1 2 5", "(-4, -3) (6, 7)")]
+        public void Main_SingleCircle_PrintsBoundingBox(string input, string expected)
+        {
+            _inputMock.SetupSequence(x => x.Read())
+                .Returns(input)
+                .Returns("");
+
+            Program.Main(null);
+
+            _inputMock.Verify(x => x.Read());
+            _outputMock.Verify(x => x.Write(expected));
+            _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
         }
 
         [Theory]
@@ -52,7 +69,7 @@ namespace Composite.Logic.Tests
 
             _inputMock.Verify(x => x.Read(), Times.Exactly(3));
             _outputMock.Verify(x => x.Write(expected));
-            _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(4));
+            _outputMock.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(NumberOfDocumentationMessages + 1));
         }
     }
 }

@@ -5,20 +5,20 @@ namespace Composite.Logic
 {
     public static class BoundingBoxMerger
     {
-        public static BoundingBox Merge(IList<Rectangle> rectangles)
+        public static BoundingBox Merge(IList<IShape> shapes)
         {
-            var boundingBox = rectangles[0].GetBoundingBox();
+            var merged = shapes[0].GetBoundingBox();
 
-            foreach (var rectangle in rectangles)
+            foreach (var shape in shapes)
             {
-                var currentShapeBoundingBox = rectangle.GetBoundingBox();
-                boundingBox.Left = Math.Min(boundingBox.Left, currentShapeBoundingBox.Left);
-                boundingBox.Top = Math.Min(boundingBox.Top, currentShapeBoundingBox.Top);
-                boundingBox.Right = Math.Max(boundingBox.Right, currentShapeBoundingBox.Right);
-                boundingBox.Bottom = Math.Max(boundingBox.Bottom, currentShapeBoundingBox.Bottom);
+                var current = shape.GetBoundingBox();
+                merged.Left = Math.Min(merged.Left, current.Left);
+                merged.Top = Math.Min(merged.Top, current.Top);
+                merged.Right = Math.Max(merged.Right, current.Right);
+                merged.Bottom = Math.Max(merged.Bottom, current.Bottom);
             }
 
-            return boundingBox;
+            return merged;
         }
     }
 }

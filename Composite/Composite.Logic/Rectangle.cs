@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Composite.Logic
 {
-    public class Rectangle
+    public class Rectangle : IShape
     {
         private readonly int _height;
         private readonly int _left;

@@ -12,18 +12,20 @@ namespace Composite.App
         public static void Main(string[] args)
         {
             Output.Write("Available shapes:");
-            Output.Write("Rectangle: rect x y width height (example: rect 1 2 10 20)");
+            Output.Write("Rectangle:   rect x y width height  (example: rect 1 2 10 20)");
+            Output.Write("   Circle: circle x y r             (example: rect 1 2 5)");
             Output.Write("Enter shape (enter a blank line to finish):");
 
-            var rectangles = new List<Rectangle>();
+            var shapes = new List<IShape>();
 
             string input;
             while (!string.IsNullOrEmpty(input = Input.Read()))
             {
-                rectangles.Add(new Rectangle(input));
+                var shape = ShapeFactory.Create(input);
+                shapes.Add(shape);
             }
 
-            var boundingBox = BoundingBoxMerger.Merge(rectangles);
+            var boundingBox = BoundingBoxMerger.Merge(shapes);
 
             Output.Write(boundingBox.ToString());
         }
