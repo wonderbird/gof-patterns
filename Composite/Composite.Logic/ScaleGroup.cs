@@ -1,13 +1,35 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Composite.Logic
 {
     public class ScaleGroup : IShape
     {
         private readonly List<IShape> _shapes = new();
+        private readonly double _scaleFactor;
+
+        public ScaleGroup(string inputLine)
+        {
+            var fields = inputLine.Split(" ");
+            _scaleFactor = Convert.ToDouble(fields[2], CultureInfo.CurrentCulture);
+        }
+
+
+        public void Add(IShape shape)
+        {
+            _shapes.Add(shape);
+        }
 
         public BoundingBox GetBoundingBox()
+        {
+            var unscaledBoundingBox = GetUnscaledBoundingBox();
+            var scaledBoundingBox = ScaleBoundingBox(unscaledBoundingBox, _scaleFactor);
+
+            return scaledBoundingBox;
+        }
+
+        private BoundingBox GetUnscaledBoundingBox()
         {
             var merged = _shapes[0].GetBoundingBox();
 
@@ -23,9 +45,18 @@ namespace Composite.Logic
             return merged;
         }
 
-        public void Add(IShape shape)
+        private static BoundingBox ScaleBoundingBox(BoundingBox unscaledBoundingBox, double scaleFactor)
         {
-            _shapes.Add(shape);
+            var scaledBoundingBox = new BoundingBox(unscaledBoundingBox.Left, unscaledBoundingBox.Top, 0, 0);
+
+            var width = unscaledBoundingBox.Right - unscaledBoundingBox.Left;
+            var height = unscaledBoundingBox.Bottom - unscaledBoundingBox.Top;
+            var scaledWidth = (int)Math.Round(width * scaleFactor);
+            var scaledHeight = (int)Math.Round(height * scaleFactor);
+
+            scaledBoundingBox.Right = unscaledBoundingBox.Left + scaledWidth;
+            scaledBoundingBox.Bottom = unscaledBoundingBox.Top + scaledHeight;
+            return scaledBoundingBox;
         }
     }
 }

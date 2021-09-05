@@ -26,17 +26,16 @@ namespace Composite.Logic
                 _ => throw new ArgumentException($"\"{input}\" does not start with shape name", nameof(input))
             };
 
-        private static IShape TakeScaleGroupFromInput(Stack<string> inputLines)
+        private static IShape ConsumeInputAndAddShapesToScaleGroup(Stack<string> inputLines, ScaleGroup scaleGroup)
         {
-            var scaleGroup = new ScaleGroup();
-
             while (inputLines.TryPop(out var inputLine))
             {
                 var scaleGroupIdentifier = (ScaleGroupIdentifier)inputLine[0];
                 switch (scaleGroupIdentifier)
                 {
                     case ScaleGroupIdentifier.ScaleGroupStart:
-                        var subGroup = TakeScaleGroupFromInput(inputLines);
+                        var subGroup = new ScaleGroup(inputLine);
+                        ConsumeInputAndAddShapesToScaleGroup(inputLines, subGroup);
                         scaleGroup.Add(subGroup);
                         break;
 
@@ -55,7 +54,8 @@ namespace Composite.Logic
         public static IShape FromUserInput(IEnumerable<string> inputLines)
         {
             var inputLinesStack = new Stack<string>(inputLines.Reverse());
-            return TakeScaleGroupFromInput(inputLinesStack);
+            var scaleGroup = new ScaleGroup("scale group 1.0");
+            return ConsumeInputAndAddShapesToScaleGroup(inputLinesStack, scaleGroup);
         }
     }
 }

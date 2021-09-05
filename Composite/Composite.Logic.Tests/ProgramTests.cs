@@ -50,7 +50,7 @@ namespace Composite.Logic.Tests
 
         [Theory]
         [InlineData(new[] { "scale group 1.0", "circle 170 170 50", "end group" }, "(120, 120) (220, 220)")]
-        //[InlineData(new[] { "scale group 0.1", "circle 170 170 50", "end group" }, "(120, 120) (130, 130)")]
+        [InlineData(new[] { "scale group 0.1", "circle 170 170 50", "end group" }, "(120, 120) (130, 130)")]
         public void Main_ScaleGroup_PrintsScaledBoundingBox(string[] input, string expectedBoundingBox)
         {
             GivenUserInput_WhenProgramRuns_ThenBoundingBoxIsPrintedAndAllInputIsConsumed(input, expectedBoundingBox);
