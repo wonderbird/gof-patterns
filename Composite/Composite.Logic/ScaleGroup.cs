@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace Composite.Logic
 {
-    public static class BoundingBoxMerger
+    public class ScaleGroup : IShape
     {
-        public static BoundingBox Merge(IList<IShape> shapes)
-        {
-            var merged = shapes[0].GetBoundingBox();
+        private readonly List<IShape> _shapes = new();
 
-            foreach (var shape in shapes)
+        public BoundingBox GetBoundingBox()
+        {
+            var merged = _shapes[0].GetBoundingBox();
+
+            foreach (var shape in _shapes)
             {
                 var current = shape.GetBoundingBox();
                 merged.Left = Math.Min(merged.Left, current.Left);
@@ -19,6 +21,11 @@ namespace Composite.Logic
             }
 
             return merged;
+        }
+
+        public void Add(IShape shape)
+        {
+            _shapes.Add(shape);
         }
     }
 }

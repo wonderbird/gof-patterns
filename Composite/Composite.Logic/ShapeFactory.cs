@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Composite.Logic
 {
@@ -14,9 +13,16 @@ namespace Composite.Logic
                 _ => throw new ArgumentException($"\"{input}\" does not start with shape name", nameof(input))
             };
 
-        public static IList<IShape> FromUserInput(IEnumerable<string> inputLines)
+        public static IShape FromUserInput(IEnumerable<string> inputLines)
         {
-            return inputLines.Select(FromUserInput).ToList();
+            var scaleGroup = new ScaleGroup();
+
+            foreach (var inputLine in inputLines)
+            {
+                scaleGroup.Add(FromUserInput(inputLine));
+            }
+
+            return scaleGroup;
         }
     }
 }

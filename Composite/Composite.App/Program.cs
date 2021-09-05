@@ -9,17 +9,15 @@ namespace Composite.App
         public static IWriter Output { get; set; } = new ConsoleWriter();
         public static IReader Input { get; set; } = new ConsoleReader();
 
-        public static void Main(string[] args)
+        public static void Main(string[] _)
         {
             PrintUsageInstructions();
 
             var inputLines = ReadUserInput();
 
-            var shapes = ShapeFactory.FromUserInput(inputLines);
+            var shape = ShapeFactory.FromUserInput(inputLines);
 
-            var boundingBox = BoundingBoxMerger.Merge(shapes);
-
-            Output.Write(boundingBox.ToString());
+            Output.Write(shape.GetBoundingBox().ToString());
         }
 
         private static void PrintUsageInstructions()
@@ -30,9 +28,10 @@ namespace Composite.App
             Output.Write("Enter shape (enter a blank line to finish):");
         }
 
-        private static List<string> ReadUserInput()
+        private static IEnumerable<string> ReadUserInput()
         {
             var inputLines = new List<string>();
+
             string input;
             while (!string.IsNullOrEmpty(input = Input.Read()))
             {
