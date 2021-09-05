@@ -28,7 +28,7 @@ namespace Composite.Logic.Tests
         [InlineData("rect 90 90 10 10", "(90, 90) (100, 100)")]
         public void Main_SingleRectangle_PrintsBoundingBox(string input, string expectedBoundingBox)
         {
-            GivenUserInput_WhenProgramRuns_ThenBoundingBoxIsPrintedAndAllInputIsConsumed(new[] { input },
+            GivenUserInput_WhenProgramRuns_ThenBoundingBoxIsPrintedAndAllInputIsConsumed(input,
                 expectedBoundingBox);
         }
 
@@ -36,7 +36,7 @@ namespace Composite.Logic.Tests
         [InlineData("circle 1 2 5", "(-4, -3) (6, 7)")]
         public void Main_SingleCircle_PrintsBoundingBox(string input, string expectedBoundingBox)
         {
-            GivenUserInput_WhenProgramRuns_ThenBoundingBoxIsPrintedAndAllInputIsConsumed(new[] { input },
+            GivenUserInput_WhenProgramRuns_ThenBoundingBoxIsPrintedAndAllInputIsConsumed(input,
                 expectedBoundingBox);
         }
 
@@ -64,6 +64,12 @@ namespace Composite.Logic.Tests
             Program.Main(null);
 
             AssertBoundingBoxIsPrintedAndAllInputIsConsumed(expectedBoundingBox);
+        }
+
+        private void GivenUserInput_WhenProgramRuns_ThenBoundingBoxIsPrintedAndAllInputIsConsumed(string input,
+            string expectedBoundingBox)
+        {
+            GivenUserInput_WhenProgramRuns_ThenBoundingBoxIsPrintedAndAllInputIsConsumed(new[] { input }, expectedBoundingBox);
         }
 
         private void SetupUserInput(string[] input)
