@@ -2,10 +2,25 @@
 
 In this kata you implement the Gang Of Four Composite Pattern [[1](#ref-1), [2](#ref-2), [3](#ref-3)].
 
-## Kata Instructions
+## Problem Description
 
 Idea of this kata: We create a program to handle geometric shapes. The program shall calculate a rectangle into which a
 set of geometric shapes fit. This is the so called bounding box.
+
+## Intended Design
+
+Use the Composite pattern to create a tree of Rectangle, Circle and ScaleGroup objects. The ScaleGroup is the composite
+which contains a list of shapes (IShape objects). An implementation may look as depicted here.
+
+![Composite Pattern](composite-drawio.svg)
+
+| Class(es) | Description
+| --------- | -----------
+| `IShape` | Specifies that every shape must provide a method to calculate the bounding box
+| `Rectangle`, `Circle` | Simple shapes together with their custom bounding box calculation
+| `ScaleGroup` | Composite object aggregating a list of `IShape` objects including instances of itself
+
+## Kata Instructions
 
 Simplification: When developing the program, assume that the user will always enter correct data - skip input
 validation.
@@ -110,6 +125,19 @@ Program output
 ```text
 (0, 0) (25, 15)
 ```
+
+## Generating Documentation
+
+You can use [Doxygen](https://www.doxygen.org) to generate source code documentation and diagrams. From a folder
+containing a `Doxyfile` just run
+
+````shell
+doxygen
+````
+
+This will work best if you have the [graphviz dot tool](https://graphviz.org/) installed.
+
+The documentation will be generated into an `html` folder. Start by opening the `html/index.html` file.
 
 ## References
 
