@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{669E1383-47F7-48DA-B006-5BBBC674D219}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="RepositoryApp\RepositoryApp.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="RepositoryTests\RepositoryTestsRunner.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="RepositoryApp">
+        <MSBuild Projects="RepositoryApp\RepositoryApp.dproj"/>
+    </Target>
+    <Target Name="RepositoryApp:Clean">
+        <MSBuild Projects="RepositoryApp\RepositoryApp.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RepositoryApp:Make">
+        <MSBuild Projects="RepositoryApp\RepositoryApp.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="RepositoryTestsRunner">
+        <MSBuild Projects="RepositoryTests\RepositoryTestsRunner.dproj"/>
+    </Target>
+    <Target Name="RepositoryTestsRunner:Clean">
+        <MSBuild Projects="RepositoryTests\RepositoryTestsRunner.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RepositoryTestsRunner:Make">
+        <MSBuild Projects="RepositoryTests\RepositoryTestsRunner.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="RepositoryApp;RepositoryTestsRunner"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="RepositoryApp:Clean;RepositoryTestsRunner:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="RepositoryApp:Make;RepositoryTestsRunner:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -12,13 +12,16 @@ implementation for each.
 
 ## Status
 
-The project has just been started. The first pattern will be the [Composite](Composite). While implementing that I want
+The project has been started quite recently. Some patterns are already available and I am working on the [Repository](Repository) at the moment. While implementing that I want
 to move patterns I have already implemented into this repository.
 
 ## Thanks
 
 Many thanks to [JetBrains](https://www.jetbrains.com/?from=gof-patterns) who provide
 an [Open Source License](https://www.jetbrains.com/community/opensource/) for this project ❤️.
+
+Many thanks to [Embarcadero](https://www.embarcadero.com/) who provide
+an [Open Source License](https://www.embarcadero.com/products/delphi/starter) to the public ❤️.
 
 ## List of GoF Patterns (incomplete)
 
