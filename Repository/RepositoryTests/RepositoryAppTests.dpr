@@ -1,4 +1,4 @@
-program RepositoryTestsRunner;
+program RepositoryAppTests;
 
 {$IFNDEF TESTINSIGHT}
 {$APPTYPE CONSOLE}
@@ -13,7 +13,7 @@ uses
   DUnitX.Loggers.Xml.NUnit,
   {$ENDIF }
   DUnitX.TestFramework,
-  TestRepository in 'TestRepository.pas';
+  TestTRepository in 'TestTRepository.pas';
 
 {$IFNDEF TESTINSIGHT}
 var
