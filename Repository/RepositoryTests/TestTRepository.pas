@@ -3,46 +3,57 @@ unit TestTRepository;
 interface
 
 uses
-  DUnitX.TestFramework;
+  DUnitX.TestFramework, System.Generics.Collections, Exercise;
 
 type
+
   [TestFixture]
   TRepositoryTests = class
   public
-    [Setup]
-    procedure Setup;
-    [TearDown]
-    procedure TearDown;
-    // Sample Methods
-    // Simple single Test
     [Test]
-    procedure Test1;
-    // Test with TestCase Attribute to supply parameters.
+    procedure Find_EmptyList_ReturnsListWith0Elements;
     [Test]
-    [TestCase('TestA','1,2')]
-    [TestCase('TestB','3,4')]
-    procedure Test2(const AValue1 : Integer;const AValue2 : Integer);
+    procedure Find_AfterAdd_ReturnsListWith1Element;
   end;
 
 implementation
 
-procedure TRepositoryTests.Setup;
+uses
+  Repository;
+
+procedure TRepositoryTests.Find_EmptyList_ReturnsListWith0Elements;
+var
+  repo: TRepository;
+  actual: TList<TExercise>;
 begin
+  repo := TRepository.Create;
+  actual := repo.Find();
+
+  Assert.AreEqual(0, actual.Count);
+
+  actual.Free;
+  repo.Free;
 end;
 
-procedure TRepositoryTests.TearDown;
+procedure TRepositoryTests.Find_AfterAdd_ReturnsListWith1Element;
+var
+  repo: TRepository;
+  rec: TExercise;
+  actual: TList<TExercise>;
 begin
-end;
+  repo := TRepository.Create;
+  rec.Name := 'Some Exercise';
+  repo.Add(rec);
+  actual := repo.Find();
 
-procedure TRepositoryTests.Test1;
-begin
-end;
+  Assert.AreEqual(1, actual.Count);
 
-procedure TRepositoryTests.Test2(const AValue1 : Integer;const AValue2 : Integer);
-begin
+  actual.Free;
+  repo.Free;
 end;
 
 initialization
-  TDUnitX.RegisterTestFixture(TRepositoryTests);
+
+TDUnitX.RegisterTestFixture(TRepositoryTests);
 
 end.

@@ -5,6 +5,7 @@ program RepositoryApp;
 
 uses
   System.SysUtils,
+  Repository in 'Repository.pas',
   Exercise in 'Exercise.pas';
 
 var
