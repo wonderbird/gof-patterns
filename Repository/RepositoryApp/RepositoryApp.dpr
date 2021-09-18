@@ -4,7 +4,8 @@ program RepositoryApp;
 {$R *.res}
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  Exercise in 'Exercise.pas';
 
 var
   input: string;

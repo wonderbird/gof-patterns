@@ -6,7 +6,7 @@
         <Projects Include="RepositoryApp\RepositoryApp.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="RepositoryTests\RepositoryAppTests.dproj">
+        <Projects Include="RepositoryTests\RepositoryTests.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -26,23 +26,23 @@
     <Target Name="RepositoryApp:Make">
         <MSBuild Projects="RepositoryApp\RepositoryApp.dproj" Targets="Make"/>
     </Target>
-    <Target Name="RepositoryAppTests">
-        <MSBuild Projects="RepositoryTests\RepositoryAppTests.dproj"/>
+    <Target Name="RepositoryTests">
+        <MSBuild Projects="RepositoryTests\RepositoryTests.dproj"/>
     </Target>
-    <Target Name="RepositoryAppTests:Clean">
-        <MSBuild Projects="RepositoryTests\RepositoryAppTests.dproj" Targets="Clean"/>
+    <Target Name="RepositoryTests:Clean">
+        <MSBuild Projects="RepositoryTests\RepositoryTests.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="RepositoryAppTests:Make">
-        <MSBuild Projects="RepositoryTests\RepositoryAppTests.dproj" Targets="Make"/>
+    <Target Name="RepositoryTests:Make">
+        <MSBuild Projects="RepositoryTests\RepositoryTests.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="RepositoryApp;RepositoryAppTests"/>
+        <CallTarget Targets="RepositoryApp;RepositoryTests"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="RepositoryApp:Clean;RepositoryAppTests:Clean"/>
+        <CallTarget Targets="RepositoryApp:Clean;RepositoryTests:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="RepositoryApp:Make;RepositoryAppTests:Make"/>
+        <CallTarget Targets="RepositoryApp:Make;RepositoryTests:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

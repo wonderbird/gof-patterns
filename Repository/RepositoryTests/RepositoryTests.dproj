@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{4CD565ED-773F-40A5-BB45-0BF4B11FCBB3}</ProjectGuid>
+        <ProjectGuid>{D20F37DD-E4E0-4BE2-A225-60D211AD6C9A}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
@@ -8,7 +8,7 @@
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Console</AppType>
-        <MainSource>RepositoryAppTests.dpr</MainSource>
+        <MainSource>RepositoryTests.dpr</MainSource>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -57,7 +57,7 @@
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <DCC_UnitSearchPath>$(DUnitX);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-        <SanitizedProjectName>RepositoryAppTests</SanitizedProjectName>
+        <SanitizedProjectName>RepositoryTests</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_OSX64)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;IndyIPCommon;RESTComponents;bindcompdbx;DBXInterBaseDriver;IndyIPServer;IndySystem;tethering;fmxFireDAC;FireDAC;bindcompfmx;FireDACSqliteDriver;FireDACPgDriver;ibmonitor;inetdb;FMXTee;soaprtl;DbxCommonDriver;FmxTeeUI;ibxpress;fmx;FireDACIBDriver;fmxdae;xmlrtl;soapmidas;fmxobj;ibxbindings;rtl;DbxClientDriver;CustomIPTransport;dbexpress;IndyCore;bindcomp;dsnap;FireDACCommon;IndyIPClient;RESTBackendComponents;soapserver;dbxcds;bindengine;DBXMySQLDriver;CloudService;dsnapxml;FireDACMySQLDriver;dbrtl;IndyProtocols;inetdbxpress;FireDACCommonODBC;FireDACCommonDriver;inet;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
@@ -82,6 +82,9 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
+        <DCC_Define>TESTINSIGHT;$(DCC_Define)</DCC_Define>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>(Ohne)</Manifest_File>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -112,8 +115,12 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">RepositoryAppTests.dpr</Source>
+                    <Source Name="MainSource">RepositoryTests.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Beispiele für gekapselte Komponenten für Automatisierungsserver</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Beispiele für gekapselte Komponenten für Automation Server</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
                 <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
@@ -131,9 +138,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\RepositoryAppTests.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\RepositoryTests.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>RepositoryAppTests.exe</RemoteName>
+                        <RemoteName>RepositoryTests.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

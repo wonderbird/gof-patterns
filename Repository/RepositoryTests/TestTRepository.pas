@@ -7,7 +7,7 @@ uses
 
 type
   [TestFixture]
-  TMyTestObject = class
+  TRepositoryTests = class
   public
     [Setup]
     procedure Setup;
@@ -26,23 +26,23 @@ type
 
 implementation
 
-procedure TMyTestObject.Setup;
+procedure TRepositoryTests.Setup;
 begin
 end;
 
-procedure TMyTestObject.TearDown;
+procedure TRepositoryTests.TearDown;
 begin
 end;
 
-procedure TMyTestObject.Test1;
+procedure TRepositoryTests.Test1;
 begin
 end;
 
-procedure TMyTestObject.Test2(const AValue1 : Integer;const AValue2 : Integer);
+procedure TRepositoryTests.Test2(const AValue1 : Integer;const AValue2 : Integer);
 begin
 end;
 
 initialization
-  TDUnitX.RegisterTestFixture(TMyTestObject);
+  TDUnitX.RegisterTestFixture(TRepositoryTests);
 
 end.

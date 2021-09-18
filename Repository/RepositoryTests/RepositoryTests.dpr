@@ -1,4 +1,4 @@
-program RepositoryAppTests;
+program RepositoryTests;
 
 {$IFNDEF TESTINSIGHT}
 {$APPTYPE CONSOLE}
