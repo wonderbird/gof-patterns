@@ -8,8 +8,13 @@ uses
 
 type
   TRepository = class
+  private
+    exercises: TList<TExercise>;
   public
-    procedure Add(Exercise: TExercise);
+    constructor Create;
+    destructor Destroy; override;
+
+    procedure Add(const exercise: TExercise);
     function Find: TList<TExercise>;
   end;
 
@@ -18,14 +23,25 @@ implementation
 uses
   Winapi.Windows;
 
-procedure TRepository.Add(Exercise: TExercise);
+constructor TRepository.Create;
 begin
+  exercises := TList<TExercise>.Create;
+end;
 
+destructor TRepository.Destroy;
+begin
+  exercises.Free;
+  inherited;
+end;
+
+procedure TRepository.Add(const exercise: TExercise);
+begin
+  exercises.Add(exercise);
 end;
 
 function TRepository.Find: TList<TExercise>;
 begin
-  Result := TList<TExercise>.Create;
+  Result := exercises;
 end;
 
 end.

@@ -31,7 +31,6 @@ begin
 
   Assert.AreEqual(0, actual.Count);
 
-  actual.Free;
   repo.Free;
 end;
 
@@ -48,7 +47,6 @@ begin
 
   Assert.AreEqual(1, actual.Count);
 
-  actual.Free;
   repo.Free;
 end;
 
