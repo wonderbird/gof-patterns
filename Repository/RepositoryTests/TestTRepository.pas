@@ -14,6 +14,8 @@ type
     procedure Find_EmptyList_ReturnsListWith0Elements;
     [Test]
     procedure Find_AfterAdd_ReturnsListWith1Element;
+    [Test]
+    procedure Repository_ModifyObjectReturnedByFind_DoesNotModifyObjectStoredInRepository;
   end;
 
 implementation
@@ -48,6 +50,12 @@ begin
   Assert.AreEqual(1, actual.Count);
 
   repo.Free;
+end;
+
+procedure TRepositoryTests.
+  Repository_ModifyObjectReturnedByFind_DoesNotModifyObjectStoredInRepository;
+begin
+  Assert.Fail('TODO: Implement test');
 end;
 
 initialization
