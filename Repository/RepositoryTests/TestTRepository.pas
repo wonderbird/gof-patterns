@@ -11,11 +11,11 @@ type
   TRepositoryTests = class
   public
     [Test]
-    procedure Find_EmptyList_ReturnsListWith0Elements;
+    procedure Add_ModifyObjectAfterAdd_DoesNotModifyObjectStoredInRepository;
     [Test]
     procedure Find_AfterAdd_ReturnsListWith1Element;
     [Test]
-    procedure Repository_ModifyObjectReturnedByFind_DoesNotModifyObjectStoredInRepository;
+    procedure Find_EmptyList_ReturnsListWith0Elements;
   end;
 
 implementation
@@ -23,16 +23,22 @@ implementation
 uses
   Repository;
 
-procedure TRepositoryTests.Find_EmptyList_ReturnsListWith0Elements;
+procedure TRepositoryTests.
+  Add_ModifyObjectAfterAdd_DoesNotModifyObjectStoredInRepository;
 var
-  repo: TRepository;
   actual: TList<TExercise>;
+  rec: TExercise;
+  repo: TRepository;
 begin
   repo := TRepository.Create;
+  rec.Name := 'Some Exercise';
+  repo.Add(rec);
+
+  rec.Name := 'Changed';
+
   actual := repo.Find();
 
-  Assert.AreEqual(0, actual.Count);
-
+  Assert.AreEqual('Some Exercise', actual[0].Name);
   repo.Free;
 end;
 
@@ -45,6 +51,7 @@ begin
   repo := TRepository.Create;
   rec.Name := 'Some Exercise';
   repo.Add(rec);
+
   actual := repo.Find();
 
   Assert.AreEqual(1, actual.Count);
@@ -52,10 +59,18 @@ begin
   repo.Free;
 end;
 
-procedure TRepositoryTests.
-  Repository_ModifyObjectReturnedByFind_DoesNotModifyObjectStoredInRepository;
+procedure TRepositoryTests.Find_EmptyList_ReturnsListWith0Elements;
+var
+  repo: TRepository;
+  actual: TList<TExercise>;
 begin
-  Assert.Fail('TODO: Implement test');
+  repo := TRepository.Create;
+
+  actual := repo.Find();
+
+  Assert.AreEqual(0, actual.Count);
+
+  repo.Free;
 end;
 
 initialization
