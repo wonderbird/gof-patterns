@@ -15,9 +15,9 @@ uses
   DUnitX.TestFramework,
   TestTRepository in 'TestTRepository.pas',
   Repository in '..\RepositoryApp\Repository.pas',
-  Exercise in '..\RepositoryApp\Exercise.pas';
+  Exercise in '..\RepositoryApp\Exercise.pas',
+  TestTRepositoryApp in 'TestTRepositoryApp.pas';
 
-{$IFNDEF TESTINSIGHT}
 var
   runner: ITestRunner;
   results: IRunResults;
