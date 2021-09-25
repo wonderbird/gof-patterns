@@ -6,15 +6,24 @@ program RepositoryApp;
 uses
   System.SysUtils,
   Repository in 'Repository.pas',
-  Exercise in 'Exercise.pas';
+  Exercise in 'Exercise.pas',
+  UserInterface in 'UserInterface.pas',
+  ConsoleWriter in 'ConsoleWriter.pas',
+  Writer in 'Writer.pas',
+  Reader in 'Reader.pas',
+  ConsoleReader in 'ConsoleReader.pas';
 
 var
   input: string;
+  writer: IWriter;
+  userInterface: TUserInterface;
 
 begin
   try
-    Writeln('Hello World!');
-    Readln(input);
+    writer := TConsoleWriter.Create;
+    userInterface := TUserInterface.Create(writer);
+    userInterface.Execute;
+    userInterface.Free;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
