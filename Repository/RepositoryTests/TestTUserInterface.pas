@@ -3,7 +3,7 @@ unit TestTUserInterface;
 interface
 
 uses
-  DUnitX.TestFramework, Delphi.Mocks, UserInterface, Writer, Reader,
+  DUnitX.TestFramework, Spring.Mocking, UserInterface, Writer, Reader,
   System.Classes;
 
 type
@@ -11,9 +11,8 @@ type
   [TestFixture]
   TUserInterfaceTest = class
   private
-    mockWriter: TMock<IWriter>;
-    stubReader: TStub<IReader>;
-    procedure SetupWriterExpectations(const expectedMessages: TStringList);
+    mockWriter: Mock<IWriter>;
+    stubReader: Mock<IReader>;
   public
     [Test]
     procedure Execute_InputIsEmpty_RepeatsInputPrompt;
@@ -21,8 +20,6 @@ type
     procedure Execute_PrintsUsageInstructions;
     [Setup]
     procedure Setup;
-    [TearDown]
-    procedure TearDown;
   end;
 
 implementation
@@ -32,72 +29,49 @@ uses
 
 procedure TUserInterfaceTest.Execute_InputIsEmpty_RepeatsInputPrompt;
 var
-  userInterface: TUserInterface;
+  UserInterface: TUserInterface;
   MyClass: TComponent;
 begin
-  mockWriter.Setup.Expect.Exactly(2).When.Write('Your choice:');
-  stubReader.Setup.WillReturn('').When.Read;
+  stubReader.Setup.Returns<string>(['', 'q']).When.Read;
 
-  userInterface := TUserInterface.Create(mockWriter.Instance, stubReader.Instance);
+  UserInterface := TUserInterface.Create(mockWriter.Instance,
+    stubReader.Instance);
 
   try
-    userInterface.Execute;
+    UserInterface.Execute;
 
-    mockWriter.Verify;
+    mockWriter.Received(Times.Exactly(2)).Write('Your choice:');
     Assert.Pass;
   finally
-    userInterface.Free;
+    UserInterface.Free;
   end;
 end;
 
 procedure TUserInterfaceTest.Execute_PrintsUsageInstructions;
 var
-  userInterface: TUserInterface;
-  expectedMessages: TStringList;
+  UserInterface: TUserInterface;
   index: Integer;
 begin
-  expectedMessages := TStringList.Create;
-  expectedMessages.Add('Available commands:');
-  expectedMessages.Add('q - Quit');
+  stubReader.Setup.Returns('q').When.Read;
 
-  SetupWriterExpectations(expectedMessages);
-  stubReader.Setup.WillReturn('q').When.Read;
-
-  userInterface := TUserInterface.Create(mockWriter.Instance,
+  UserInterface := TUserInterface.Create(mockWriter.Instance,
     stubReader.Instance);
 
   try
-    userInterface.Execute;
+    UserInterface.Execute;
 
-    mockWriter.Verify();
+    mockWriter.Received(Times.Once).Write('Available commands:');
+    mockWriter.Received(Times.Once).Write('q - Quit');
     Assert.Pass();
   finally
-    userInterface.Free;
+    UserInterface.Free;
   end;
 
 end;
 
 procedure TUserInterfaceTest.Setup;
 begin
-  mockWriter := TMock<IWriter>.Create;
-  stubReader := TStub<IReader>.Create;
-end;
-
-procedure TUserInterfaceTest.SetupWriterExpectations(const expectedMessages
-  : TStringList);
-var
-  index: Integer;
-begin
-  for index := 0 to expectedMessages.Count - 1 do
-  begin
-    mockWriter.Setup.Expect.Once.When.Write(expectedMessages[index]);
-  end;
-end;
-
-procedure TUserInterfaceTest.TearDown;
-begin
-  mockWriter.Free;
-  stubReader.Free;
+  mockWriter.Reset;
 end;
 
 initialization
