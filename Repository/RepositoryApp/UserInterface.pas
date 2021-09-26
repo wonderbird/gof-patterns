@@ -39,7 +39,8 @@ end;
 
 procedure TUserInterface.Execute;
 begin
-  writer.Write('Hello World!');
+  writer.Write('Available commands:');
+  writer.Write('a - Add a new exercise');
   reader.Read;
 end;
 
