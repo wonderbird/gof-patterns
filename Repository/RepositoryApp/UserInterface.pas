@@ -7,29 +7,28 @@ uses
 
 type
   TUserInterface = class(TObject)
-  var
-     writer: IWriter;
-     reader: IReader;
+    Reader: IReader;
+    Writer: IWriter;
   public
-    constructor Create(_writer: IWriter; _reader: IReader); overload;
     constructor Create; overload;
+    constructor Create(_writer: IWriter; _reader: IReader); overload;
     destructor Destroy; override;
     procedure Execute;
   end;
 
 implementation
 
-constructor TUserInterface.Create(_writer: IWriter; _reader: IReader);
-begin
-  writer := _writer;
-  reader := _reader;
-end;
-
 constructor TUserInterface.Create;
 begin
   inherited;
-  writer := TConsoleWriter.Create;
-  reader := TConsoleReader.Create;
+  Writer := TConsoleWriter.Create;
+  Reader := TConsoleReader.Create;
+end;
+
+constructor TUserInterface.Create(_writer: IWriter; _reader: IReader);
+begin
+  Writer := _writer;
+  Reader := _reader;
 end;
 
 destructor TUserInterface.Destroy;
@@ -38,10 +37,16 @@ begin
 end;
 
 procedure TUserInterface.Execute;
+var
+  choice: string;
 begin
-  writer.Write('Available commands:');
-  writer.Write('a - Add a new exercise');
-  reader.Read;
+  Writer.Write('Available commands:');
+  Writer.Write('q - Quit');
+  Writer.Write('');
+  repeat
+    Writer.Write('Your choice:');
+    choice := Reader.Read();
+  until choice = 'q';
 end;
 
 end.

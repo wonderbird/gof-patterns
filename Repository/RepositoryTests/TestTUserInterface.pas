@@ -16,6 +16,8 @@ type
     procedure SetupWriterExpectations(const expectedMessages: TStringList);
   public
     [Test]
+    procedure Execute_InputIsEmpty_RepeatsInputPrompt;
+    [Test]
     procedure Execute_PrintsUsageInstructions;
     [Setup]
     procedure Setup;
@@ -28,30 +30,49 @@ implementation
 uses
   Rtti;
 
-{ TUserInterfaceTest }
+procedure TUserInterfaceTest.Execute_InputIsEmpty_RepeatsInputPrompt;
+var
+  userInterface: TUserInterface;
+  MyClass: TComponent;
+begin
+  mockWriter.Setup.Expect.Exactly(2).When.Write('Your choice:');
+  stubReader.Setup.WillReturn('').When.Read;
+
+  userInterface := TUserInterface.Create(mockWriter.Instance, stubReader.Instance);
+
+  try
+    userInterface.Execute;
+
+    mockWriter.Verify;
+    Assert.Pass;
+  finally
+    userInterface.Free;
+  end;
+end;
 
 procedure TUserInterfaceTest.Execute_PrintsUsageInstructions;
 var
-  UserInterface: TUserInterface;
+  userInterface: TUserInterface;
   expectedMessages: TStringList;
   index: Integer;
 begin
   expectedMessages := TStringList.Create;
   expectedMessages.Add('Available commands:');
-  expectedMessages.Add('a - Add a new exercise');
+  expectedMessages.Add('q - Quit');
 
   SetupWriterExpectations(expectedMessages);
+  stubReader.Setup.WillReturn('q').When.Read;
 
-  UserInterface := TUserInterface.Create(mockWriter.Instance,
+  userInterface := TUserInterface.Create(mockWriter.Instance,
     stubReader.Instance);
 
   try
-    UserInterface.Execute;
+    userInterface.Execute;
 
     mockWriter.Verify();
     Assert.Pass();
   finally
-    UserInterface.Free;
+    userInterface.Free;
   end;
 
 end;
@@ -60,7 +81,6 @@ procedure TUserInterfaceTest.Setup;
 begin
   mockWriter := TMock<IWriter>.Create;
   stubReader := TStub<IReader>.Create;
-  stubReader.Setup.WillReturn('').When.Read;
 end;
 
 procedure TUserInterfaceTest.SetupWriterExpectations(const expectedMessages
