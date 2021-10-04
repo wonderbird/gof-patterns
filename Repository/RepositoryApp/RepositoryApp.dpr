@@ -15,15 +15,17 @@ uses
 
 var
   input: string;
+  reader: IReader;
   writer: IWriter;
-  userInterface: TUserInterface;
+  UserInterface: TUserInterface;
 
 begin
   try
+    reader := TConsoleReader.Create;
     writer := TConsoleWriter.Create;
-    userInterface := TUserInterface.Create(writer);
-    userInterface.Execute;
-    userInterface.Free;
+    UserInterface := TUserInterface.Create(reader, writer);
+    UserInterface.Execute;
+    UserInterface.Free;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);

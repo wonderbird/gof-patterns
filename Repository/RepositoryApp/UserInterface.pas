@@ -7,28 +7,21 @@ uses
 
 type
   TUserInterface = class(TObject)
-    Reader: IReader;
-    Writer: IWriter;
+    FReader: IReader;
+    FWriter: IWriter;
   public
-    constructor Create; overload;
-    constructor Create(_writer: IWriter; _reader: IReader); overload;
+    constructor Create(Reader: IReader; Writer: IWriter); reintroduce;
     destructor Destroy; override;
     procedure Execute;
   end;
 
 implementation
 
-constructor TUserInterface.Create;
+constructor TUserInterface.Create(Reader: IReader; Writer: IWriter);
 begin
-  inherited;
-  Writer := TConsoleWriter.Create;
-  Reader := TConsoleReader.Create;
-end;
-
-constructor TUserInterface.Create(_writer: IWriter; _reader: IReader);
-begin
-  Writer := _writer;
-  Reader := _reader;
+  inherited Create;
+  FReader := Reader;
+  FWriter := Writer;
 end;
 
 destructor TUserInterface.Destroy;
@@ -40,12 +33,17 @@ procedure TUserInterface.Execute;
 var
   choice: string;
 begin
-  Writer.Write('Available commands:');
-  Writer.Write('q - Quit');
-  Writer.Write('');
+  FWriter.Write('Available commands:');
+  FWriter.Write('l - List stored records');
+  FWriter.Write('q - Quit');
+  FWriter.Write('');
   repeat
-    Writer.Write('Your choice:');
-    choice := Reader.Read();
+    FWriter.Write('Your choice:');
+    choice := FReader.Read();
+
+    if choice = 'l' then
+      FWriter.Write('No records stored.');
+
   until choice = 'q';
 end;
 
