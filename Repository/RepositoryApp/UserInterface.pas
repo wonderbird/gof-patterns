@@ -17,6 +17,9 @@ type
 
 implementation
 
+uses
+  Repository, Exercise, System.Generics.Collections, System.SysUtils;
+
 constructor TUserInterface.Create(Reader: IReader; Writer: IWriter);
 begin
   inherited Create;
@@ -31,20 +34,44 @@ end;
 
 procedure TUserInterface.Execute;
 var
-  choice: string;
+  Choice: string;
+  Exercise: TExercise;
+  Records: TList<TExercise>;
+  Repository: TRepository;
+  Index: Integer;
 begin
+  Repository := TRepository.Create;
+
   FWriter.Write('Available commands:');
   FWriter.Write('l - List stored records');
   FWriter.Write('q - Quit');
   FWriter.Write('');
   repeat
     FWriter.Write('Your choice:');
-    choice := FReader.Read();
+    Choice := FReader.Read();
 
-    if choice = 'l' then
-      FWriter.Write('No records stored.');
+    if Choice = 'l' then
+    begin
+      Records := Repository.Find();
+      if Records.Count = 0 then
+        FWriter.Write('No records stored.')
+      else
+        for Index := 1 to Records.Count do
+        begin
+          Exercise := Records[Index-1];
+          FWriter.Write(Format('%d: %s', [Index, Exercise.Name]));
+        end;
+    end
+    else if Choice = 'a' then
+    begin
+      Exercise.Name := 'New Exercise';
+      Repository.Add(Exercise);
+      FWriter.Write('A new record has been added.');
+    end;
 
-  until choice = 'q';
+  until Choice = 'q';
+
+  Repository.Free;
 end;
 
 end.
