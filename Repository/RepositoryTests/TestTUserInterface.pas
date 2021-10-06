@@ -103,6 +103,7 @@ begin
     UserInterface.Execute;
 
     FMockWriter.Received(Times.Once).Write('Available commands:');
+    FMockWriter.Received(Times.Once).Write('a - Add record');
     FMockWriter.Received(Times.Once).Write('l - List stored records');
     FMockWriter.Received(Times.Once).Write('q - Quit');
     Assert.Pass();

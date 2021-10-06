@@ -43,6 +43,7 @@ begin
   Repository := TRepository.Create;
 
   FWriter.Write('Available commands:');
+  FWriter.Write('a - Add record');
   FWriter.Write('l - List stored records');
   FWriter.Write('q - Quit');
   FWriter.Write('');
