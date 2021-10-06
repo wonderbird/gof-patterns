@@ -8,7 +8,7 @@ uses
 type
 
   [TestFixture]
-  TRepositoryTests = class
+  TInMemoryRepositoryTests = class
   public
     [Test]
     procedure Add_ModifyObjectAfterAdd_DoesNotModifyObjectStoredInRepository;
@@ -21,16 +21,16 @@ type
 implementation
 
 uses
-  Repository;
+  InMemoryRepository;
 
-procedure TRepositoryTests.
+procedure TInMemoryRepositoryTests.
   Add_ModifyObjectAfterAdd_DoesNotModifyObjectStoredInRepository;
 var
   actual: TList<TExercise>;
   rec: TExercise;
-  repo: TRepository;
+  repo: TInMemoryRepository;
 begin
-  repo := TRepository.Create;
+  repo := TInMemoryRepository.Create;
   rec.Name := 'Some Exercise';
   repo.Add(rec);
 
@@ -42,13 +42,13 @@ begin
   repo.Free;
 end;
 
-procedure TRepositoryTests.Find_AfterAdd_ReturnsListWith1Element;
+procedure TInMemoryRepositoryTests.Find_AfterAdd_ReturnsListWith1Element;
 var
-  repo: TRepository;
+  repo: TInMemoryRepository;
   rec: TExercise;
   actual: TList<TExercise>;
 begin
-  repo := TRepository.Create;
+  repo := TInMemoryRepository.Create;
   rec.Name := 'Some Exercise';
   repo.Add(rec);
 
@@ -59,12 +59,12 @@ begin
   repo.Free;
 end;
 
-procedure TRepositoryTests.Find_EmptyList_ReturnsListWith0Elements;
+procedure TInMemoryRepositoryTests.Find_EmptyList_ReturnsListWith0Elements;
 var
-  repo: TRepository;
+  repo: TInMemoryRepository;
   actual: TList<TExercise>;
 begin
-  repo := TRepository.Create;
+  repo := TInMemoryRepository.Create;
 
   actual := repo.Find();
 
@@ -75,6 +75,6 @@ end;
 
 initialization
 
-TDUnitX.RegisterTestFixture(TRepositoryTests);
+TDUnitX.RegisterTestFixture(TInMemoryRepositoryTests);
 
 end.

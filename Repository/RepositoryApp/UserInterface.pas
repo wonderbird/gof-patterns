@@ -7,6 +7,7 @@ uses
 
 type
   TUserInterface = class(TObject)
+  private
     FReader: IReader;
     FWriter: IWriter;
   public
@@ -18,7 +19,8 @@ type
 implementation
 
 uses
-  Repository, Exercise, System.Generics.Collections, System.SysUtils;
+  Repository, InMemoryRepository, Exercise, System.Generics.Collections, System.SysUtils, MenuView,
+  MenuController;
 
 constructor TUserInterface.Create(Reader: IReader; Writer: IWriter);
 begin
@@ -35,18 +37,18 @@ end;
 procedure TUserInterface.Execute;
 var
   Choice: string;
+  Controller: TMenuController;
   Exercise: TExercise;
   Records: TList<TExercise>;
-  Repository: TRepository;
+  Repository: IRepository;
   Index: Integer;
+  Menu: TMenuView;
 begin
-  Repository := TRepository.Create;
+  Repository := TInMemoryRepository.Create;
+  Controller := TMenuController.Create(Repository);
+  Menu := TMenuView.Create(FWriter);
 
-  FWriter.Write('Available commands:');
-  FWriter.Write('a - Add record');
-  FWriter.Write('l - List stored records');
-  FWriter.Write('q - Quit');
-  FWriter.Write('');
+  Menu.Print;
   repeat
     FWriter.Write('Your choice:');
     Choice := FReader.Read();
@@ -59,7 +61,7 @@ begin
       else
         for Index := 1 to Records.Count do
         begin
-          Exercise := Records[Index-1];
+          Exercise := Records[Index - 1];
           FWriter.Write(Format('%d: %s', [Index, Exercise.Name]));
         end;
     end
@@ -72,7 +74,7 @@ begin
 
   until Choice = 'q';
 
-  Repository.Free;
+  Menu.Free;
 end;
 
 end.

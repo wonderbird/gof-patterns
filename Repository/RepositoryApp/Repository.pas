@@ -3,45 +3,15 @@ unit Repository;
 interface
 
 uses
-  Exercise,
-  System.Generics.Collections;
+  Exercise, System.Generics.Collections;
 
 type
-  TRepository = class
-  private
-    exercises: TList<TExercise>;
-  public
-    constructor Create;
-    destructor Destroy; override;
-
-    procedure Add(const exercise: TExercise);
+  IRepository = interface(IInterface)
+    ['{7B6740C9-4726-449B-BD3F-1DB56335B774}']
+    procedure Add(const Exercise: TExercise);
     function Find: TList<TExercise>;
   end;
 
 implementation
-
-uses
-  Winapi.Windows;
-
-constructor TRepository.Create;
-begin
-  exercises := TList<TExercise>.Create;
-end;
-
-destructor TRepository.Destroy;
-begin
-  exercises.Free;
-  inherited;
-end;
-
-procedure TRepository.Add(const exercise: TExercise);
-begin
-  exercises.Add(exercise);
-end;
-
-function TRepository.Find: TList<TExercise>;
-begin
-  Result := exercises;
-end;
 
 end.

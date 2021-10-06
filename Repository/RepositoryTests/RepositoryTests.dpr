@@ -14,14 +14,17 @@ uses
   {$ENDIF }
   DUnitX.TestFramework,
   TestTRepository in 'TestTRepository.pas',
-  Repository in '..\RepositoryApp\Repository.pas',
+  InMemoryRepository in '..\RepositoryApp\InMemoryRepository.pas',
   Exercise in '..\RepositoryApp\Exercise.pas',
   TestTUserInterface in 'TestTUserInterface.pas',
   UserInterface in '..\RepositoryApp\UserInterface.pas',
   Writer in '..\RepositoryApp\Writer.pas',
   Reader in '..\RepositoryApp\Reader.pas',
   ConsoleReader in '..\RepositoryApp\ConsoleReader.pas',
-  ConsoleWriter in '..\RepositoryApp\ConsoleWriter.pas';
+  ConsoleWriter in '..\RepositoryApp\ConsoleWriter.pas',
+  MenuView in '..\RepositoryApp\MenuView.pas',
+  MenuController in '..\RepositoryApp\MenuController.pas',
+  Repository in '..\RepositoryApp\Repository.pas';
 
 {$IFDEF TESTINSIGHT}
 

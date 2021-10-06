@@ -5,13 +5,16 @@ program RepositoryApp;
 
 uses
   System.SysUtils,
-  Repository in 'Repository.pas',
+  InMemoryRepository in 'InMemoryRepository.pas',
   Exercise in 'Exercise.pas',
   UserInterface in 'UserInterface.pas',
   ConsoleWriter in 'ConsoleWriter.pas',
   Writer in 'Writer.pas',
   Reader in 'Reader.pas',
-  ConsoleReader in 'ConsoleReader.pas';
+  ConsoleReader in 'ConsoleReader.pas',
+  MenuView in 'MenuView.pas',
+  MenuController in 'MenuController.pas',
+  Repository in 'Repository.pas';
 
 var
   input: string;

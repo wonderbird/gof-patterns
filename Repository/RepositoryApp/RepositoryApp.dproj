@@ -96,13 +96,16 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Repository.pas"/>
+        <DCCReference Include="InMemoryRepository.pas"/>
         <DCCReference Include="Exercise.pas"/>
         <DCCReference Include="UserInterface.pas"/>
         <DCCReference Include="ConsoleWriter.pas"/>
         <DCCReference Include="Writer.pas"/>
         <DCCReference Include="Reader.pas"/>
         <DCCReference Include="ConsoleReader.pas"/>
+        <DCCReference Include="MenuView.pas"/>
+        <DCCReference Include="MenuController.pas"/>
+        <DCCReference Include="Repository.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
