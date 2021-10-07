@@ -107,8 +107,8 @@
         <DCCReference Include="..\RepositoryApp\Reader.pas"/>
         <DCCReference Include="..\RepositoryApp\ConsoleReader.pas"/>
         <DCCReference Include="..\RepositoryApp\ConsoleWriter.pas"/>
-        <DCCReference Include="..\RepositoryApp\MenuView.pas"/>
-        <DCCReference Include="..\RepositoryApp\MenuController.pas"/>
+        <DCCReference Include="..\RepositoryApp\View.pas"/>
+        <DCCReference Include="..\RepositoryApp\Controller.pas"/>
         <DCCReference Include="..\RepositoryApp\Repository.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

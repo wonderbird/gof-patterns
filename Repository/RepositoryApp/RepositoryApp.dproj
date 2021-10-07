@@ -103,8 +103,8 @@
         <DCCReference Include="Writer.pas"/>
         <DCCReference Include="Reader.pas"/>
         <DCCReference Include="ConsoleReader.pas"/>
-        <DCCReference Include="MenuView.pas"/>
-        <DCCReference Include="MenuController.pas"/>
+        <DCCReference Include="View.pas"/>
+        <DCCReference Include="Controller.pas"/>
         <DCCReference Include="Repository.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

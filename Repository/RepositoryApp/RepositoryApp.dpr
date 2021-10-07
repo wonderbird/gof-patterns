@@ -12,8 +12,8 @@ uses
   Writer in 'Writer.pas',
   Reader in 'Reader.pas',
   ConsoleReader in 'ConsoleReader.pas',
-  MenuView in 'MenuView.pas',
-  MenuController in 'MenuController.pas',
+  View in 'View.pas',
+  Controller in 'Controller.pas',
   Repository in 'Repository.pas';
 
 var

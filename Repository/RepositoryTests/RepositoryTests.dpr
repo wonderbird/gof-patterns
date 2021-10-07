@@ -22,8 +22,8 @@ uses
   Reader in '..\RepositoryApp\Reader.pas',
   ConsoleReader in '..\RepositoryApp\ConsoleReader.pas',
   ConsoleWriter in '..\RepositoryApp\ConsoleWriter.pas',
-  MenuView in '..\RepositoryApp\MenuView.pas',
-  MenuController in '..\RepositoryApp\MenuController.pas',
+  View in '..\RepositoryApp\View.pas',
+  Controller in '..\RepositoryApp\Controller.pas',
   Repository in '..\RepositoryApp\Repository.pas';
 
 {$IFDEF TESTINSIGHT}

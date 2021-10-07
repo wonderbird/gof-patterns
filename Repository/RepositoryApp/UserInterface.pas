@@ -19,8 +19,8 @@ type
 implementation
 
 uses
-  Repository, InMemoryRepository, Exercise, System.Generics.Collections, System.SysUtils, MenuView,
-  MenuController;
+  Repository, InMemoryRepository, Exercise, System.Generics.Collections, View,
+  Controller;
 
 constructor TUserInterface.Create(Reader: IReader; Writer: IWriter);
 begin
@@ -37,33 +37,24 @@ end;
 procedure TUserInterface.Execute;
 var
   Choice: string;
-  Controller: TMenuController;
+  Controller: TController;
   Exercise: TExercise;
   Records: TList<TExercise>;
   Repository: IRepository;
   Index: Integer;
-  Menu: TMenuView;
+  View: TView;
 begin
   Repository := TInMemoryRepository.Create;
-  Controller := TMenuController.Create(Repository);
-  Menu := TMenuView.Create(FWriter);
+  View := TView.Create(FWriter);
+  Controller := TController.Create(Repository, View);
 
-  Menu.Print;
   repeat
-    FWriter.Write('Your choice:');
+    View.ShowMenu;
     Choice := FReader.Read();
 
     if Choice = 'l' then
     begin
-      Records := Repository.Find();
-      if Records.Count = 0 then
-        FWriter.Write('No records stored.')
-      else
-        for Index := 1 to Records.Count do
-        begin
-          Exercise := Records[Index - 1];
-          FWriter.Write(Format('%d: %s', [Index, Exercise.Name]));
-        end;
+      Controller.ListExercises;
     end
     else if Choice = 'a' then
     begin
@@ -74,7 +65,7 @@ begin
 
   until Choice = 'q';
 
-  Menu.Free;
+  View.Free;
 end;
 
 end.
