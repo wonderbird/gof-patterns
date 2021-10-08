@@ -6,6 +6,9 @@ uses
   Writer, Reader, ConsoleWriter, ConsoleReader;
 
 type
+  TCommand = (AddExercise, ListExercises, Quit, None);
+
+type
   TUserInterface = class(TObject)
   private
     FReader: IReader;
@@ -14,6 +17,7 @@ type
     constructor Create(Reader: IReader; Writer: IWriter); reintroduce;
     destructor Destroy; override;
     procedure Execute;
+    function ReceiveAndProcessCommand: TCommand;
   end;
 
 implementation
@@ -36,7 +40,7 @@ end;
 
 procedure TUserInterface.Execute;
 var
-  Choice: string;
+  Command: TCommand;
   Controller: IController;
   Repository: IRepository;
   View: IView;
@@ -47,18 +51,29 @@ begin
 
   repeat
     View.ShowMenu;
-    Choice := FReader.Read();
+    Command := ReceiveAndProcessCommand;
 
-    if Length(Choice) > 0 then
-    begin
-      case ord(Choice[1]) of
-        ord('l'):
-          Controller.ListExercises;
-        ord('a'):
-          Controller.AddExercise('New Exercise');
-      end;
+    case Command of
+      ListExercises:
+        Controller.ListExercises;
+      AddExercise:
+        Controller.AddExercise('New Exercise');
     end;
-  until Choice = 'q';
+  until Command = Quit;
+end;
+
+function TUserInterface.ReceiveAndProcessCommand: TCommand;
+var
+  Choice: string;
+  CommandMap: TDictionary<string, TCommand>;
+begin
+  Choice := FReader.Read();
+  CommandMap := TDictionary<string, TCommand>.Create;
+  CommandMap.Add('', None);
+  CommandMap.Add('l', ListExercises);
+  CommandMap.Add('a', AddExercise);
+  CommandMap.Add('q', Quit);
+  Result := CommandMap[Choice];
 end;
 
 end.
