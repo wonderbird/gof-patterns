@@ -3,7 +3,7 @@ unit UserInterface;
 interface
 
 uses
-  Writer, Reader, ConsoleWriter, ConsoleReader;
+  Writer, Reader, ConsoleWriter, ConsoleReader, QuitContinue;
 
 type
   TCommand = (AddExercise, ListExercises, Quit, None);
@@ -22,13 +22,13 @@ type
 
   IMenuController = interface(IInterface)
     ['{EF9F1A32-5303-46A1-A3FE-22C3EA7A1F81}']
-    procedure ReceiveAndProcessUserAction;
+    function ReceiveAndProcessUserAction: TQuitContinue;
   end;
 
   TMenuController = class(TInterfacedObject, IMenuController)
 
   public
-    procedure ReceiveAndProcessUserAction;
+    function ReceiveAndProcessUserAction: TQuitContinue;
   end;
 
 implementation
@@ -52,27 +52,27 @@ end;
 procedure TUserInterface.Execute;
 var
   Command: TCommand;
-  MenuController : IMenuController;
-  Controller: IController;
+  Controller : IMenuController;
+  OtherController: IController;
   Repository: IRepository;
   View: IView;
 begin
   Repository := TInMemoryRepository.Create;
   View := TView.Create(FWriter);
-  Controller := TController.Create(Repository, View);
-  MenuController := TMenuController.Create;
+  OtherController := TController.Create(Repository, View);
+  Controller := TMenuController.Create;
 
   repeat
-    View.ShowMenu;
+    View.Present;
     // TODO: continue extractin a menu controller and separating the menu actions from the commands resulting from menu actions
-    MenuController.ReceiveAndProcessUserAction;
+    Controller.ReceiveAndProcessUserAction;
     Command := ReceiveAndProcessCommand;
 
     case Command of
       ListExercises:
-        Controller.ListExercises;
+        OtherController.ListExercises;
       AddExercise:
-        Controller.AddExercise('New Exercise');
+        OtherController.AddExercise('New Exercise');
     end;
   until Command = Quit;
 end;
@@ -91,9 +91,9 @@ begin
   Result := CommandMap[Choice];
 end;
 
-procedure TMenuController.ReceiveAndProcessUserAction;
+function TMenuController.ReceiveAndProcessUserAction: TQuitContinue;
 begin
-  // TODO -cMM: TMenuController.ReceiveAndProcessUserAction default body inserted
+  Result := Continue;
 end;
 
 end.

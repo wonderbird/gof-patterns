@@ -110,6 +110,7 @@
         <DCCReference Include="..\RepositoryApp\View.pas"/>
         <DCCReference Include="..\RepositoryApp\Controller.pas"/>
         <DCCReference Include="..\RepositoryApp\Repository.pas"/>
+        <DCCReference Include="..\RepositoryApp\QuitContinue.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

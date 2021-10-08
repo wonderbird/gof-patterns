@@ -8,7 +8,7 @@ uses
 type
   IView = interface(IInterface)
     ['{99521C8E-33C1-474A-BEF0-26CFB9B3B723}']
-    procedure ShowMenu;
+    procedure Present;
     procedure ShowMessage(Msg: string);
     procedure ShowRecords(Records: TList<TExercise>);
   end;
@@ -18,7 +18,7 @@ type
     FWriter: IWriter;
   public
     constructor Create(Writer: IWriter); reintroduce;
-    procedure ShowMenu;
+    procedure Present;
     procedure ShowMessage(Msg: string);
     procedure ShowRecords(Records: TList<TExercise>);
   end;
@@ -34,7 +34,7 @@ begin
   FWriter := Writer;
 end;
 
-procedure TView.ShowMenu;
+procedure TView.Present;
 begin
   FWriter.Write('');
   FWriter.Write('Available commands:');

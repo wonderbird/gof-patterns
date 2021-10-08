@@ -14,7 +14,8 @@ uses
   ConsoleReader in 'ConsoleReader.pas',
   View in 'View.pas',
   Controller in 'Controller.pas',
-  Repository in 'Repository.pas';
+  Repository in 'Repository.pas',
+  QuitContinue in 'QuitContinue.pas';
 
 var
   input: string;

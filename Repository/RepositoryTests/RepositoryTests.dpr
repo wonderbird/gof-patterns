@@ -24,7 +24,8 @@ uses
   ConsoleWriter in '..\RepositoryApp\ConsoleWriter.pas',
   View in '..\RepositoryApp\View.pas',
   Controller in '..\RepositoryApp\Controller.pas',
-  Repository in '..\RepositoryApp\Repository.pas';
+  Repository in '..\RepositoryApp\Repository.pas',
+  QuitContinue in '..\RepositoryApp\QuitContinue.pas';
 
 {$IFDEF TESTINSIGHT}
 
