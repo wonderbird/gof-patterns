@@ -6,12 +6,20 @@ uses
   Writer, System.Generics.Collections, Exercise;
 
 type
-  TView = class(TObject)
+  IView = interface(IInterface)
+    ['{99521C8E-33C1-474A-BEF0-26CFB9B3B723}']
+    procedure ShowMenu;
+    procedure ShowMessage(Msg: string);
+    procedure ShowRecords(Records: TList<TExercise>);
+  end;
+
+  TView = class(TInterfacedObject, IView)
   private
     FWriter: IWriter;
   public
     constructor Create(Writer: IWriter); reintroduce;
     procedure ShowMenu;
+    procedure ShowMessage(Msg: string);
     procedure ShowRecords(Records: TList<TExercise>);
   end;
 
@@ -35,6 +43,11 @@ begin
   FWriter.Write('q - Quit');
   FWriter.Write('');
   FWriter.Write('Your choice:');
+end;
+
+procedure TView.ShowMessage(Msg: string);
+begin
+  FWriter.Write(Msg);
 end;
 
 procedure TView.ShowRecords(Records: TList<TExercise>);

@@ -37,12 +37,9 @@ end;
 procedure TUserInterface.Execute;
 var
   Choice: string;
-  Controller: TController;
-  Exercise: TExercise;
-  Records: TList<TExercise>;
+  Controller: IController;
   Repository: IRepository;
-  Index: Integer;
-  View: TView;
+  View: IView;
 begin
   Repository := TInMemoryRepository.Create;
   View := TView.Create(FWriter);
@@ -52,20 +49,16 @@ begin
     View.ShowMenu;
     Choice := FReader.Read();
 
-    if Choice = 'l' then
+    if Length(Choice) > 0 then
     begin
-      Controller.ListExercises;
-    end
-    else if Choice = 'a' then
-    begin
-      Exercise.Name := 'New Exercise';
-      Repository.Add(Exercise);
-      FWriter.Write('A new record has been added.');
+      case ord(Choice[1]) of
+        ord('l'):
+          Controller.ListExercises;
+        ord('a'):
+          Controller.AddExercise('New Exercise');
+      end;
     end;
-
   until Choice = 'q';
-
-  View.Free;
 end;
 
 end.
