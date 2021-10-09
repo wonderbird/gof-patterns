@@ -1,12 +1,9 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{669E1383-47F7-48DA-B006-5BBBC674D219}</ProjectGuid>
+        <ProjectGuid>{B1AC1F2B-D7A1-48CE-9A7D-BD42433A9E2D}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="RepositoryApp\RepositoryApp.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="RepositoryTests\RepositoryTests.dproj">
+        <Projects Include="RepositoryTest.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -17,32 +14,23 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="RepositoryApp">
-        <MSBuild Projects="RepositoryApp\RepositoryApp.dproj"/>
+    <Target Name="RepositoryTest">
+        <MSBuild Projects="RepositoryTest.dproj"/>
     </Target>
-    <Target Name="RepositoryApp:Clean">
-        <MSBuild Projects="RepositoryApp\RepositoryApp.dproj" Targets="Clean"/>
+    <Target Name="RepositoryTest:Clean">
+        <MSBuild Projects="RepositoryTest.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="RepositoryApp:Make">
-        <MSBuild Projects="RepositoryApp\RepositoryApp.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="RepositoryTests">
-        <MSBuild Projects="RepositoryTests\RepositoryTests.dproj"/>
-    </Target>
-    <Target Name="RepositoryTests:Clean">
-        <MSBuild Projects="RepositoryTests\RepositoryTests.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="RepositoryTests:Make">
-        <MSBuild Projects="RepositoryTests\RepositoryTests.dproj" Targets="Make"/>
+    <Target Name="RepositoryTest:Make">
+        <MSBuild Projects="RepositoryTest.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="RepositoryApp;RepositoryTests"/>
+        <CallTarget Targets="RepositoryTest"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="RepositoryApp:Clean;RepositoryTests:Clean"/>
+        <CallTarget Targets="RepositoryTest:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="RepositoryApp:Make;RepositoryTests:Make"/>
+        <CallTarget Targets="RepositoryTest:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

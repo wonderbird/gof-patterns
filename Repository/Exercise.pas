@@ -3,8 +3,7 @@ unit Exercise;
 interface
 
 type
-  TExercise = Record
-    Name: String;
+  TExercise = record
   end;
 
 implementation

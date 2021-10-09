@@ -1,4 +1,4 @@
-program RepositoryTests;
+program RepositoryTest;
 
 {$IFNDEF TESTINSIGHT}
 {$APPTYPE CONSOLE}
@@ -13,19 +13,12 @@ uses
   DUnitX.Loggers.Console,
   {$ENDIF }
   DUnitX.TestFramework,
-  TestTRepository in 'TestTRepository.pas',
-  InMemoryRepository in '..\RepositoryApp\InMemoryRepository.pas',
-  Exercise in '..\RepositoryApp\Exercise.pas',
-  TestTUserInterface in 'TestTUserInterface.pas',
-  UserInterface in '..\RepositoryApp\UserInterface.pas',
-  Writer in '..\RepositoryApp\Writer.pas',
-  Reader in '..\RepositoryApp\Reader.pas',
-  ConsoleReader in '..\RepositoryApp\ConsoleReader.pas',
-  ConsoleWriter in '..\RepositoryApp\ConsoleWriter.pas',
-  View in '..\RepositoryApp\View.pas',
-  Controller in '..\RepositoryApp\Controller.pas',
-  Repository in '..\RepositoryApp\Repository.pas',
-  QuitContinue in '..\RepositoryApp\QuitContinue.pas';
+  TestExerciseController in 'TestExerciseController.pas',
+  ExerciseController in 'ExerciseController.pas',
+  Exercise in 'Exercise.pas',
+  ExerciseRepository in 'ExerciseRepository.pas',
+  InMemoryExerciseRepository in 'InMemoryExerciseRepository.pas',
+  TestInMemoryExerciseRepository in 'TestInMemoryExerciseRepository.pas';
 
 {$IFDEF TESTINSIGHT}
 
