@@ -15,6 +15,10 @@ implementation for each.
 The project has been started quite recently. Some patterns are already available and I am working on the [Repository](Repository) at the moment. While implementing that I want
 to move patterns I have already implemented into this repository.
 
+Note, that I just learned that there are existing GitHub repositories with the same project goal in mind as this one:
+- [GitHub: Refactoring.Guru](https://github.com/RefactoringGuru) - several repositories starting with `design-patterns-` are available.
+- [Jim McKeeth: DelphiPatterns](https://github.com/jimmckeeth/DelphiPatterns), mirrored by [Refactoring.Guru: design-patterns-delphi](https://github.com/RefactoringGuru/design-patterns-delphi)
+
 ## Thanks
 
 Many thanks to [JetBrains](https://www.jetbrains.com/?from=gof-patterns) who provide
