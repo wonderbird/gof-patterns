@@ -4,6 +4,7 @@ interface
 
 type
   TExercise = record
+    Start: TDateTime;
   end;
 
 implementation

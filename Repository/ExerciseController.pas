@@ -4,7 +4,7 @@ interface
 
 uses
   Exercise,
-  System.Generics.Collections, ExerciseRepository;
+  Spring.Collections, ExerciseRepository;
 
 type
   TExerciseController = class(TObject)
@@ -12,7 +12,10 @@ type
     FRepository: IExerciseRepository;
   public
     constructor Create(Repository: IExerciseRepository); reintroduce;
-    function ListExercises: TList<TExercise>;
+    procedure AddExercise(Exercise: TExercise);
+    function FindExercisesStartedInTimePeriod(LowerDateTime, UpperDateTime:
+        TDateTime): IEnumerable<TExercise>;
+    function ListExercises: IEnumerable<TExercise>;
   end;
 
 implementation
@@ -23,7 +26,21 @@ begin
   FRepository := Repository;
 end;
 
-function TExerciseController.ListExercises: TList<TExercise>;
+procedure TExerciseController.AddExercise(Exercise: TExercise);
+begin
+  FRepository.Add(Exercise);
+end;
+
+function TExerciseController.FindExercisesStartedInTimePeriod(LowerDateTime,
+    UpperDateTime: TDateTime): IEnumerable<TExercise>;
+begin
+  Result := FRepository.Find(function (const Exercise: TExercise): Boolean
+  begin
+    Result := (LowerDateTime <= Exercise.Start) and (Exercise.Start <= UpperDateTime);
+  end);
+end;
+
+function TExerciseController.ListExercises: IEnumerable<TExercise>;
 begin
   Result := FRepository.Find;
 end;

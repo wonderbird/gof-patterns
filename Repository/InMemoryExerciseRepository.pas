@@ -3,17 +3,17 @@ unit InMemoryExerciseRepository;
 interface
 
 uses
-  Exercise, ExerciseRepository, System.Generics.Collections;
+  Spring, Spring.Collections, Exercise, ExerciseRepository;
 
 type
   TInMemoryExerciseRepository = class(TInterfacedObject, IExerciseRepository)
   private
-    FExercises: TList<TExercise>;
+    FExercises: IList<TExercise>;
   public
     constructor Create;
-    destructor Destroy; override;
     procedure Add(Exercise: TExercise);
-    function Find: TList<TExercise>;
+    function Find(): IEnumerable<TExercise>; overload;
+    function Find(const ThePredicate: Predicate<TExercise>): IEnumerable<TExercise>; overload;
   end;
 
 implementation
@@ -21,13 +21,7 @@ implementation
 constructor TInMemoryExerciseRepository.Create;
 begin
   inherited;
-  FExercises := TList<TExercise>.Create;
-end;
-
-destructor TInMemoryExerciseRepository.Destroy;
-begin
-  FExercises.Free;
-  inherited;
+  FExercises := TCollections.CreateList<TExercise>;
 end;
 
 procedure TInMemoryExerciseRepository.Add(Exercise: TExercise);
@@ -35,9 +29,14 @@ begin
   FExercises.Add(Exercise);
 end;
 
-function TInMemoryExerciseRepository.Find: TList<TExercise>;
+function TInMemoryExerciseRepository.Find: IEnumerable<TExercise>;
 begin
   Result := FExercises;
+end;
+
+function TInMemoryExerciseRepository.Find(const ThePredicate: Predicate<TExercise>): IEnumerable<TExercise>;
+begin
+  Result := FExercises.Where(ThePredicate);
 end;
 
 end.
