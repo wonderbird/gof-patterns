@@ -16,11 +16,11 @@ type
     FRepository: IExerciseRepository;
   public
     [Test]
-    procedure Add_GivenEmptyRepository_AddsExercise;
+    procedure Add_GivenEmptyRepository_ThenAddsExerciseToRepository;
     [Test]
     procedure FindExercisesStartedInTimePeriod_GivenRepositoryContainsMatchingExercises_ThenReturnsThatExercise;
     [Test]
-    procedure ListExercises_GivenRepositoryWithExercises_ThenReturnsNotNil;
+    procedure ListExercises_GivenRepositoryWithOneExercise_ThenReturnsThatExercise;
     [Setup]
     procedure Setup;
     [Teardown]
@@ -32,7 +32,7 @@ implementation
 uses
   InMemoryExerciseRepository, CsvFileExerciseRepository, System.DateUtils;
 
-procedure TestTExerciseController<TRepositoryType>.Add_GivenEmptyRepository_AddsExercise;
+procedure TestTExerciseController<TRepositoryType>.Add_GivenEmptyRepository_ThenAddsExerciseToRepository;
 begin
   FController.AddExercise(FExercise);
   FExercises := FRepository.Find;
@@ -59,7 +59,7 @@ begin
 end;
 
 procedure TestTExerciseController<TRepositoryType>.
-  ListExercises_GivenRepositoryWithExercises_ThenReturnsNotNil;
+  ListExercises_GivenRepositoryWithOneExercise_ThenReturnsThatExercise;
 begin
   FRepository.Add(FExercise);
 
