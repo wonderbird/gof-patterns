@@ -18,7 +18,8 @@ uses
   Exercise in 'Exercise.pas',
   ExerciseRepository in 'ExerciseRepository.pas',
   InMemoryExerciseRepository in 'InMemoryExerciseRepository.pas',
-  TestInMemoryExerciseRepository in 'TestInMemoryExerciseRepository.pas';
+  TestInMemoryExerciseRepository in 'TestInMemoryExerciseRepository.pas',
+  CsvFileExerciseRepository in 'CsvFileExerciseRepository.pas';
 
 {$IFDEF TESTINSIGHT}
 

@@ -8,7 +8,7 @@ uses
 type
 
   [TestFixture]
-  TestTExerciseController = class
+  TestTExerciseController<TRepositoryType : IExerciseRepository, constructor> = class
   private
     FController: TExerciseController;
     FExercise: TExercise;
@@ -30,16 +30,16 @@ type
 implementation
 
 uses
-  InMemoryExerciseRepository, System.DateUtils;
+  InMemoryExerciseRepository, CsvFileExerciseRepository, System.DateUtils;
 
-procedure TestTExerciseController.Add_GivenEmptyRepository_AddsExercise;
+procedure TestTExerciseController<TRepositoryType>.Add_GivenEmptyRepository_AddsExercise;
 begin
   FController.AddExercise(FExercise);
   FExercises := FRepository.Find;
   Assert.AreEqual(1, FExercises.Count, 'unexpected number of exercises')
 end;
 
-procedure TestTExerciseController.
+procedure TestTExerciseController<TRepositoryType>.
   FindExercisesStartedInTimePeriod_GivenRepositoryContainsMatchingExercises_ThenReturnsThatExercise;
 var
   LowerDateTime: TDateTime;
@@ -58,7 +58,7 @@ begin
   Assert.AreEqual(1, FExercises.Count, 'invalid number of exercises');
 end;
 
-procedure TestTExerciseController.
+procedure TestTExerciseController<TRepositoryType>.
   ListExercises_GivenRepositoryWithExercises_ThenReturnsNotNil;
 begin
   FRepository.Add(FExercise);
@@ -68,19 +68,20 @@ begin
   Assert.AreEqual(1, FExercises.Count, 'invalid number of exercises');
 end;
 
-procedure TestTExerciseController.Setup;
+procedure TestTExerciseController<TRepositoryType>.Setup;
 begin
-  FRepository := TInMemoryExerciseRepository.Create;
+  FRepository := TRepositoryType.Create;
   FController := TExerciseController.Create(FRepository);
 end;
 
-procedure TestTExerciseController.Teardown;
+procedure TestTExerciseController<TRepositoryType>.Teardown;
 begin
   FController.Free;
 end;
 
 initialization
 
-TDUnitX.RegisterTestFixture(TestTExerciseController);
+TDUnitX.RegisterTestFixture(TestTExerciseController<TInMemoryExerciseRepository>);
+TDUnitX.RegisterTestFixture(TestTExerciseController<TCsvFileExerciseRepository>);
 
 end.
