@@ -105,6 +105,7 @@
         <DCCReference Include="InMemoryExerciseRepository.pas"/>
         <DCCReference Include="TestInMemoryExerciseRepository.pas"/>
         <DCCReference Include="CsvFileExerciseRepository.pas"/>
+        <DCCReference Include="TestCsvFileExerciseRepository.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

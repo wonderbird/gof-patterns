@@ -30,7 +30,7 @@ type
 implementation
 
 uses
-  InMemoryExerciseRepository, CsvFileExerciseRepository, System.DateUtils;
+  InMemoryExerciseRepository, CsvFileExerciseRepository, System.DateUtils, System.SysUtils;
 
 procedure TestTExerciseController<TRepositoryType>.Add_GivenEmptyRepository_ThenAddsExerciseToRepository;
 begin
@@ -70,6 +70,7 @@ end;
 
 procedure TestTExerciseController<TRepositoryType>.Setup;
 begin
+  DeleteFile(TCsvFileExerciseRepository.DefaultFilePath);
   FRepository := TRepositoryType.Create;
   FController := TExerciseController.Create(FRepository);
 end;

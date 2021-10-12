@@ -1,3 +1,9 @@
+# Exclude temporary data
+Repository/test-data/*
+
+# Include explicitly initalized test data
+!Repository/test-Data/repository-with-5-entries.csv
+
 html/
 /metrixpp.db
 env.local
