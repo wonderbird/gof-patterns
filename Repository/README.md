@@ -16,7 +16,7 @@ Please provide a repository implementation for the following storage backend typ
 
 * in memory - all data shall be kept in memory. The data shall not be persisted. That means that the data is lost after end of the program.
 * file - all data shall be saved to and read from a file on disk.
-* database - all data shall be saved to and read from a database.
+* database - all data shall be saved to and read from a database, e.g. SQLite.
 
 ## About the Sample Solution
 

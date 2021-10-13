@@ -20,7 +20,9 @@ uses
   InMemoryExerciseRepository in 'InMemoryExerciseRepository.pas',
   TestInMemoryExerciseRepository in 'TestInMemoryExerciseRepository.pas',
   CsvFileExerciseRepository in 'CsvFileExerciseRepository.pas',
-  TestCsvFileExerciseRepository in 'TestCsvFileExerciseRepository.pas';
+  TestCsvFileExerciseRepository in 'TestCsvFileExerciseRepository.pas',
+  TestSqliteExerciseRepository in 'TestSqliteExerciseRepository.pas',
+  TestUsingFireDAC in 'TestUsingFireDAC.pas';
 
 {$IFDEF TESTINSIGHT}
 
