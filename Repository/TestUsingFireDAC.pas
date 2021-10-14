@@ -9,6 +9,9 @@ type
 
   [TestFixture]
   TestTUsingFireDAC = class
+  private
+    procedure CreateTemporaryConnectionDefinition(var ConnectionDefinitionName,
+        DatabaseFileName: string);
   public
     [Test]
     procedure WhenCreateDbCreateTableInsertRow_ThenRowExists;
@@ -19,7 +22,22 @@ implementation
 uses
   FireDAC.UI.Intf, FireDAC.Comp.Client, FireDAC.Stan.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Async, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.DApt,
-  System.Classes, Spring.Collections, Exercise, System.DateUtils, SysUtils;
+  System.Classes, Spring.Collections, Exercise, System.DateUtils, SysUtils,
+  SqliteDatabaseConfiguration;
+
+procedure TestTUsingFireDAC.CreateTemporaryConnectionDefinition(var
+    ConnectionDefinitionName, DatabaseFileName: string);
+var
+  ConnectionDefinition: IFDStanConnectionDef;
+  Params: TFDPhysSQLiteConnectionDefParams;
+begin
+  ConnectionDefinition := FDManager.ConnectionDefs.AddConnectionDef;
+  ConnectionDefinition.Name := ConnectionDefinitionName;
+  Params := TFDPhysSQLiteConnectionDefParams(ConnectionDefinition.Params);
+  Params.DriverID := 'SQLite';
+  Params.Database := DatabaseFileName;
+  ConnectionDefinition.Apply;
+end;
 
 procedure TestTUsingFireDAC.
   WhenCreateDbCreateTableInsertRow_ThenRowExists;
@@ -33,18 +51,12 @@ var
   Query: TFDQuery;
   Value: TDateTime;
 begin
-  FFDGUIxSilentMode := True;
-  DatabaseFileName := TPath.Combine(TPath.Combine('..', '..'), TPath.Combine('test-data', 'databasefile.sdb'));
-  ConnectionDefinitionName := 'SQLite_Connection';
+  DatabaseFileName := TSqliteDatabaseConfiguration.DatabaseFileName;
+  ConnectionDefinitionName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
 
   DeleteFile(DatabaseFileName);
 
-  ConnectionDefinition := FDManager.ConnectionDefs.AddConnectionDef;
-  ConnectionDefinition.Name := ConnectionDefinitionName;
-  Params := TFDPhysSQLiteConnectionDefParams(ConnectionDefinition.Params);
-  Params.DriverID := 'SQLite';
-  Params.Database := DatabaseFileName;
-  ConnectionDefinition.Apply;
+  CreateTemporaryConnectionDefinition(ConnectionDefinitionName, DatabaseFileName);
 
   Connection := TFDConnection.Create(nil);
   Connection.ConnectionDefName := ConnectionDefinitionName;

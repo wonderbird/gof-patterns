@@ -23,7 +23,8 @@ uses
   TestCsvFileExerciseRepository in 'TestCsvFileExerciseRepository.pas',
   TestSqliteExerciseRepository in 'TestSqliteExerciseRepository.pas',
   TestUsingFireDAC in 'TestUsingFireDAC.pas',
-  SqliteExerciseRepository in 'SqliteExerciseRepository.pas';
+  SqliteExerciseRepository in 'SqliteExerciseRepository.pas',
+  SqliteDatabaseConfiguration in 'SqliteDatabaseConfiguration.pas';
 
 {$IFDEF TESTINSIGHT}
 
