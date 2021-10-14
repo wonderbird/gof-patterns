@@ -22,7 +22,8 @@ uses
   CsvFileExerciseRepository in 'CsvFileExerciseRepository.pas',
   TestCsvFileExerciseRepository in 'TestCsvFileExerciseRepository.pas',
   TestSqliteExerciseRepository in 'TestSqliteExerciseRepository.pas',
-  TestUsingFireDAC in 'TestUsingFireDAC.pas';
+  TestUsingFireDAC in 'TestUsingFireDAC.pas',
+  SqliteExerciseRepository in 'SqliteExerciseRepository.pas';
 
 {$IFDEF TESTINSIGHT}
 
