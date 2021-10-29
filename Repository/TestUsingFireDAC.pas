@@ -9,9 +9,6 @@ type
 
   [TestFixture]
   TestTUsingFireDAC = class
-  private
-    procedure CreateTemporaryConnectionDefinition(var ConnectionDefinitionName,
-        DatabaseFileName: string);
   public
     [Test]
     procedure WhenCreateDbCreateTableInsertRow_ThenRowExists;
@@ -20,46 +17,23 @@ type
 implementation
 
 uses
-  FireDAC.UI.Intf, FireDAC.Comp.Client, FireDAC.Stan.Intf, FireDAC.Stan.Def,
-  FireDAC.Stan.Async, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.DApt,
+  FireDAC.Comp.Client, FireDAC.Phys.SQLiteDef,
   System.Classes, Spring.Collections, Exercise, System.DateUtils, SysUtils,
   SqliteDatabaseConfiguration;
-
-procedure TestTUsingFireDAC.CreateTemporaryConnectionDefinition(var
-    ConnectionDefinitionName, DatabaseFileName: string);
-var
-  ConnectionDefinition: IFDStanConnectionDef;
-  Params: TFDPhysSQLiteConnectionDefParams;
-begin
-  ConnectionDefinition := FDManager.ConnectionDefs.AddConnectionDef;
-  ConnectionDefinition.Name := ConnectionDefinitionName;
-  Params := TFDPhysSQLiteConnectionDefParams(ConnectionDefinition.Params);
-  Params.DriverID := 'SQLite';
-  Params.Database := DatabaseFileName;
-  ConnectionDefinition.Apply;
-end;
 
 procedure TestTUsingFireDAC.
   WhenCreateDbCreateTableInsertRow_ThenRowExists;
 var
   Connection: TFDConnection;
-  ConnectionDefinition: IFDStanConnectionDef;
-  ConnectionDefinitionName: string;
-  DatabaseFileName: string;
   Rows: IList<TDateTime>;
   Params: TFDPhysSQLiteConnectionDefParams;
   Query: TFDQuery;
   Value: TDateTime;
 begin
-  DatabaseFileName := TSqliteDatabaseConfiguration.DatabaseFileName;
-  ConnectionDefinitionName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
-
-  DeleteFile(DatabaseFileName);
-
-  CreateTemporaryConnectionDefinition(ConnectionDefinitionName, DatabaseFileName);
+  DeleteFile(TSqliteDatabaseConfiguration.DatabaseFileName);
 
   Connection := TFDConnection.Create(nil);
-  Connection.ConnectionDefName := ConnectionDefinitionName;
+  Connection.ConnectionDefName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
   Connection.Connected := True;
 
   Connection.ExecSQL('CREATE TABLE IF NOT EXISTS exercises (id INTEGER PRIMARY KEY AUTOINCREMENT, start DATETIME)');
