@@ -20,8 +20,18 @@ uses
   FireDAC.Comp.Client, FireDAC.Phys.SQLiteDef, SqliteDatabaseConfiguration;
 
 procedure TSqliteExerciseRepository.Add(Exercise: TExercise);
+var
+  Connection: TFDConnection;
 begin
-  // TODO -cMM: TSqliteExerciseRepository.Add default body inserted
+  // TODO -cMM: Ensure that exceptions are processed correctly and Query, Connection are freed even in case of an exception (see similar other todo).
+  // TODO -cMM: Reduce code duplication - setting up a connection and destroying it is duplicated.
+  Connection := TFDConnection.Create(nil);
+  Connection.ConnectionDefName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
+  Connection.Connected := True;
+
+  Connection.ExecSQL('INSERT INTO exercises VALUES(NULL, :start)', [Exercise.Start]);
+
+  Connection.Free;
 end;
 
 function TSqliteExerciseRepository.Find: IEnumerable<TExercise>;

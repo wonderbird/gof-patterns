@@ -13,10 +13,9 @@ type
     FConnection: TFDConnection;
   public
     [Test]
-    [Ignore('Not implemented yet.')]
-    procedure Add;
+    procedure Add_DatabaseEmptyBefore_InsertsRowCorrectly;
     [Test]
-    procedure Find_EmptyRepository_ReturnsEmptyCollection;
+    procedure Find_EmptyDatabase_ReturnsEmptyCollection;
     [Test]
     procedure Find_2EntriesInDatabase_ReturnsCollectionWith2Entries;
     procedure InitializeExercisesTable;
@@ -32,20 +31,21 @@ uses
   Spring.Collections, ExerciseRepository, Exercise, SqliteExerciseRepository,
   System.SysUtils;
 
-procedure TestTSqliteExerciseRepository.Add;
+procedure TestTSqliteExerciseRepository.Add_DatabaseEmptyBefore_InsertsRowCorrectly;
 var
   Exercise: TExercise;
   Repository: IExerciseRepository;
-  Rows: IEnumerable<TExercise>;
+  RowCount: Integer;
 begin
   Repository := TSqliteExerciseRepository.Create();
   Repository.Add(Exercise);
-  Rows := Repository.Find;
 
-  Assert.AreEqual(1, Rows.Count, 'unexpected number of rows');
+  RowCount := FConnection.ExecSQLScalar('SELECT COUNT(*) FROM exercises');
+
+  Assert.AreEqual(1, RowCount, 'unexpected number of rows');
 end;
 
-procedure TestTSqliteExerciseRepository.Find_EmptyRepository_ReturnsEmptyCollection;
+procedure TestTSqliteExerciseRepository.Find_EmptyDatabase_ReturnsEmptyCollection;
 var
   Repository: IExerciseRepository;
   Rows: IEnumerable<TExercise>;
