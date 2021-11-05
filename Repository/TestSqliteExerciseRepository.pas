@@ -19,7 +19,7 @@ type
     procedure Find_EmptyRepository_ReturnsEmptyCollection;
     [Test]
     procedure Find_2EntriesInDatabase_ReturnsCollectionWith2Entries;
-    procedure RecreateEmptyDatabase;
+    procedure InitializeExercisesTable;
     [Setup]
     procedure Setup;
 
@@ -71,20 +71,19 @@ begin
   Assert.AreEqual(2, Rows.Count, 'unexpected number of rows');
 end;
 
-procedure TestTSqliteExerciseRepository.RecreateEmptyDatabase;
+procedure TestTSqliteExerciseRepository.InitializeExercisesTable;
 begin
-  DeleteFile(TSqliteDatabaseConfiguration.DatabaseFileName);
-
   FConnection := TFDConnection.Create(nil);
   FConnection.ConnectionDefName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
   FConnection.Connected := True;
 
   FConnection.ExecSQL('CREATE TABLE IF NOT EXISTS exercises (id INTEGER PRIMARY KEY AUTOINCREMENT, start DATETIME)');
+  FConnection.ExecSQL('DELETE FROM exercises');
 end;
 
 procedure TestTSqliteExerciseRepository.Setup;
 begin
-  RecreateEmptyDatabase;
+  InitializeExercisesTable;
 end;
 
 initialization

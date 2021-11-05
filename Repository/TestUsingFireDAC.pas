@@ -30,13 +30,13 @@ var
   Query: TFDQuery;
   Value: TDateTime;
 begin
-  DeleteFile(TSqliteDatabaseConfiguration.DatabaseFileName);
-
   Connection := TFDConnection.Create(nil);
   Connection.ConnectionDefName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
   Connection.Connected := True;
 
   Connection.ExecSQL('CREATE TABLE IF NOT EXISTS exercises (id INTEGER PRIMARY KEY AUTOINCREMENT, start DATETIME)');
+  Connection.ExecSQL('DELETE FROM exercises');
+
   Connection.ExecSQL('INSERT INTO exercises VALUES (NULL, ''2021-10-08T07:00:00.000Z'')');
 
   Query := TFDQuery.Create(nil);
