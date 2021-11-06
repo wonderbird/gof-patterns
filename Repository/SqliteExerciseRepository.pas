@@ -8,9 +8,10 @@ uses
 type
   TSqliteExerciseRepository = class(TInterfacedObject, IExerciseRepository)
   private
-    function CreateActiveDbConnection: TFDConnection;
+    class function CreateActiveDbConnection: TFDConnection; static;
   public
     procedure Add(Exercise: TExercise);
+    class procedure DeleteAllExercises; static;
     function Find(): IEnumerable<TExercise>; overload;
     function Find(const ThePredicate: Predicate<TExercise>)
       : IEnumerable<TExercise>; overload;
@@ -35,7 +36,7 @@ begin
   end;
 end;
 
-function TSqliteExerciseRepository.CreateActiveDbConnection: TFDConnection;
+class function TSqliteExerciseRepository.CreateActiveDbConnection: TFDConnection;
 var
   Connection: TFDConnection;
 begin
@@ -44,6 +45,19 @@ begin
     TSqliteDatabaseConfiguration.ConnectionDefinitionName;
   Connection.Connected := True;
   Result := Connection;
+end;
+
+class procedure TSqliteExerciseRepository.DeleteAllExercises;
+var
+  Connection: TFDConnection;
+begin
+  Connection := CreateActiveDbConnection;
+  try
+    Connection.ExecSQL('CREATE TABLE IF NOT EXISTS exercises (id INTEGER PRIMARY KEY AUTOINCREMENT, start DATETIME)');
+    Connection.ExecSQL('DELETE FROM exercises');
+  finally
+    Connection.Free;
+  end;
 end;
 
 function TSqliteExerciseRepository.Find: IEnumerable<TExercise>;

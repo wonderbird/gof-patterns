@@ -30,7 +30,8 @@ type
 implementation
 
 uses
-  InMemoryExerciseRepository, CsvFileExerciseRepository, System.DateUtils, System.SysUtils;
+  InMemoryExerciseRepository, CsvFileExerciseRepository, System.DateUtils, System.SysUtils,
+  SqliteExerciseRepository;
 
 procedure TestTExerciseController<TRepositoryType>.Add_GivenEmptyRepository_ThenAddsExerciseToRepository;
 begin
@@ -71,6 +72,8 @@ end;
 procedure TestTExerciseController<TRepositoryType>.Setup;
 begin
   DeleteFile(TCsvFileExerciseRepository.DefaultFilePath);
+  TSqliteExerciseRepository.DeleteAllExercises;
+
   FRepository := TRepositoryType.Create;
   FController := TExerciseController.Create(FRepository);
 end;
@@ -84,5 +87,6 @@ initialization
 
 TDUnitX.RegisterTestFixture(TestTExerciseController<TInMemoryExerciseRepository>);
 TDUnitX.RegisterTestFixture(TestTExerciseController<TCsvFileExerciseRepository>);
+TDUnitX.RegisterTestFixture(TestTExerciseController<TSqliteExerciseRepository>);
 
 end.
