@@ -3,35 +3,47 @@ unit SqliteExerciseRepository;
 interface
 
 uses
-  ExerciseRepository, Exercise, Spring, Spring.Collections;
+  ExerciseRepository, Exercise, Spring, Spring.Collections, FireDAC.Comp.Client;
 
 type
   TSqliteExerciseRepository = class(TInterfacedObject, IExerciseRepository)
+  private
+    function CreateActiveDbConnection: TFDConnection;
   public
     procedure Add(Exercise: TExercise);
     function Find(): IEnumerable<TExercise>; overload;
-    function Find(const ThePredicate: Predicate<TExercise>):
-        IEnumerable<TExercise>; overload;
+    function Find(const ThePredicate: Predicate<TExercise>)
+      : IEnumerable<TExercise>; overload;
   end;
 
 implementation
 
 uses
-  FireDAC.Comp.Client, FireDAC.Phys.SQLiteDef, SqliteDatabaseConfiguration;
+  FireDAC.Phys.SQLiteDef, SqliteDatabaseConfiguration;
 
 procedure TSqliteExerciseRepository.Add(Exercise: TExercise);
 var
   Connection: TFDConnection;
 begin
-  // TODO -cMM: Ensure that exceptions are processed correctly and Query, Connection are freed even in case of an exception (see similar other todo).
-  // TODO -cMM: Reduce code duplication - setting up a connection and destroying it is duplicated.
+  Connection := CreateActiveDbConnection;
+
+  try
+    Connection.ExecSQL('INSERT INTO exercises VALUES(NULL, :start)',
+      [Exercise.Start]);
+  finally
+    Connection.Free;
+  end;
+end;
+
+function TSqliteExerciseRepository.CreateActiveDbConnection: TFDConnection;
+var
+  Connection: TFDConnection;
+begin
   Connection := TFDConnection.Create(nil);
-  Connection.ConnectionDefName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
+  Connection.ConnectionDefName :=
+    TSqliteDatabaseConfiguration.ConnectionDefinitionName;
   Connection.Connected := True;
-
-  Connection.ExecSQL('INSERT INTO exercises VALUES(NULL, :start)', [Exercise.Start]);
-
-  Connection.Free;
+  Result := Connection;
 end;
 
 function TSqliteExerciseRepository.Find: IEnumerable<TExercise>;
@@ -42,33 +54,32 @@ var
   NextStartDate: TDateTime;
   Exercise: TExercise;
 begin
-  Connection := TFDConnection.Create(nil);
-  Connection.ConnectionDefName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
-  Connection.Connected := True;
-
-  // TODO -cMM: Ensure that exceptions are processed correctly and Query, Connection are freed even in case of an exception.
+  Connection := CreateActiveDbConnection;
   Query := TFDQuery.Create(nil);
-  Query.Connection := Connection;
-  Query.SQL.Text := 'SELECT start FROM exercises';
-  Query.Open;
-
   Rows := TCollections.CreateList<TExercise>;
-  while not Query.Eof do
-  begin
-    NextStartDate := Query.FieldByName('start').AsDateTime;
-    Exercise.Start := NextStartDate;
-    Rows.Add(Exercise);
-    Query.Next;
-  end;
 
-  Query.Free;
-  Connection.Free;
+  try
+    Query.Connection := Connection;
+    Query.SQL.Text := 'SELECT start FROM exercises';
+    Query.Open;
+
+    while not Query.Eof do
+    begin
+      NextStartDate := Query.FieldByName('start').AsDateTime;
+      Exercise.Start := NextStartDate;
+      Rows.Add(Exercise);
+      Query.Next;
+    end;
+  finally
+    Query.Free;
+    Connection.Free;
+  end;
 
   Result := Rows;
 end;
 
-function TSqliteExerciseRepository.Find(const ThePredicate:
-    Predicate<TExercise>): IEnumerable<TExercise>;
+function TSqliteExerciseRepository.Find(const ThePredicate
+  : Predicate<TExercise>): IEnumerable<TExercise>;
 begin
   Result := nil;
   // TODO -cMM: TSqliteExerciseRepository.Find default body inserted
