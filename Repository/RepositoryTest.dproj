@@ -110,6 +110,7 @@
         <DCCReference Include="TestUsingFireDAC.pas"/>
         <DCCReference Include="SqliteExerciseRepository.pas"/>
         <DCCReference Include="SqliteDatabaseConfiguration.pas"/>
+        <DCCReference Include="Predicates.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -24,7 +24,8 @@ uses
   TestSqliteExerciseRepository in 'TestSqliteExerciseRepository.pas',
   TestUsingFireDAC in 'TestUsingFireDAC.pas',
   SqliteExerciseRepository in 'SqliteExerciseRepository.pas',
-  SqliteDatabaseConfiguration in 'SqliteDatabaseConfiguration.pas';
+  SqliteDatabaseConfiguration in 'SqliteDatabaseConfiguration.pas',
+  Predicates in 'Predicates.pas';
 
 {$IFDEF TESTINSIGHT}
 

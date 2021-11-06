@@ -3,7 +3,7 @@ unit TestSqliteExerciseRepository;
 interface
 
 uses
-  DUnitX.TestFramework, FireDAC.Comp.Client;
+  Exercise, DUnitX.TestFramework, FireDAC.Comp.Client, Spring;
 
 type
 
@@ -15,22 +15,24 @@ type
     [Test]
     procedure Add_DatabaseEmptyBefore_InsertsRowCorrectly;
     [Test]
-    procedure Find_EmptyDatabase_ReturnsEmptyCollection;
-    [Test]
     procedure Find_2EntriesInDatabase_ReturnsCollectionWith2Entries;
+    [Test]
+    procedure Find_3EntriesInDatabaseAnd1MatchesPredicate_ReturnsCollectionWith1Entry;
+    [Test]
+    procedure Find_EmptyDatabase_ReturnsEmptyCollection;
     [Setup]
     procedure Setup;
-
   end;
 
 implementation
 
 uses
   FireDAC.Phys.SQLiteDef, SqliteDatabaseConfiguration,
-  Spring.Collections, ExerciseRepository, Exercise, SqliteExerciseRepository,
-  System.SysUtils;
+  Spring.Collections, ExerciseRepository, SqliteExerciseRepository,
+  System.DateUtils, System.SysUtils, Predicates;
 
-procedure TestTSqliteExerciseRepository.Add_DatabaseEmptyBefore_InsertsRowCorrectly;
+procedure TestTSqliteExerciseRepository.
+  Add_DatabaseEmptyBefore_InsertsRowCorrectly;
 var
   Exercise: TExercise;
   Repository: IExerciseRepository;
@@ -44,7 +46,49 @@ begin
   Assert.AreEqual(1, RowCount, 'unexpected number of rows');
 end;
 
-procedure TestTSqliteExerciseRepository.Find_EmptyDatabase_ReturnsEmptyCollection;
+procedure TestTSqliteExerciseRepository.
+  Find_2EntriesInDatabase_ReturnsCollectionWith2Entries;
+var
+  Repository: IExerciseRepository;
+  Rows: IEnumerable<TExercise>;
+begin
+  FConnection.ExecSQL
+    ('INSERT INTO exercises VALUES (NULL, ''2021-10-08T07:00:00.000Z'')');
+  FConnection.ExecSQL
+    ('INSERT INTO exercises VALUES (NULL, ''2021-10-09T07:00:00.000Z'')');
+
+  Repository := TSqliteExerciseRepository.Create();
+  Rows := Repository.Find;
+
+  Assert.AreEqual(2, Rows.Count, 'unexpected number of rows');
+end;
+
+procedure TestTSqliteExerciseRepository.
+  Find_3EntriesInDatabaseAnd1MatchesPredicate_ReturnsCollectionWith1Entry;
+var
+  LowerDateTime: TDateTime;
+  Repository: TSqliteExerciseRepository;
+  Rows: IEnumerable<TExercise>;
+  UpperDateTime: TDateTime;
+begin
+  FConnection.ExecSQL
+    ('INSERT INTO exercises VALUES (NULL, ''2021-10-08T07:00:00.000Z'')');
+  FConnection.ExecSQL
+    ('INSERT INTO exercises VALUES (NULL, ''2021-10-09T07:00:00.000Z'')');
+  FConnection.ExecSQL
+    ('INSERT INTO exercises VALUES (NULL, ''2021-10-10T07:00:00.000Z'')');
+
+  LowerDateTime := EncodeDateTime(2021, 10, 8, 0, 0, 0, 0);
+  UpperDateTime := EncodeDateTime(2021, 10, 9, 0, 0, 0, 0);
+
+  Repository := TSqliteExerciseRepository.Create();
+  Rows := Repository.Find(TPredicates.IsInRange(LowerDateTime, UpperDateTime));
+
+  Assert.AreEqual(1, Rows.Count, 'unexpected number of rows');
+end;
+
+procedure TestTSqliteExerciseRepository.
+  Find_EmptyDatabase_ReturnsEmptyCollection;
 var
   Repository: IExerciseRepository;
   Rows: IEnumerable<TExercise>;
@@ -55,27 +99,13 @@ begin
   Assert.AreEqual(0, Rows.Count, 'unexpected number of rows');
 end;
 
-procedure
-    TestTSqliteExerciseRepository.Find_2EntriesInDatabase_ReturnsCollectionWith2Entries;
-var
-  Repository: IExerciseRepository;
-  Rows: IEnumerable<TExercise>;
-begin
-  FConnection.ExecSQL('INSERT INTO exercises VALUES (NULL, ''2021-10-08T07:00:00.000Z'')');
-  FConnection.ExecSQL('INSERT INTO exercises VALUES (NULL, ''2021-10-09T07:00:00.000Z'')');
-
-  Repository := TSqliteExerciseRepository.Create();
-  Rows := Repository.Find;
-
-  Assert.AreEqual(2, Rows.Count, 'unexpected number of rows');
-end;
-
 procedure TestTSqliteExerciseRepository.Setup;
 begin
   TSqliteExerciseRepository.DeleteAllExercises;
 
   FConnection := TFDConnection.Create(nil);
-  FConnection.ConnectionDefName := TSqliteDatabaseConfiguration.ConnectionDefinitionName;
+  FConnection.ConnectionDefName :=
+    TSqliteDatabaseConfiguration.ConnectionDefinitionName;
   FConnection.Connected := True;
 end;
 

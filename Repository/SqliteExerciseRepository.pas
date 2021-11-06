@@ -95,8 +95,7 @@ end;
 function TSqliteExerciseRepository.Find(const ThePredicate
   : Predicate<TExercise>): IEnumerable<TExercise>;
 begin
-  Result := nil;
-  // TODO -cMM: TSqliteExerciseRepository.Find default body inserted
+  Result := Find.Where(ThePredicate);
 end;
 
 end.

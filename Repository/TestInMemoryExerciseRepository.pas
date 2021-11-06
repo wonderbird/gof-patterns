@@ -15,7 +15,6 @@ type
 
     [Test]
     procedure Add_GivenFreshRepository_AddsExercise;
-    function IsInRange(LowerDateTime: TDateTime; UpperDateTime: TDateTime): Predicate<TExercise>;
     [Test]
     procedure Find_GivenExerciseWithinPeriod_ReturnsExercise;
     [Test]
@@ -32,7 +31,7 @@ type
 implementation
 
 uses
-  System.DateUtils, Spring.Collections;
+  System.DateUtils, Spring.Collections, Predicates;
 
 procedure TestTInMemoryExerciseRepository.Add_GivenFreshRepository_AddsExercise;
 var
@@ -42,16 +41,6 @@ begin
   FRepository.Add(Exercise);
   Exercises := FRepository.Find;
   Assert.AreEqual(1, Exercises.Count, 'invalid number of exercise records');
-end;
-
-function TestTInMemoryExerciseRepository.IsInRange(LowerDateTime: TDateTime; UpperDateTime: TDateTime)
-  : Predicate<TExercise>;
-begin
-  Result := function(const Exercise: TExercise): Boolean
-    begin
-      Result := (LowerDateTime <= Exercise.Start) and
-        (Exercise.Start <= UpperDateTime);
-    end;
 end;
 
 procedure TestTInMemoryExerciseRepository.
@@ -68,7 +57,7 @@ begin
   LowerDateTime := EncodeDateTime(2021, 10, 8, 0, 0, 0, 0);
   UpperDateTime := EncodeDateTime(2021, 10, 9, 0, 0, 0, 0);
 
-  Exercises := FRepository.Find(IsInRange(LowerDateTime, UpperDateTime));
+  Exercises := FRepository.Find(TPredicates.IsInRange(LowerDateTime, UpperDateTime));
 
   Assert.AreEqual(1, Exercises.Count, 'expected record not found');
 end;
@@ -87,7 +76,7 @@ begin
   LowerDateTime := EncodeDateTime(2021, 10, 8, 0, 0, 0, 0);
   UpperDateTime := EncodeDateTime(2021, 10, 9, 0, 0, 0, 0);
 
-  Exercises := FRepository.Find(IsInRange(LowerDateTime, UpperDateTime));
+  Exercises := FRepository.Find(TPredicates.IsInRange(LowerDateTime, UpperDateTime));
 
   Assert.AreEqual(0, Exercises.Count, 'no records expected');
 end;
