@@ -18,9 +18,17 @@ Please provide a repository implementation for the following storage backend typ
 * file - all data shall be saved to and read from a file on disk.
 * database - all data shall be saved to and read from a database, e.g. SQLite.
 
+## Finishing Touches
+
+- Avoid duplicated code.
+- Fix all static code analysis warnings.
+- Check the Cyclomatic Complexity of your source code files.
+
 ## About the Sample Solution
 
 ### Prerequisites
+
+* The sample solution is a Delphi 10.4 project which also works on Delphi 10.2
 
 * Configure DUnitX by following the DUnitX expert installation instructions in [Stefan Boos: Delphi](https://wonderbird.github.io/pages/software-crafting/programming-languages/delphi.html).
 
