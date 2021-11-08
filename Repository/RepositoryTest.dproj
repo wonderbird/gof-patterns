@@ -98,19 +98,19 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="TestExerciseController.pas"/>
         <DCCReference Include="ExerciseController.pas"/>
-        <DCCReference Include="Exercise.pas"/>
-        <DCCReference Include="ExerciseRepository.pas"/>
-        <DCCReference Include="InMemoryExerciseRepository.pas"/>
-        <DCCReference Include="TestInMemoryExerciseRepository.pas"/>
-        <DCCReference Include="CsvFileExerciseRepository.pas"/>
-        <DCCReference Include="TestCsvFileExerciseRepository.pas"/>
-        <DCCReference Include="TestSqliteExerciseRepository.pas"/>
-        <DCCReference Include="TestUsingFireDAC.pas"/>
-        <DCCReference Include="SqliteExerciseRepository.pas"/>
         <DCCReference Include="SqliteDatabaseConfiguration.pas"/>
         <DCCReference Include="Predicates.pas"/>
+        <DCCReference Include="Repositories\SqliteExerciseRepository.pas"/>
+        <DCCReference Include="Model\Exercise.pas"/>
+        <DCCReference Include="Repositories\CsvFileExerciseRepository.pas"/>
+        <DCCReference Include="Repositories\InMemoryExerciseRepository.pas"/>
+        <DCCReference Include="Tests\TestExerciseController.pas"/>
+        <DCCReference Include="Tests\TestUsingFireDAC.pas"/>
+        <DCCReference Include="Tests\Repositories\TestCsvFileExerciseRepository.pas"/>
+        <DCCReference Include="Tests\Repositories\TestInMemoryExerciseRepository.pas"/>
+        <DCCReference Include="Tests\Repositories\TestSqliteExerciseRepository.pas"/>
+        <DCCReference Include="Repositories\ExerciseRepository.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

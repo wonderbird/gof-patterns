@@ -13,19 +13,19 @@ uses
   DUnitX.Loggers.Console,
   {$ENDIF }
   DUnitX.TestFramework,
-  TestExerciseController in 'TestExerciseController.pas',
   ExerciseController in 'ExerciseController.pas',
-  Exercise in 'Exercise.pas',
-  ExerciseRepository in 'ExerciseRepository.pas',
-  InMemoryExerciseRepository in 'InMemoryExerciseRepository.pas',
-  TestInMemoryExerciseRepository in 'TestInMemoryExerciseRepository.pas',
-  CsvFileExerciseRepository in 'CsvFileExerciseRepository.pas',
-  TestCsvFileExerciseRepository in 'TestCsvFileExerciseRepository.pas',
-  TestSqliteExerciseRepository in 'TestSqliteExerciseRepository.pas',
-  TestUsingFireDAC in 'TestUsingFireDAC.pas',
-  SqliteExerciseRepository in 'SqliteExerciseRepository.pas',
   SqliteDatabaseConfiguration in 'SqliteDatabaseConfiguration.pas',
-  Predicates in 'Predicates.pas';
+  Predicates in 'Predicates.pas',
+  SqliteExerciseRepository in 'Repositories\SqliteExerciseRepository.pas',
+  Exercise in 'Model\Exercise.pas',
+  CsvFileExerciseRepository in 'Repositories\CsvFileExerciseRepository.pas',
+  InMemoryExerciseRepository in 'Repositories\InMemoryExerciseRepository.pas',
+  TestExerciseController in 'Tests\TestExerciseController.pas',
+  TestUsingFireDAC in 'Tests\TestUsingFireDAC.pas',
+  TestCsvFileExerciseRepository in 'Tests\Repositories\TestCsvFileExerciseRepository.pas',
+  TestInMemoryExerciseRepository in 'Tests\Repositories\TestInMemoryExerciseRepository.pas',
+  TestSqliteExerciseRepository in 'Tests\Repositories\TestSqliteExerciseRepository.pas',
+  ExerciseRepository in 'Repositories\ExerciseRepository.pas';
 
 {$IFDEF TESTINSIGHT}
 
