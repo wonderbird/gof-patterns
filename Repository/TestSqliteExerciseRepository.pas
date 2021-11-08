@@ -13,13 +13,13 @@ type
     FConnection: TFDConnection;
   public
     [Test]
-    procedure Add_DatabaseEmptyBefore_InsertsRowCorrectly;
+    procedure Add_GivenDatabaseEmptyBefore_ThenInsertsRowCorrectly;
     [Test]
-    procedure Find_2EntriesInDatabase_ReturnsCollectionWith2Entries;
+    procedure Find_Given2EntriesInDatabase_ThenReturnsCollectionWith2Entries;
     [Test]
-    procedure Find_3EntriesInDatabaseAnd1MatchesPredicate_ReturnsCollectionWith1Entry;
+    procedure Find_Given3EntriesInDatabaseAnd1MatchesPredicate_ThenReturnsCollectionWith1Entry;
     [Test]
-    procedure Find_EmptyDatabase_ReturnsEmptyCollection;
+    procedure Find_GivenEmptyDatabase_ThenReturnsEmptyCollection;
     [Setup]
     procedure Setup;
   end;
@@ -32,7 +32,7 @@ uses
   System.DateUtils, System.SysUtils, Predicates;
 
 procedure TestTSqliteExerciseRepository.
-  Add_DatabaseEmptyBefore_InsertsRowCorrectly;
+  Add_GivenDatabaseEmptyBefore_ThenInsertsRowCorrectly;
 var
   Exercise: TExercise;
   Repository: IExerciseRepository;
@@ -47,7 +47,7 @@ begin
 end;
 
 procedure TestTSqliteExerciseRepository.
-  Find_2EntriesInDatabase_ReturnsCollectionWith2Entries;
+  Find_Given2EntriesInDatabase_ThenReturnsCollectionWith2Entries;
 var
   Repository: IExerciseRepository;
   Rows: IEnumerable<TExercise>;
@@ -64,7 +64,7 @@ begin
 end;
 
 procedure TestTSqliteExerciseRepository.
-  Find_3EntriesInDatabaseAnd1MatchesPredicate_ReturnsCollectionWith1Entry;
+  Find_Given3EntriesInDatabaseAnd1MatchesPredicate_ThenReturnsCollectionWith1Entry;
 var
   LowerDateTime: TDateTime;
   Repository: TSqliteExerciseRepository;
@@ -88,7 +88,7 @@ begin
 end;
 
 procedure TestTSqliteExerciseRepository.
-  Find_EmptyDatabase_ReturnsEmptyCollection;
+  Find_GivenEmptyDatabase_ThenReturnsEmptyCollection;
 var
   Repository: IExerciseRepository;
   Rows: IEnumerable<TExercise>;

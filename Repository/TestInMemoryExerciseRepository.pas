@@ -14,13 +14,13 @@ type
   public
 
     [Test]
-    procedure Add_GivenFreshRepository_AddsExercise;
+    procedure Add_GivenFreshRepository_ThenAddsExercise;
     [Test]
-    procedure Find_GivenExerciseWithinPeriod_ReturnsExercise;
+    procedure Find_GivenExerciseWithinPeriod_ThenReturnsExercise;
     [Test]
-    procedure Find_GivenExerciseNotWithinPeriod_ReturnsEmptyList;
+    procedure Find_GivenExerciseNotWithinPeriod_ThenReturnsEmptyList;
     [Test]
-    procedure Find_GivenFreshRepository_ReturnsNotNil;
+    procedure Find_GivenFreshRepository_ThenReturns0Exercises;
     [Setup]
     procedure Setup;
     [Teardown]
@@ -33,7 +33,7 @@ implementation
 uses
   System.DateUtils, Spring.Collections, Predicates;
 
-procedure TestTInMemoryExerciseRepository.Add_GivenFreshRepository_AddsExercise;
+procedure TestTInMemoryExerciseRepository.Add_GivenFreshRepository_ThenAddsExercise;
 var
   Exercise: TExercise;
   Exercises: IEnumerable<TExercise>;
@@ -44,7 +44,7 @@ begin
 end;
 
 procedure TestTInMemoryExerciseRepository.
-  Find_GivenExerciseWithinPeriod_ReturnsExercise;
+  Find_GivenExerciseWithinPeriod_ThenReturnsExercise;
 var
   Exercise: TExercise;
   Exercises: IEnumerable<TExercise>;
@@ -63,7 +63,7 @@ begin
 end;
 
 procedure TestTInMemoryExerciseRepository.
-  Find_GivenExerciseNotWithinPeriod_ReturnsEmptyList;
+  Find_GivenExerciseNotWithinPeriod_ThenReturnsEmptyList;
 var
   Exercise: TExercise;
   Exercises: IEnumerable<TExercise>;
@@ -82,13 +82,13 @@ begin
 end;
 
 procedure TestTInMemoryExerciseRepository.
-  Find_GivenFreshRepository_ReturnsNotNil;
+  Find_GivenFreshRepository_ThenReturns0Exercises;
 var
   Exercises: IEnumerable<TExercise>;
 begin
   Exercises := FRepository.Find;
 
-  Assert.IsTrue(Exercises <> nil, 'nil received');
+  Assert.AreEqual(0, Exercises.Count);
 end;
 
 procedure TestTInMemoryExerciseRepository.Setup;
