@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Composite", "Composite", "{847B0817-E4F5-4D7C-BF3B-D218491047CC}"
 	ProjectSection(SolutionItems) = preProject
 		Composite\README.md = Composite\README.md
-		Composite\Doxyfile = Composite\Doxyfile
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Composite.Logic", "Composite\Composite.Logic\Composite.Logic.csproj", "{452E6F88-1974-40DA-8734-9DF1381CCD54}"
