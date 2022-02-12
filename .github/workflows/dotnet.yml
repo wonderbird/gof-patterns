@@ -38,6 +38,8 @@ jobs:
     if: github.ref != 'refs/heads/main'
     
     steps:
+      - uses: actions/checkout@v2
+
       - name: Test w/o APIs
         run: dotnet test --filter "(FullyQualifiedName\!~LocationServiceTest)&(FullyQualifiedName\!~WeatherForecastServiceTest)" --no-build --verbosity normal
 
@@ -48,6 +50,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     
     steps:
+      - uses: actions/checkout@v2
+
       - name: Test
         env:
           ACCUWEATHER_APIKEY: ${{ secrets.ACCUWEATHER_APIKEY }}
