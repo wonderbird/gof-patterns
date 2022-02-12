@@ -9,8 +9,8 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    name: Build
 
     steps:
       - uses: actions/checkout@v2
@@ -31,6 +31,23 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
 
+  test-branch-pr:
+    runs-on: ubuntu-latest
+    name: Test Branch/PR
+    needs: build
+    if: github.ref != 'refs/heads/main'
+    
+    steps:
+      - name: Test w/o APIs
+        run: dotnet test --filter "(FullyQualifiedName\!~LocationServiceTest)&(FullyQualifiedName\!~WeatherForecastServiceTest)" --no-build --verbosity normal
+
+  test-main:
+    runs-on: ubuntu-latest
+    name: Test Main Branch
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
       - name: Test
         env:
           ACCUWEATHER_APIKEY: ${{ secrets.ACCUWEATHER_APIKEY }}
@@ -52,7 +69,8 @@ jobs:
 
   publish-reports:
     runs-on: ubuntu-latest
-    needs: build
+    name: Publish Reports
+    needs: test-main
     if: github.ref == 'refs/heads/main'
 
     steps:
