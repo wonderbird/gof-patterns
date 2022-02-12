@@ -1,12 +1,13 @@
 using System;
+using Facade.Logic;
 using Facade.Logic.BingMapsAndOpenWeather.WeatherForecastApi;
 using Xunit;
 
-namespace Facade.Logic.Tests.BingMapsAndOpenWeather.WeatherForecastApi
+namespace Facade.Api.Tests.BingMapsAndOpenWeather.WeatherForecastApi
 {
     public class WeatherForecastServiceTest
     {
-        private readonly string ApiKey = Environment.GetEnvironmentVariable("OPENWEATHER_APIKEY");
+        private readonly string? ApiKey = Environment.GetEnvironmentVariable("OPENWEATHER_APIKEY");
 
         [Fact]
         public void GetWeatherForecast__ReturnsWindForecast()

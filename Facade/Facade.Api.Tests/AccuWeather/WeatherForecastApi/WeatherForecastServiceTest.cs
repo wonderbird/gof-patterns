@@ -1,12 +1,13 @@
 using System;
+using Facade.Logic;
 using Facade.Logic.AccuWeather.WeatherForecastApi;
 using Xunit;
 
-namespace Facade.Logic.Tests.AccuWeather.WeatherForecastApi
+namespace Facade.Api.Tests.AccuWeather.WeatherForecastApi
 {
     public class WeatherForecastServiceTest
     {
-        private readonly string ApiKey = Environment.GetEnvironmentVariable("ACCUWEATHER_APIKEY");
+        private readonly string? ApiKey = Environment.GetEnvironmentVariable("ACCUWEATHER_APIKEY");
 
         [Fact]
         public void GetWeatherForecast__ReturnsWindForecast()

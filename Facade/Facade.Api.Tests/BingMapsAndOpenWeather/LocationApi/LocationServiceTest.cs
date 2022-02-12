@@ -1,12 +1,13 @@
 using System;
+using Facade.Logic;
 using Facade.Logic.BingMapsAndOpenWeather.LocationApi;
 using Xunit;
 
-namespace Facade.Logic.Tests.BingMapsAndOpenWeather.LocationApi
+namespace Facade.Api.Tests.BingMapsAndOpenWeather.LocationApi
 {
     public class LocationServiceTest
     {
-        private readonly string ApiKey = Environment.GetEnvironmentVariable("BINGMAPS_APIKEY");
+        private readonly string? ApiKey = Environment.GetEnvironmentVariable("BINGMAPS_APIKEY");
 
         [Fact]
         public void GetLocation__ReturnsGpsCoordinates()
