@@ -59,9 +59,9 @@ variables before launching your IDE or test runner:
 You can do so by creating a file named `env.local` with the following contents:
 
 ```shell
-ACCUWEATHER_APIKEY=copy your api key
-BINGMAPS_APIKEY=copy your api key
-OPENWEATHER_APIKEY=copy your api key
+export ACCUWEATHER_APIKEY=copy your api key
+export BINGMAPS_APIKEY=copy your api key
+export OPENWEATHER_APIKEY=copy your api key
 ```
 
 `source env.local` into your terminal and then launch the IDE from that context.
