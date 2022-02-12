@@ -7,7 +7,7 @@ namespace Facade.Api.Tests.AccuWeather.LocationApi
 {
     public class LocationServiceTest
     {
-        private readonly string ApiKey = Environment.GetEnvironmentVariable("ACCUWEATHER_APIKEY");
+        private readonly string? ApiKey = Environment.GetEnvironmentVariable("ACCUWEATHER_APIKEY");
 
         [Fact]
         public void GetLocation__ReturnsCorrectKey()

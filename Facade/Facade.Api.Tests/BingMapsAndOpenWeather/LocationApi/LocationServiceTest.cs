@@ -7,7 +7,7 @@ namespace Facade.Api.Tests.BingMapsAndOpenWeather.LocationApi
 {
     public class LocationServiceTest
     {
-        private readonly string ApiKey = Environment.GetEnvironmentVariable("BINGMAPS_APIKEY");
+        private readonly string? ApiKey = Environment.GetEnvironmentVariable("BINGMAPS_APIKEY");
 
         [Fact]
         public void GetLocation__ReturnsGpsCoordinates()

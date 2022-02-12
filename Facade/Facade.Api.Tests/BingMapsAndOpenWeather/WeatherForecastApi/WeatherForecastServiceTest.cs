@@ -7,7 +7,7 @@ namespace Facade.Api.Tests.BingMapsAndOpenWeather.WeatherForecastApi
 {
     public class WeatherForecastServiceTest
     {
-        private readonly string ApiKey = Environment.GetEnvironmentVariable("OPENWEATHER_APIKEY");
+        private readonly string? ApiKey = Environment.GetEnvironmentVariable("OPENWEATHER_APIKEY");
 
         [Fact]
         public void GetWeatherForecast__ReturnsWindForecast()
