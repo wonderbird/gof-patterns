@@ -38,7 +38,6 @@ jobs:
   build-main:
     runs-on: ubuntu-latest
     name: Build and Test Main Branch
-    needs: build
     if: github.ref == 'refs/heads/main'
     
     steps:
