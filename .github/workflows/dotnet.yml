@@ -8,9 +8,10 @@ on:
     - cron: '23 4 * * 5'
 
 jobs:
-  build:
+  build-branch-pr:
     runs-on: ubuntu-latest
-    name: Build
+    name: Build and Test Branch/PR
+    if: github.ref != 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v2
@@ -31,26 +32,33 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
 
-  test-branch-pr:
-    runs-on: ubuntu-latest
-    name: Test Branch/PR
-    needs: build
-    if: github.ref != 'refs/heads/main'
-    
-    steps:
-      - uses: actions/checkout@v2
-
       - name: Test w/o APIs
         run: dotnet test --filter "(FullyQualifiedName\!~LocationServiceTest)&(FullyQualifiedName\!~WeatherForecastServiceTest)" --no-build --verbosity normal
 
-  test-main:
+  build-main:
     runs-on: ubuntu-latest
-    name: Test Main Branch
+    name: Build and Test Main Branch
     needs: build
     if: github.ref == 'refs/heads/main'
     
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install dotnet tools
+        run: |
+          dotnet tool install --global coverlet.console
+          dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
 
       - name: Test
         env:
@@ -71,25 +79,9 @@ jobs:
           name: coverage-reports
           path: report
 
-  publish-reports:
-    runs-on: ubuntu-latest
-    name: Publish Reports
-    needs: test-main
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      # the repository is required by codeclimate-action
-      - uses: actions/checkout@v2
-
-      - name: Download coverage reports
-        uses: actions/download-artifact@v2
-        with:
-          name: coverage-reports
-          path: coverage-reports
-
       - name: Publish coverage report to CodeClimate
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          coverageLocations: coverage-reports/lcov.info:lcov
+          coverageLocations: report/lcov.info:lcov
