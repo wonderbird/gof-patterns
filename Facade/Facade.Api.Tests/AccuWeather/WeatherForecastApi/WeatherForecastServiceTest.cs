@@ -1,8 +1,9 @@
 using System;
+using Facade.Logic;
 using Facade.Logic.AccuWeather.WeatherForecastApi;
 using Xunit;
 
-namespace Facade.Logic.Tests.AccuWeather.WeatherForecastApi
+namespace Facade.Api.Tests.AccuWeather.WeatherForecastApi
 {
     public class WeatherForecastServiceTest
     {

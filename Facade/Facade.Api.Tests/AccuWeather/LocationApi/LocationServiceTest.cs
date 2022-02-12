@@ -1,8 +1,9 @@
 using System;
+using Facade.Logic;
 using Facade.Logic.AccuWeather.LocationApi;
 using Xunit;
 
-namespace Facade.Logic.Tests.AccuWeather.LocationApi
+namespace Facade.Api.Tests.AccuWeather.LocationApi
 {
     public class LocationServiceTest
     {

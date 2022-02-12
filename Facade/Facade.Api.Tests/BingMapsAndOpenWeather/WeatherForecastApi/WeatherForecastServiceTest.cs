@@ -1,8 +1,9 @@
 using System;
+using Facade.Logic;
 using Facade.Logic.BingMapsAndOpenWeather.WeatherForecastApi;
 using Xunit;
 
-namespace Facade.Logic.Tests.BingMapsAndOpenWeather.WeatherForecastApi
+namespace Facade.Api.Tests.BingMapsAndOpenWeather.WeatherForecastApi
 {
     public class WeatherForecastServiceTest
     {

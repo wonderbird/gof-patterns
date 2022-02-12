@@ -1,8 +1,9 @@
 using System;
+using Facade.Logic;
 using Facade.Logic.BingMapsAndOpenWeather.LocationApi;
 using Xunit;
 
-namespace Facade.Logic.Tests.BingMapsAndOpenWeather.LocationApi
+namespace Facade.Api.Tests.BingMapsAndOpenWeather.LocationApi
 {
     public class LocationServiceTest
     {
