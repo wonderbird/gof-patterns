@@ -27,11 +27,12 @@ an [Open Source License](https://www.jetbrains.com/community/opensource/) for th
 Many thanks to [Embarcadero](https://www.embarcadero.com/) who provide
 an [Open Source License](https://www.embarcadero.com/products/delphi/starter) to the public ❤️.
 
-## List of GoF Patterns (incomplete)
+## List of Implemented GoF Patterns
 
 - [Bridge](Bridge)
 - [Composite](Composite)
 - [Facade](Facade)
+- [Repository](Repository) (Delphi)
 
 ## Development
 
