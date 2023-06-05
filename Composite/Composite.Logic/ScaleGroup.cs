@@ -22,7 +22,7 @@ namespace Composite.Logic
         public static ScaleGroup FromUserInput(string inputLine)
         {
             var fields = inputLine.Split(" ");
-            return new ScaleGroup(Convert.ToDouble(fields[2], CultureInfo.CurrentCulture));
+            return new ScaleGroup(Convert.ToDouble(fields[2], CultureInfo.InvariantCulture));
         }
 
 
