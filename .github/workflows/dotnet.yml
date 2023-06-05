@@ -1,11 +1,13 @@
 name: .NET
 
 on:
+  workflow_dispatch:
   push:
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-  schedule:
-    - cron: '23 4 * * 5'
+    branches:
+      - main
 
 jobs:
   build-branch-pr:

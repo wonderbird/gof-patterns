@@ -18,7 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{F1E960CE-6
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		.gitignore = .gitignore
 		.github\dependabot.yml = .github\dependabot.yml
-		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		.editorconfig = .editorconfig
 		tools\dupfinder.sh = tools\dupfinder.sh
 	EndProjectSection
