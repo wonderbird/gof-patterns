@@ -12,8 +12,8 @@ implementation for each.
 
 ## Status
 
-The project has been started quite recently. Some patterns are already available and I am working on the [Repository](Repository) at the moment. While implementing that I want
-to move patterns I have already implemented into this repository.
+I am developing during my spare time and use this project for learning purposes. Please assume that I will need some
+days to answer your questions.
 
 Note, that I just learned that there are existing GitHub repositories with the same project goal in mind as this one:
 - [GitHub: Refactoring.Guru](https://github.com/RefactoringGuru) - several repositories starting with `design-patterns-` are available.
@@ -59,59 +59,76 @@ dotnet run --project "Facade/Facade.App"
 
 ### Before Creating a Pull Request ...
 
-#### ... apply code formatting rules
+#### Fix Static Code Analysis Warnings
+
+... fix static code analysis warnings reported by [SonarLint](https://www.sonarsource.com/products/sonarlint/)
+and by [CodeClimate](https://codeclimate.com/github/wonderbird/TestProcessWrapper/issues).
+
+#### Apply Code Formatting Rules
 
 ```shell
-dotnet format
+# Install https://csharpier.io globally, once
+dotnet tool install -g csharpier
+
+# Format code
+dotnet csharpier .
 ```
 
-#### ... check code metrics
+#### Check Code Metrics
 
-Use [metrix++](https://github.com/metrixplusplus/metrixplusplus) to apply thresholds:
+... check code metrics using [metrix++](https://github.com/metrixplusplus/metrixplusplus)
 
-```shell
-# Collect metrics
-metrix++ collect --std.code.complexity.cyclomatic --std.code.lines.code --std.code.todo.comments --std.code.maintindex.simple -- .
+- Configure the location of the cloned metrix++ scripts
+  ```shell
+  export METRIXPP=/path/to/metrixplusplus
+  ```
 
-# Get an overview
-metrix++ view --db-file=./metrixpp.db
+- Collect metrics
+  ```shell
+  python "$METRIXPP/metrix++.py" collect --std.code.complexity.cyclomatic --std.code.lines.code --std.code.todo.comments --std.code.maintindex.simple -- .
+  ```
 
-# Apply thresholds
-metrix++ limit --db-file=./metrixpp.db --max-limit=std.code.complexity:cyclomatic:5 --max-limit=std.code.lines:code:25:function --max-limit=std.code.todo:comments:0 --max-limit=std.code.mi:simple:1
-```
+- Get an overview
+  ```shell
+  python "$METRIXPP/metrix++.py" view --db-file=./metrixpp.db
+  ```
+
+- Apply thresholds
+  ```shell
+  python "$METRIXPP/metrix++.py" limit --db-file=./metrixpp.db --max-limit=std.code.complexity:cyclomatic:5 --max-limit=std.code.lines:code:25:function --max-limit=std.code.todo:comments:0 --max-limit=std.code.mi:simple:1
+  ```
 
 At the time of writing, I want to stay below the following thresholds:
 
-```shell
+```text
 --max-limit=std.code.complexity:cyclomatic:5
 --max-limit=std.code.lines:code:25:function
 --max-limit=std.code.todo:comments:0
 --max-limit=std.code.mi:simple:1
 ```
 
-### ... fix code duplication
+Finally, remove all code duplication. The next section describes how to detect code duplication.
 
-The `tools\dupfinder.bat` or `tools/dupfinder.sh` file calls
-the [JetBrains dupfinder](https://www.jetbrains.com/help/resharper/dupFinder.html) tool and creates an HTML report of
-duplicated code blocks in the solution directory.
+#### Remove Code Duplication Where Appropriate
 
-In order to use the `dupfinder` you need to globally install
-the [JetBrains ReSharper Command Line Tools](https://www.jetbrains.com/help/resharper/ReSharper_Command_Line_Tools.html)
-On Unix like operating systems you also need [xsltproc](http://xmlsoft.org/XSLT/xsltproc2.html), which is pre-installed
-on macOS.
+To detect duplicates I use the [CPD Copy Paste Detector](https://docs.pmd-code.org/latest/pmd_userdocs_cpd.html)
+tool from the [PMD Source Code Analyzer Project](https://docs.pmd-code.org/latest/index.html).
 
-From the folder containing the `.sln` file run
+If you have installed PMD by download & unzip, replace `pmd` by `./run.sh`.
+The [homebrew pmd formula](https://formulae.brew.sh/formula/pmd) makes the `pmd` command globally available.
 
 ```sh
-tools\dupfinder.bat
+# Remove temporary and generated files
+# 1. dry run
+git clean -ndx
 ```
 
-or
-
-```sh
-tools/dupfinder.sh
+```shell
+# 2. Remove the files shown by the dry run
+git clean -fdx
 ```
 
-respectively.
-
-The report will be created as `dupfinder-report.html` in the current directory.
+```shell
+# Identify duplicated code in files to push to GitHub
+pmd cpd --minimum-tokens 50 --language cs --dir .
+```
