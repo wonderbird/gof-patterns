@@ -6,7 +6,7 @@ public class ExerciseControllerTests
     private readonly DateTime _in2020 = new(2020, 3, 1, 10, 15, 20);
     private readonly DateTime _in2023 = new(2023, 6, 6, 12, 30, 0);
     private readonly TimeSpan _1Year = TimeSpan.FromDays(365);
-    private readonly DateTime _startOf2020 = new DateTime(2020, 1, 1);
+    private readonly DateTime _startOf2020 = new(2020, 1, 1);
 
     public ExerciseControllerTests() => _controller = new ExerciseController();
 
