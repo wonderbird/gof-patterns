@@ -2,13 +2,9 @@ namespace Repository;
 
 public class ExerciseController
 {
-    private bool _isEmpty = true;
+    private readonly List<Exercise> _exercises = new();
 
-    public IEnumerable<Exercise> ListExercises() =>
-        _isEmpty ? Array.Empty<Exercise>() : new[] { new Exercise() };
+    public IEnumerable<Exercise> ListExercises() => _exercises;
 
-    public void Add(Exercise _)
-    {
-        _isEmpty = false;
-    }
+    public void Add(Exercise exercise) => _exercises.Add(exercise);
 }
