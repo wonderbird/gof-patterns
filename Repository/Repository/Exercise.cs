@@ -1,3 +1,3 @@
 namespace Repository;
 
-public record Exercise;
+public record Exercise(DateTime Start);

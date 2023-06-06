@@ -8,8 +8,9 @@ public class ExerciseController
 
     public void Add(Exercise exercise) => _exercises.Add(exercise);
 
-    public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(
-        DateTime start,
-        TimeSpan duration
-    ) => _exercises;
+    public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(DateTime start, TimeSpan duration)
+    {
+        var end = start + duration;
+        return _exercises.Where(e => e.Start >= start && e.Start <= end);
+    }
 }
