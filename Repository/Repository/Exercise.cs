@@ -1,3 +1,3 @@
 namespace Repository;
 
-public class Exercise { }
+public record Exercise;

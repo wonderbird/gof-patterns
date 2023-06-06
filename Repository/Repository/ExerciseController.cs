@@ -2,7 +2,13 @@ namespace Repository;
 
 public class ExerciseController
 {
-#pragma warning disable CA1822
-    public IEnumerable<Exercise> ListExercises() => Array.Empty<Exercise>();
-#pragma warning restore CA1822
+    private bool _isEmpty = true;
+
+    public IEnumerable<Exercise> ListExercises() =>
+        _isEmpty ? Array.Empty<Exercise>() : new[] { new Exercise() };
+
+    public void Add(Exercise _)
+    {
+        _isEmpty = false;
+    }
 }
