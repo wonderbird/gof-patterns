@@ -2,15 +2,15 @@ namespace Repository;
 
 public class InMemoryRepository
 {
-    public List<Exercise> Exercises { get; set; } = new();
+    private readonly List<Exercise> _exercises = new();
 
-    public IEnumerable<Exercise> ListExercises() => Exercises;
+    public IEnumerable<Exercise> ListExercises() => _exercises;
 
-    public void Add(Exercise exercise) => Exercises.Add(exercise);
+    public void Add(Exercise exercise) => _exercises.Add(exercise);
 
     public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(DateTime start, TimeSpan duration)
     {
         var end = start + duration;
-        return Exercises.Where(e => e.Start >= start && e.Start <= end);
+        return _exercises.Where(e => e.Start >= start && e.Start <= end);
     }
 }
