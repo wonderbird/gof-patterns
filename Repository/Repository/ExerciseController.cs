@@ -7,4 +7,9 @@ public class ExerciseController
     public IEnumerable<Exercise> ListExercises() => _exercises;
 
     public void Add(Exercise exercise) => _exercises.Add(exercise);
+
+    public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(
+        DateTime start,
+        TimeSpan duration
+    ) => _exercises;
 }
