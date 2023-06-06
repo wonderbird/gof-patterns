@@ -4,15 +4,12 @@ public class ExerciseController
 {
     private readonly InMemoryRepository _repository = new();
 
-    private List<Exercise> Exercises => _repository.Exercises;
+    public IEnumerable<Exercise> ListExercises() => _repository.ListExercises();
 
-    public IEnumerable<Exercise> ListExercises() => Exercises;
+    public void Add(Exercise exercise) => _repository.Add(exercise);
 
-    public void Add(Exercise exercise) => Exercises.Add(exercise);
-
-    public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(DateTime start, TimeSpan duration)
-    {
-        var end = start + duration;
-        return Exercises.Where(e => e.Start >= start && e.Start <= end);
-    }
+    public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(
+        DateTime start,
+        TimeSpan duration
+    ) => _repository.FindExercisesStartedInTimePeriod(start, duration);
 }
