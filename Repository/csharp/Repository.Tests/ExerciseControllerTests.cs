@@ -8,7 +8,8 @@ public class ExerciseControllerTests
     private readonly TimeSpan _1Year = TimeSpan.FromDays(365);
     private readonly DateTime _startOf2020 = new(2020, 1, 1);
 
-    public ExerciseControllerTests() => _controller = new ExerciseController();
+    public ExerciseControllerTests() =>
+        _controller = new ExerciseController(new InMemoryRepository());
 
     [Fact]
     public void ListExercises_When0ExercisesPresent()

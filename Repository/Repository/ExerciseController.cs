@@ -2,7 +2,9 @@ namespace Repository;
 
 public class ExerciseController
 {
-    private readonly InMemoryRepository _repository = new();
+    private readonly IRepository _repository;
+
+    public ExerciseController(IRepository repository) => _repository = repository;
 
     public IEnumerable<Exercise> ListExercises() => _repository.ListExercises();
 

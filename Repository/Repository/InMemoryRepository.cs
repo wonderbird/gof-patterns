@@ -1,6 +1,6 @@
 namespace Repository;
 
-public class InMemoryRepository
+public class InMemoryRepository : IRepository
 {
     private readonly List<Exercise> _exercises = new();
 
