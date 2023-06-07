@@ -11,10 +11,20 @@ public class ExerciseControllerTests
     public ExerciseControllerTests() =>
         _controller = new ExerciseController(new InMemoryRepository());
 
-    [Fact]
-    public void ListExercises_When0ExercisesPresent()
+    private class Repositories : TheoryData<IRepository>
     {
-        var actual = _controller.ListExercises();
+        public Repositories()
+        {
+            Add(new InMemoryRepository());
+        }
+    }
+
+    [Theory]
+    [ClassData(typeof(Repositories))]
+    public void ListExercises_When0ExercisesPresent(IRepository repository)
+    {
+        var controller = new ExerciseController(repository);
+        var actual = controller.ListExercises();
         actual.Should().BeEmpty("repository is empty");
     }
 
