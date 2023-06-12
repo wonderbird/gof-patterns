@@ -50,6 +50,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{58768315-EFFD-402F-B538-E49C107B37B2}"
 	ProjectSection(SolutionItems) = preProject
 		Repository\README.md = Repository\README.md
+		Repository\csharp\docker-compose.yml = Repository\csharp\docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Tests", "Repository\csharp\Repository.Tests\Repository.Tests.csproj", "{D32DD85A-1E16-4C77-B57C-3563AF44A2EA}"

@@ -1,10 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Repository;
 
 public sealed class Exercise : IEquatable<Exercise>
 {
-    public int Id { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
 
     public DateTime Start { get; set; }
 
@@ -44,7 +48,7 @@ public sealed class Exercise : IEquatable<Exercise>
             return false;
         }
 
-        return Equals((Exercise) obj);
+        return Equals((Exercise)obj);
     }
 
     [SuppressMessage(
@@ -52,7 +56,10 @@ public sealed class Exercise : IEquatable<Exercise>
         "S3877:Exceptions should not be thrown from unexpected methods",
         Justification = "The Exercise entity is not a value object. Thus it should not be used with operations and data types relying on GetHashCode()."
     )]
-    public override int GetHashCode() => throw new NotSupportedException("The Exercise entity is not a value object. Thus it should not be used with operations and data types relying on GetHashCode().");
+    public override int GetHashCode() =>
+        throw new NotSupportedException(
+            "The Exercise entity is not a value object. Thus it should not be used with operations and data types relying on GetHashCode()."
+        );
 
     public static bool operator ==(Exercise? left, Exercise? right) => Equals(left, right);
 
