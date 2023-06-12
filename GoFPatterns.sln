@@ -54,7 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Tests", "Repository\csharp\Repository.Tests\Repository.Tests.csproj", "{D32DD85A-1E16-4C77-B57C-3563AF44A2EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository\Repository.csproj", "{E38D84AF-6F7D-4556-93C8-A5A121ED68FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\csharp\Repository\Repository.csproj", "{E38D84AF-6F7D-4556-93C8-A5A121ED68FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
