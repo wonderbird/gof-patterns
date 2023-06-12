@@ -6,12 +6,12 @@ public class ExerciseController
 
     public ExerciseController(IRepository repository) => _repository = repository;
 
-    public IEnumerable<Exercise> ListExercises() => _repository.ListExercises();
+    public async Task<IEnumerable<Exercise>> ListExercises() => await _repository.ListExercises();
 
-    public void Add(Exercise exercise) => _repository.Add(exercise);
+    public async Task Add(Exercise exercise) => await _repository.Add(exercise);
 
-    public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(
+    public async Task<IEnumerable<Exercise>> FindExercisesStartedInTimePeriod(
         DateTime start,
         TimeSpan duration
-    ) => _repository.FindExercisesStartedInTimePeriod(start, duration);
+    ) => await _repository.FindExercisesStartedInTimePeriod(start, duration);
 }

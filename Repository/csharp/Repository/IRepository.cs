@@ -2,7 +2,7 @@ namespace Repository;
 
 public interface IRepository
 {
-    IEnumerable<Exercise> ListExercises();
-    void Add(Exercise exercise);
-    IEnumerable<Exercise> FindExercisesStartedInTimePeriod(DateTime start, TimeSpan duration);
+    Task<IEnumerable<Exercise>> ListExercises();
+    Task Add(Exercise exercise);
+    Task<IEnumerable<Exercise>> FindExercisesStartedInTimePeriod(DateTime start, TimeSpan duration);
 }

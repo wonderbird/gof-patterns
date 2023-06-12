@@ -24,33 +24,33 @@ public class ExerciseControllerTests
 
     [Theory]
     [ClassData(typeof(Repositories))]
-    public void ListExercises_When0ExercisesPresent(IRepository repository)
+    public async Task ListExercises_When0ExercisesPresent(IRepository repository)
     {
         var controller = new ExerciseController(repository);
-        var actual = controller.ListExercises();
+        var actual = await controller.ListExercises();
         actual.Should().BeEmpty("repository is empty");
     }
 
     [Theory]
     [ClassData(typeof(Repositories))]
-    public void ListExercises_When1ExerciseAdded(IRepository repository)
+    public async Task ListExercises_When1ExerciseAdded(IRepository repository)
     {
         var controller = new ExerciseController(repository);
-        controller.Add(new Exercise(_in2023));
+        await controller.Add(new Exercise(_in2023));
 
-        var actual = controller.ListExercises();
+        var actual = await controller.ListExercises();
         actual.Should().Equal(new[] { new Exercise(_in2023) }, "a single exercise was added");
     }
 
     [Theory]
     [ClassData(typeof(Repositories))]
-    public void ListExercises_When2ExercisesAdded(IRepository repository)
+    public async Task ListExercises_When2ExercisesAdded(IRepository repository)
     {
         var controller = new ExerciseController(repository);
-        controller.Add(new Exercise(_in2023));
-        controller.Add(new Exercise(_in2023));
+        await controller.Add(new Exercise(_in2023));
+        await controller.Add(new Exercise(_in2023));
 
-        var actual = controller.ListExercises();
+        var actual = await controller.ListExercises();
         actual
             .Should()
             .Equal(
@@ -61,23 +61,23 @@ public class ExerciseControllerTests
 
     [Theory]
     [ClassData(typeof(Repositories))]
-    public void FindExercisesStartedInTimePeriod_When0ExercisesPresent(IRepository repository)
+    public async Task FindExercisesStartedInTimePeriod_When0ExercisesPresent(IRepository repository)
     {
         var controller = new ExerciseController(repository);
-        var actual = controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
+        var actual = await controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
         actual.Should().BeEmpty("no exercise was started in the given timespan");
     }
 
     [Theory]
     [ClassData(typeof(Repositories))]
-    public void FindExercisesStartedInTimePeriod_When1MatchingExercisePresent(
+    public async Task FindExercisesStartedInTimePeriod_When1MatchingExercisePresent(
         IRepository repository
     )
     {
         var controller = new ExerciseController(repository);
-        controller.Add(new Exercise(_in2020));
+        await controller.Add(new Exercise(_in2020));
 
-        var actual = controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
+        var actual = await controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
 
         actual
             .Should()
@@ -89,15 +89,15 @@ public class ExerciseControllerTests
 
     [Theory]
     [ClassData(typeof(Repositories))]
-    public void FindExercisesStartedInTimePeriod_When0MatchingAnd1NonMatchingExercisePresent(
+    public async Task FindExercisesStartedInTimePeriod_When0MatchingAnd1NonMatchingExercisePresent(
         IRepository repository
     )
     {
         var controller = new ExerciseController(repository);
-        controller.Add(new Exercise(_in2020));
-        controller.Add(new Exercise(_in2023));
+        await controller.Add(new Exercise(_in2020));
+        await controller.Add(new Exercise(_in2023));
 
-        var actual = controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
+        var actual = await controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
 
         actual
             .Should()

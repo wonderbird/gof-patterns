@@ -4,13 +4,13 @@ public class InMemoryRepository : IRepository
 {
     private readonly List<Exercise> _exercises = new();
 
-    public IEnumerable<Exercise> ListExercises() => _exercises;
+    public async Task<IEnumerable<Exercise>> ListExercises() => await Task.Run(() => _exercises);
 
-    public void Add(Exercise exercise) => _exercises.Add(exercise);
+    public async Task Add(Exercise exercise) => await Task.Run(() => _exercises.Add(exercise));
 
-    public IEnumerable<Exercise> FindExercisesStartedInTimePeriod(DateTime start, TimeSpan duration)
+    public async Task<IEnumerable<Exercise>> FindExercisesStartedInTimePeriod(DateTime start, TimeSpan duration)
     {
         var end = start + duration;
-        return _exercises.Where(e => e.Start >= start && e.Start <= end);
+        return await Task.Run(() => _exercises.Where(e => e.Start >= start && e.Start <= end));
     }
 }
