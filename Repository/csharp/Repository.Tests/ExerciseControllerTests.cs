@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace Repository.Tests;
 
 public class ExerciseControllerTests
@@ -8,49 +6,37 @@ public class ExerciseControllerTests
     private readonly DateTime _in2023 = new(2023, 6, 6, 12, 30, 0);
     private readonly TimeSpan _1Year = TimeSpan.FromDays(365);
     private readonly DateTime _startOf2020 = new(2020, 1, 1);
+    private readonly ExerciseController _controller;
 
-    private class Repositories : TheoryData<IRepository>
+    public ExerciseControllerTests()
     {
-        [SuppressMessage(
-            "Sonar Code Smell",
-            "S1144:Unused private types or members should be removed",
-            Justification = "Repositories class is instantiated by xUnit for each Theory"
-        )]
-        public Repositories()
-        {
-            Add(new InMemoryRepository());
-        }
+        IRepository repository = new InMemoryRepository();
+        _controller = new ExerciseController(repository);
     }
 
-    [Theory]
-    [ClassData(typeof(Repositories))]
-    public async Task ListExercises_When0ExercisesPresent(IRepository repository)
+    [Fact]
+    public async Task ListExercises_When0ExercisesPresent()
     {
-        var controller = new ExerciseController(repository);
-        var actual = await controller.ListExercises();
+        var actual = await _controller.ListExercises();
         actual.Should().BeEmpty("repository is empty");
     }
 
-    [Theory]
-    [ClassData(typeof(Repositories))]
-    public async Task ListExercises_When1ExerciseAdded(IRepository repository)
+    [Fact]
+    public async Task ListExercises_When1ExerciseAdded()
     {
-        var controller = new ExerciseController(repository);
-        await controller.Add(new Exercise(_in2023));
+        await _controller.Add(new Exercise(_in2023));
 
-        var actual = await controller.ListExercises();
+        var actual = await _controller.ListExercises();
         actual.Should().Equal(new[] { new Exercise(_in2023) }, "a single exercise was added");
     }
 
-    [Theory]
-    [ClassData(typeof(Repositories))]
-    public async Task ListExercises_When2ExercisesAdded(IRepository repository)
+    [Fact]
+    public async Task ListExercises_When2ExercisesAdded()
     {
-        var controller = new ExerciseController(repository);
-        await controller.Add(new Exercise(_in2023));
-        await controller.Add(new Exercise(_in2023));
+        await _controller.Add(new Exercise(_in2023));
+        await _controller.Add(new Exercise(_in2023));
 
-        var actual = await controller.ListExercises();
+        var actual = await _controller.ListExercises();
         actual
             .Should()
             .Equal(
@@ -59,25 +45,19 @@ public class ExerciseControllerTests
             );
     }
 
-    [Theory]
-    [ClassData(typeof(Repositories))]
-    public async Task FindExercisesStartedInTimePeriod_When0ExercisesPresent(IRepository repository)
+    [Fact]
+    public async Task FindExercisesStartedInTimePeriod_When0ExercisesPresent()
     {
-        var controller = new ExerciseController(repository);
-        var actual = await controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
+        var actual = await _controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
         actual.Should().BeEmpty("no exercise was started in the given timespan");
     }
 
-    [Theory]
-    [ClassData(typeof(Repositories))]
-    public async Task FindExercisesStartedInTimePeriod_When1MatchingExercisePresent(
-        IRepository repository
-    )
+    [Fact]
+    public async Task FindExercisesStartedInTimePeriod_When1MatchingExercisePresent()
     {
-        var controller = new ExerciseController(repository);
-        await controller.Add(new Exercise(_in2020));
+        await _controller.Add(new Exercise(_in2020));
 
-        var actual = await controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
+        var actual = await _controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
 
         actual
             .Should()
@@ -87,17 +67,13 @@ public class ExerciseControllerTests
             );
     }
 
-    [Theory]
-    [ClassData(typeof(Repositories))]
-    public async Task FindExercisesStartedInTimePeriod_When0MatchingAnd1NonMatchingExercisePresent(
-        IRepository repository
-    )
+    [Fact]
+    public async Task FindExercisesStartedInTimePeriod_When0MatchingAnd1NonMatchingExercisePresent()
     {
-        var controller = new ExerciseController(repository);
-        await controller.Add(new Exercise(_in2020));
-        await controller.Add(new Exercise(_in2023));
+        await _controller.Add(new Exercise(_in2020));
+        await _controller.Add(new Exercise(_in2023));
 
-        var actual = await controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
+        var actual = await _controller.FindExercisesStartedInTimePeriod(_startOf2020, _1Year);
 
         actual
             .Should()
