@@ -1,8 +1,11 @@
 # Repository in C#
 
-## Setup MongoDB
+## Run MongoDB in Docker
 
-Use the [docker-compose.yml](./docker-compose.yml) file to start MongoDB and the admin UI mongodb-express:
+Although not required by the code in this solution, the [docker-compose.yml](./docker-compose.yml) stack shows how
+to configure a MongoDB instance.
+
+Start MongoDB and the admin UI mongodb-express:
 
 ```shell
 docker-compose up
