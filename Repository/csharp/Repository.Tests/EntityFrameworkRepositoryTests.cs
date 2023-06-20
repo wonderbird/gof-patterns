@@ -1,3 +1,4 @@
+using Npgsql;
 using Testcontainers.PostgreSql;
 
 namespace Repository.Tests;
@@ -8,6 +9,22 @@ public class EntityFrameworkRepositoryTests : ExerciseControllerTests, IClassFix
 {
     public EntityFrameworkRepositoryTests(EntityFrameworkExerciseControllerTestsFixture fixture)
     {
+        const string sqlText = @"
+DROP TABLE IF EXISTS ""Exercises"";
+CREATE TABLE ""Exercises"" (
+    ""Id"" bigint NOT NULL,
+    ""Start"" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    CONSTRAINT ""Exercises_PrimaryKey"" PRIMARY KEY (""Id"")
+);
+";
+
+        Task.Run(async () =>
+        {
+            await using var dataSource = NpgsqlDataSource.Create(fixture.ConnectionString);
+            await using var command = dataSource.CreateCommand(sqlText);
+            await command.ExecuteNonQueryAsync();
+        }).Wait();
+
         var repository = new EntityFrameworkRepository(fixture.ConnectionString);
         Controller = new ExerciseController(repository);
     }
