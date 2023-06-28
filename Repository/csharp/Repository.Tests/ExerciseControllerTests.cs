@@ -20,6 +20,7 @@ public abstract class ExerciseControllerTests
     {
         await Controller.Add(new Exercise(_in2023));
 
+        // TODO Why is the DB update failing with PostgresException "23502: null value in column "Id" of relation "Exercises" violates not-null constraint"?
         var actual = await Controller.ListExercises();
         actual.Should().Equal(new[] { new Exercise(_in2023) }, "a single exercise was added");
     }

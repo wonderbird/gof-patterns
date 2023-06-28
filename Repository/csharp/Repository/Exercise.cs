@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -13,6 +14,12 @@ public sealed class Exercise : IEquatable<Exercise>
     public DateTime Start { get; set; }
 
     public Exercise(DateTime start) => Start = start;
+
+    public Exercise(ExerciseDto exerciseDto)
+    {
+        Id = exerciseDto.Id.ToString(CultureInfo.InvariantCulture);
+        Start = exerciseDto.Start;
+    }
 
     #region Equality Members
 
